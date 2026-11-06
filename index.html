@@ -10,6 +10,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Libretto">
+<script>try{var a=JSON.parse(localStorage.getItem("lv-auth")||"null");if((a&&a.email)||localStorage.getItem("lv-skip")==="true")document.documentElement.classList.add("signed")}catch(e){}</script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -233,6 +234,7 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 .gcard strong{font:700 1.2rem var(--f-label);letter-spacing:.02em;color:#fff}
 .gcard p{margin:0;color:var(--hero-dim);font-size:.92rem}
 .gbtn{background:#fff;color:#1f1f1f;border-color:#fff;align-self:flex-start}
+.signed .welcome{display:none}
 .welcome{position:fixed;inset:0;z-index:15;background:var(--hero-bg);color:var(--hero-fg);overflow:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:calc(28px + env(safe-area-inset-top,0px)) calc(28px + env(safe-area-inset-bottom,0px))}
 .welcome::before{content:"";position:fixed;inset:12px;border:2px dashed color-mix(in srgb,var(--stitch) 70%,transparent);border-radius:28px;pointer-events:none}
 .w-in{max-width:440px;min-height:100%;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;position:relative}
@@ -314,7 +316,7 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
     <button role="tab" id="tab-tessera" data-tab="tessera" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.3 16.2c.6-1.6 1.8-2.5 3.2-2.5s2.6.9 3.2 2.5M14 10h4.5M14 13.5h3"/></svg></span>Documenti</button>
   </div>
 </nav>
-<section class="welcome" id="welcome" hidden aria-labelledby="w-title">
+<section class="welcome" id="welcome" aria-labelledby="w-title">
   <div class="w-in">
     <img class="w-logo" src="logo.webp" alt="Toppa del corso: I can fly, primo corso ASD Volo anch'io" width="190" height="190">
     <div><p class="w-eyebrow">Primo corso · ASD Volo anch'io</p><h1 id="w-title">Libretto di volo</h1></div>
@@ -908,7 +910,7 @@ async function checkAccount(){
   }
   auth.email=j.email;LS.set('lv-auth',auth);
 }
-function showWelcome(v){const w=$('#welcome');if(!w)return;w.hidden=!v;document.documentElement.style.overflow=v?'hidden':'';if(v){$('#w-glogo').innerHTML=GLOGO;}}
+function showWelcome(v){const w=$('#welcome');if(!w)return;w.hidden=!v;document.documentElement.classList.toggle('signed',!v);document.documentElement.style.overflow=v?'hidden':'';if(v){$('#w-glogo').innerHTML=GLOGO;}}
 function wantWelcome(){return CONFIGURED&&!(auth&&auth.email)&&!LS.get('lv-skip',false)}
 function logout(){
   if(auth&&auth.token){try{fetch('https://oauth2.googleapis.com/revoke?token='+encodeURIComponent(auth.token),{method:'POST',mode:'no-cors'})}catch(e){}}
