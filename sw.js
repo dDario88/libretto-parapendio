@@ -3,7 +3,7 @@
 const VERSIONE = 'libretto-v1';
 const FILE_APP = [
   './', 'index.html', 'config.js', 'manifest.webmanifest', 'privacy.html',
-  'icons/logo.webp', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'
+       'logo.webp', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'
 ];
 
 self.addEventListener('install', e => {
