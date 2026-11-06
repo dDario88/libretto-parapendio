@@ -1,9 +1,9 @@
 // Fa funzionare il libretto anche senza rete (per esempio in decollo).
 // Quando pubblichi una nuova versione dei file, aumenta il numero qui sotto.
-const VERSIONE = 'libretto-v1';
+const VERSIONE = 'libretto-v2';
 const FILE_APP = [
   './', 'index.html', 'config.js', 'manifest.webmanifest', 'privacy.html',
-       'logo.webp', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'
+  'logo.webp', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'
 ];
 
 self.addEventListener('install', e => {
@@ -26,7 +26,7 @@ self.addEventListener('fetch', e => {
   // File dell'app: prima la rete (così arrivano gli aggiornamenti), poi la copia salvata.
   if (url.origin === self.location.origin) {
     e.respondWith(
-      fetch(req)
+      fetch(req, { cache: 'no-cache' })
         .then(r => { const copia = r.clone(); caches.open(VERSIONE).then(c => c.put(req, copia)); return r; })
         .catch(() => caches.match(req, { ignoreSearch: true }).then(r => r || caches.match('index.html')))
     );
