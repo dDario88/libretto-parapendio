@@ -656,6 +656,8 @@ function readRedirect(){
   const saved=LS.get('lv-state',null);LS.set('lv-state',null);
   if(!saved||h.get('state')!==saved.st)return {error:'state'};
   if(h.get('error'))return {error:h.get('error'),silent:saved.silent};
+  const granted=h.get('scope')||'';
+  if(granted&&granted.indexOf('drive.appdata')<0){auth=auth&&auth.email?{token:'',exp:0,email:auth.email}:null;LS.set('lv-auth',auth);return {error:'scope'}}
   auth={token:h.get('access_token'),exp:Date.now()+((+h.get('expires_in'))||3600)*1000-60000,email:(auth&&auth.email)||''};
   LS.set('lv-auth',auth);return {ok:true};
 }
@@ -680,6 +682,7 @@ function logout(){
 async function gapi(url,opt={}){
   const r=await fetch(url,{...opt,headers:{...(opt.headers||{}),Authorization:'Bearer '+auth.token}});
   if(r.status===401){auth.exp=0;LS.set('lv-auth',auth);throw {code:'auth'}}
+  if(r.status===403&&url.indexOf('googleapis.com/')>0&&url.indexOf('userinfo')<0){auth.exp=0;LS.set('lv-auth',auth);throw {code:'scope'}}
   if(!r.ok)throw {code:'http',status:r.status};
   return r;
 }
@@ -715,7 +718,7 @@ async function sync(){
     const fin=merge(store,merged);const later=canon(fin)!==canon(merged);
     store=fin;LS.set('lv-data',store);dirty=later;LS.set('lv-dirty',dirty);if(later)again=true;
     lastSync=Date.now();LS.set('lv-last',lastSync);syncState='ok';derive();renderAll();
-  }catch(e){syncState=e&&e.code==='auth'?'login':'error'}
+  }catch(e){syncState=e&&e.code==='auth'?'login':e&&e.code==='scope'?'scope':'error';if(syncState==='scope')scopeSheet()}
   finally{syncing=false;renderSync();if(again){again=false;setTimeout(sync,400)}}
 }
 function scheduleSync(){clearTimeout(syncTimer);if(tokenOk())syncTimer=setTimeout(sync,1200);else renderSync()}
@@ -727,7 +730,9 @@ function syncInfo(){
   if(!auth||!auth.email&&!tokenOk())return ['warn','Accedi con Google','I dati sono solo su questo telefono'];
   if(syncing||syncState==='sync')return ['','Sincronizzo…',auth.email];
   if(!navigator.onLine||syncState==='offline')return ['warn','Senza rete',dirty?'Le modifiche restano sul telefono e partono appena torna la rete':'Salvato sul telefono'];
+  if(syncState==='scope')return ['warn','Manca il permesso per Drive','Tocca qui per sistemarlo'];
   if(!tokenOk()||syncState==='login')return ['warn',dirty?'Da sincronizzare':'Ricollega Google',auth.email||''];
+  if(syncState==='scope')return ['warn','Manca il permesso per Drive','Tocca qui per sistemarlo'];
   if(syncState==='error')return ['warn','Drive non risponde','Riprovo alla prossima modifica'];
   return ['ok','Su Google Drive',auth.email||''];
 }
@@ -737,7 +742,15 @@ function renderSync(){
 }
 function fmtWhen(t){if(!t)return 'mai';const d=new Date(t);const hm=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
   const iso=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');return (iso===today()?'oggi':fmtDate(iso))+' alle '+hm}
+function scopeSheet(){
+  openSheet('Manca un permesso',`<div class="card fs">
+    <p style="margin:0">Per salvare il libretto serve il permesso di usare la cartella dell'app sul tuo Google Drive. Nella schermata di Google la casella non era spuntata.</p>
+    <p style="margin:0"><strong>Cosa fare:</strong> tocca “Riprova” e, nella schermata di Google, <strong>spunta la casella</strong> accanto a “Visualizzare, creare ed eliminare i propri dati di configurazione nel tuo account Google Drive”, poi tocca Continua.</p>
+    <p class="hint">“Dati di configurazione” è il nome che Google dà alla cartella privata dell'app. L'app non vede né tocca gli altri file del tuo Drive.</p></div>`,
+    `<button class="btn primary" data-login>Riprova</button>`);
+}
 function accountSheet(){
+  if(syncState==='scope')return scopeSheet();
   if(!CONFIGURED){openSheet('Salvataggio',`<div class="card fs"><p style="margin:0">Questa copia dell'app non è ancora collegata a Google: voli e diario restano solo su questo telefono. Chi gestisce l'app deve inserire l'ID client di Google nel file <code>config.js</code>.</p></div>`);return}
   if(!auth||!auth.email){
     openSheet('Accedi con Google',`<div class="card fs">
@@ -786,6 +799,7 @@ $('#fab').onclick=chooseKind;
 derive();renderAll();renderSync();
 (async()=>{
   const red=readRedirect();
+  if(red&&red.error==='scope'){syncState='scope';renderSync();scopeSheet();return}
   if(red&&red.error){
     if(red.silent)LS.set('lv-nosilent',true);
     else if(red.error!=='access_denied')status('Accesso a Google non riuscito. Riprova toccando “Accedi con Google”.');
