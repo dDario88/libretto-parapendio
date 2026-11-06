@@ -276,6 +276,20 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 .docrow.off .vicon{background:var(--line);color:var(--muted)}
 .dadd{font:700 .7rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;color:var(--olive)}
 .backbtn{align-self:flex-start;padding-left:4px;margin-bottom:-6px}
+.ck-note{padding:16px;display:flex;flex-direction:column;gap:8px;align-items:flex-start;background:var(--amber-soft);border-color:transparent}
+.ck-note strong{font:700 1.15rem var(--f-label);letter-spacing:.02em;color:var(--amber-ink)}
+.ck-note p{margin:0}
+.cstep{display:flex;gap:12px;align-items:center;padding:11px 14px}
+.cstep+.cstep{border-top:1px solid var(--line)}
+.cstep b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--olive-soft);color:var(--olive);font:700 .95rem var(--f-label);font-variant-numeric:tabular-nums}
+.tr-prog{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.tr-prog i{display:block;height:100%;background:var(--olive)}
+.tr-meta{margin:0;font:700 .78rem var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--olive)}
+.tr-prev{margin:0;color:var(--muted);font-size:.9rem}
+.tr-card{min-height:150px;display:grid;place-items:center;text-align:center;padding:20px;font-size:1.05rem}
+.tr-card small{color:var(--muted)}
+.tr-card.on{background:var(--olive-soft);border-color:transparent}
+.tr-card strong{font:700 1.35rem/1.25 var(--f-label);letter-spacing:.01em;color:var(--olive)}
 </style>
 </head>
 <body>
@@ -347,10 +361,10 @@ const ESERCIZI=['Preparazione vela','Gonfiaggio frontale','Gonfiaggio rovescio',
 const MOODS=[['Teso','var(--bad)'],['Incerto','var(--warn)'],['Sereno','var(--olive)'],['Pieno','var(--amber)']];
 const moodColor=m=>(MOODS.find(x=>x[0]===m)||[])[1]||'var(--muted)';
 const CHECK=[
- ['Vela',['Bordo d\'attacco aperto e pulito, nessun cassone chiuso','Cordini districati, nessun nodo o cravatta','Freni liberi, passati nelle carrucole, maniglie a portata']],
- ['Imbrago ed emergenza',['Cosciali chiusi','Ventrale chiusa e regolata','Moschettoni chiusi e bloccati','Maniglia dell\'emergenza libera, spinotti in sede']],
- ['Pilota',['Casco allacciato','Scarpe allacciate, lacci infilati e senza ganci liberi','Piedi liberi: nessun cordino tra le gambe o attorno alle scarpe','Radio accesa sul canale della scuola','Telefono o vario acceso, traccia avviata','Guanti e abbigliamento adatto alla quota']],
- ['Condizioni',['Vento in decollo nei limiti del mio livello','Spazio davanti libero, nessuno in decollo','Atterraggio scelto, piano chiaro anche per l\'alternativa','Mi sento lucido e tranquillo per volare oggi']]
+ ['Pilota',['I pin e la maniglia dell\'emergenza sono al loro posto','Scarpe allacciate, fuori dai cordini','Cosciale destro allacciato','Cosciale sinistro allacciato','Ventrale allacciato','Pettorale allacciato','Casco allacciato','Moschettone destro agganciato','Moschettone sinistro agganciato']],
+ ['Vela',['“A” destre libere','Freni destra liberi, controlla anche la maniglia del freno','“A” sinistre libere','Freni sinistra liberi, controlla anche la maniglia del freno','Vela ben distesa sul terreno, pilota centrato alla vela']],
+ ['Vento',['Direzione e intensità']],
+ ['Spazio aereo',['Spazio aereo libero']]
 ];
 const SUGG=['Assicurazione RC','Ripiegatura emergenza','Revisione vela','Tessera club','Esame attestato VDS'];
 const IC={
@@ -497,14 +511,36 @@ function renderScadenze(){
   v.innerHTML=h;
 }
 function renderChecklist(){
-  const v=$('#v-checklist');const all=CHECK.flatMap(([g,it])=>it.map((t,i)=>g+'|'+i));const done=all.filter(k=>checks[k]).length;
-  const ok=done===all.length,C=2*Math.PI*26,pct=done/all.length;
-  let h=`<div class="vhead"><h2>Pre-volo</h2><button class="btn ghost small" id="reset-ck">Azzera</button></div>
-  <div class="card ready"><svg class="ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="var(--line)" stroke-width="6"/><circle cx="32" cy="32" r="26" fill="none" stroke="${ok?'var(--ok)':'var(--olive)'}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${(C*pct).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 32 32)"/><text x="32" y="37" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="16" fill="var(--ink)">${done}/${all.length}</text></svg>
-    <div><strong style="color:${ok?'var(--ok)':'var(--ink)'}">${ok?'Pronto al decollo':'Controlli prima del decollo'}</strong><small>${ok?'Tutto spuntato. Buon volo.':'Spunta ogni voce mentre la verifichi.'}</small></div></div>`;
-  h+=CHECK.map(([g,it])=>{const n=it.filter((t,i)=>checks[g+'|'+i]).length;return `<div class="card cgroup"><h3>${esc(g)}<span>${n}/${it.length}</span></h3>${it.map((t,i)=>{const k=g+'|'+i;return `<label class="citem ${checks[k]?'done':''}"><input type="checkbox" id="ck-${esc(g.replace(/\W/g,''))}-${i}" data-ck="${esc(k)}" ${checks[k]?'checked':''}><span>${esc(t)}</span></label>`}).join('')}</div>`}).join('');
-  h+=`<p class="hint">La checklist non sostituisce il briefing: in corso, l'ultima parola sul decollo è dell'istruttore.</p>`;
+  const v=$('#v-checklist');let n=0;
+  let h=`<div class="vhead"><h2>Controlli pre-volo</h2></div>
+  <div class="card ck-note"><strong>Si imparano a memoria</strong><p>In decollo non si usa il telefono: mani e testa restano sulla vela. Qui trovi la sequenza dei controlli indicata dagli istruttori, sempre nello stesso ordine, per ripassarla finché diventa automatica.</p>
+    <button class="btn amber" id="ck-train">Allenati a memoria</button></div>`;
+  h+=CHECK.map(([g,it])=>`<div class="card cgroup"><h3>${esc(g)}<span>${it.length===1?'1 controllo':it.length+' controlli'}</span></h3>${it.map(t=>{n++;return `<div class="cstep"><b>${n}</b><span>${esc(t)}</span></div>`}).join('')}</div>`).join('');
+  h+=`<p class="hint">Sequenza della scuola: pilota, vela, vento, spazio aereo. Il briefing e l'ultima parola sul decollo restano dell'istruttore.</p>`;
   v.innerHTML=h;
+}
+function trainChecklist(){
+  const all=[];CHECK.forEach(([g,it])=>it.forEach(t=>all.push({g,t})));
+  let i=0,shown=false,first=true;const miss=[];
+  const still=()=>{const sh=document.querySelector('.sheet');if(sh&&!first)sh.style.animation='none';first=false};
+  const draw=()=>{
+    if(i>=all.length){
+      const ok=all.length-miss.length;
+      openSheet('Ripasso finito',`<div class="card fs" style="text-align:center"><p style="margin:0;font:700 2.4rem var(--f-label)">${ok}/${all.length}</p><p style="margin:0">${miss.length?'Ripassa questi controlli:':'Tutta la sequenza a memoria. Bravo!'}</p></div>
+        ${miss.length?`<div class="card cgroup">${miss.map(k=>`<div class="cstep"><b>${k+1}</b><span>${esc(all[k].t)}</span></div>`).join('')}</div>`:''}`,
+        `<button class="btn primary" id="tr-again">Ricomincia</button><button class="btn ghost" id="tr-close">Chiudi</button>`);still();
+      $('#tr-again').onclick=trainChecklist;$('#tr-close').onclick=closeSheet;return;
+    }
+    const s=all[i],prev=i?all[i-1].t:'';
+    openSheet('Allenati a memoria',`<div class="tr-prog"><i style="width:${(i/all.length*100).toFixed(1)}%"></i></div>
+      <p class="tr-meta">${esc(s.g)} · controllo ${i+1} di ${all.length}</p>
+      ${prev?`<p class="tr-prev">Prima: ${esc(prev)}</p>`:'<p class="tr-prev">Si parte dal pilota.</p>'}
+      <div class="card tr-card${shown?' on':''}">${shown?`<strong>${esc(s.t)}</strong>`:'<span>Qual è il prossimo controllo?<br><small>Dillo a voce, poi scopri la risposta.</small></span>'}</div>`,
+      shown?`<button class="btn primary" id="tr-yes">Lo sapevo</button><button class="btn" id="tr-no">Da ripassare</button>`:`<button class="btn amber" id="tr-show">Mostra la risposta</button>`);still();
+    if(shown){$('#tr-yes').onclick=()=>{i++;shown=false;draw()};$('#tr-no').onclick=()=>{miss.push(i);i++;shown=false;draw()}}
+    else $('#tr-show').onclick=()=>{shown=true;draw()};
+  };
+  draw();
 }
 function renderAll(){renderHero();renderLibretto();renderVele();renderScadenze();renderChecklist();renderDocs()}
 function setTab(t){tab=t;for(const b of document.querySelectorAll('.tabbar button'))b.setAttribute('aria-selected',b.dataset.tab===t);
@@ -1033,6 +1069,7 @@ document.addEventListener('click',e=>{
   const ev=e.target.closest('[data-editvela]');if(ev)return editVela(vele.find(x=>x.id===ev.dataset.editvela));
   if(e.target.closest('[data-gotovele]')){closeSheet();return setTab('vele')}
   if(e.target.closest('#alert'))return setTab('scadenze');
+  if(e.target.closest('#ck-train'))return trainChecklist();
   if(e.target.closest('#reset-ck')){checks={};try{localStorage.setItem('pv-checks','{}')}catch(_){}return renderChecklist()}
 });
 document.addEventListener('change',e=>{
