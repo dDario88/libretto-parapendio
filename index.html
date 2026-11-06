@@ -290,6 +290,10 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 .tr-card small{color:var(--muted)}
 .tr-card.on{background:var(--olive-soft);border-color:transparent}
 .tr-card strong{font:700 1.35rem/1.25 var(--f-label);letter-spacing:.01em;color:var(--olive)}
+.guide{display:grid;grid-template-columns:42px minmax(0,1fr) 22px;gap:12px;align-items:center;padding:12px 10px 12px 12px;text-decoration:none;color:var(--ink);margin-top:8px}
+.guide strong{display:block;font-weight:600}
+.guide small{color:var(--muted);font-size:.86rem}
+.guide:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -480,6 +484,7 @@ function renderLibretto(){
     let cur='';
     for(const f of list){const k=(f.data||'').slice(0,7);if(k!==cur){cur=k;const[y,m]=k.split('-');h+=`<h3 class="month">${MESI_L[+m-1]||''} ${y||''}</h3>`}h+=entryCard(f)}
   }
+  h+=`<a class="card guide" href="guida.html"><span class="vicon"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6M12 17v.2"/></svg></span><span><strong>Come si usa</strong><small>Guida all'installazione e a tutte le funzioni</small></span>${IC.chev}</a>`;
   h+=`<div class="card backup"><span class="lbl">Backup</span><p class="hint">Scarica una copia di tutto in un file, oppure ricarica un backup salvato in precedenza.</p>
     <div class="row"><button class="btn small" id="exp">Esporta</button><label class="btn small" for="imp-file">Importa</label><input type="file" id="imp-file" accept=".json,application/json" hidden></div>
     <p class="hint" id="imp-msg"></p></div>`;
@@ -1034,13 +1039,13 @@ function accountSheet(){
     openSheet('Accedi con Google',`<div class="card fs">
       <p style="margin:0">Accedendo, il libretto si salva in una <strong>cartella privata del tuo Google Drive</strong> e lo ritrovi su ogni telefono o computer.</p>
       <p class="hint">L'app vede solo la propria cartella, non gli altri file del tuo Drive. Nessun altro, nemmeno chi ha creato l'app, può leggere i tuoi dati.</p></div>`,
-      `<button class="btn primary" data-login>${GLOGO} Accedi con Google</button>`);return}
+      `<button class="btn primary" data-login>${GLOGO} Accedi con Google</button><a class="btn ghost" href="guida.html">Guida</a>`);return}
   openSheet('Il tuo account',`<dl class="card kv" style="margin:0">
       <div><dt>Account</dt><dd>${esc(auth.email)}</dd></div>
       <div><dt>Ultima sincronizzazione</dt><dd>${esc(fmtWhen(lastSync))}</dd></div>
       <div><dt>Modifiche in attesa</dt><dd>${dirty?'Sì':'No'}</dd></div></dl>
     <p class="hint">I dati sono nella cartella privata dell'app sul tuo Google Drive, e una copia resta sul telefono per usarlo anche senza rete.</p>`,
-    `${tokenOk()?'<button class="btn primary" id="do-sync">Sincronizza ora</button>':'<button class="btn primary" data-login>Ricollega Google</button>'}<button class="btn danger" id="logout">Esci</button>`);
+    `${tokenOk()?'<button class="btn primary" id="do-sync">Sincronizza ora</button>':'<button class="btn primary" data-login>Ricollega Google</button>'}<a class="btn ghost" href="guida.html">Guida</a><button class="btn danger" id="logout">Esci</button>`);
   const ds=$('#do-sync');if(ds)ds.onclick=async()=>{closeSheet();await sync();toast(syncState==='ok'?'Sincronizzato':'Sincronizzazione non riuscita')};
   $('#logout').onclick=()=>askDelete(dirty?'i dati da questo telefono? Alcune modifiche non sono ancora su Drive e andrebbero perse':'i dati da questo telefono? Restano al sicuro sul tuo Drive',()=>{logout();closeSheet();toast('Uscito')},accountSheet);
 }
