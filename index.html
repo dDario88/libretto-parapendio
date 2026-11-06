@@ -155,7 +155,7 @@ button.card{width:100%;text-align:left;cursor:pointer;color:var(--ink);font:inhe
 
 /* barra in basso */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--paper);border-top:1px solid var(--line);padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
-.tabbar-in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.tabbar-in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
 .tabbar button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 9px;color:var(--muted);cursor:pointer;font:600 .74rem var(--f-label);letter-spacing:.08em;text-transform:uppercase}
 .tabbar button .pillbg{display:grid;place-items:center;width:52px;height:30px;border-radius:99px}
 .tabbar button[aria-selected="true"]{color:var(--olive)}
@@ -233,6 +233,47 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 .gcard strong{font:700 1.2rem var(--f-label);letter-spacing:.02em;color:#fff}
 .gcard p{margin:0;color:var(--hero-dim);font-size:.92rem}
 .gbtn{background:#fff;color:#1f1f1f;border-color:#fff;align-self:flex-start}
+.welcome{position:fixed;inset:0;z-index:15;background:var(--hero-bg);color:var(--hero-fg);overflow:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:calc(28px + env(safe-area-inset-top,0px)) calc(28px + env(safe-area-inset-bottom,0px))}
+.welcome::before{content:"";position:fixed;inset:12px;border:2px dashed color-mix(in srgb,var(--stitch) 70%,transparent);border-radius:28px;pointer-events:none}
+.w-in{max-width:440px;min-height:100%;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;position:relative}
+.w-logo{width:min(46vw,190px);height:auto;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 3px var(--stitch),0 14px 40px rgba(0,0,0,.55);animation:wIn .5s ease-out both}
+.w-eyebrow{margin:0;font:600 .78rem var(--f-label);letter-spacing:.18em;text-transform:uppercase;color:var(--hero-dim)}
+.welcome h1{margin:4px 0 0;font:400 clamp(2.3rem,10vw,3rem)/1 var(--f-patch);letter-spacing:.02em;color:#fff;text-wrap:balance}
+.w-lead{margin:0;color:var(--hero-fg);font-size:1.02rem;max-width:32ch}
+.w-feats{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.w-feats li{display:flex;align-items:center;gap:10px;text-align:left;border:1px dashed color-mix(in srgb,var(--hero-fg) 28%,transparent);border-radius:12px;padding:10px 12px;font-size:.9rem;color:var(--hero-fg)}
+.w-feats svg{color:#c9d48a;width:20px;height:20px}
+.w-btn{width:100%;min-height:54px;border-radius:14px;background:#fff;color:#1f1f1f;border:0;font:600 1.05rem var(--f-body);display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.w-btn:focus-visible,.w-skip:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.w-note{margin:0;font-size:.86rem;color:var(--hero-dim);max-width:38ch}
+.w-note strong{color:var(--hero-fg)}
+.w-tip{display:flex;gap:10px;align-items:flex-start;text-align:left;background:color-mix(in srgb,var(--amber) 16%,var(--hero-bg));border:1px solid color-mix(in srgb,var(--amber) 45%,transparent);border-radius:12px;padding:10px 12px;font-size:.86rem;color:var(--hero-fg);width:100%}
+.w-tip b{color:#f3c15a}
+.w-foot{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap}
+.w-skip{background:none;border:0;color:var(--hero-dim);font:500 .92rem var(--f-body);text-decoration:underline;cursor:pointer;padding:6px}
+.w-foot a{color:var(--hero-dim);font-size:.92rem}
+@keyframes wIn{from{transform:scale(.92);opacity:0}to{transform:none;opacity:1}}
+@media (max-width:360px){.w-feats{grid-template-columns:1fr}}
+.tabbar button{font-size:.68rem;letter-spacing:.04em}
+.tabbar button .pillbg{width:48px}
+.tess-card{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;position:relative;border-radius:16px}
+.tess-frame{width:100%;max-width:100%;overflow:hidden;border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.22);background:#fff}
+.tess-frame img{display:block;width:100%;max-width:none}
+.tess-zoom{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:6px;background:rgba(12,14,8,.72);color:#fff;font:600 .78rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:99px}
+.tess-full{position:fixed;inset:0;z-index:25;background:#0b0c08;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(56px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));cursor:pointer}
+.tf-box{max-width:100%}
+.tess-frame.big{border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.tf-x{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px))}
+.tf-hint{margin:0;color:#c9c6b4;font:600 .8rem var(--f-label);letter-spacing:.12em;text-transform:uppercase}
+.pill-s{display:inline-block;margin-left:6px;font:700 .68rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:var(--ok-soft);color:var(--ok)}
+.pill-s.warn{background:var(--warn-soft);color:var(--warn)}.pill-s.bad{background:var(--bad-soft);color:var(--bad)}
+.docrow{display:grid;grid-template-columns:42px minmax(0,1fr) auto 22px;gap:12px;align-items:center;padding:12px 10px 12px 12px}
+.docrow .dmain{min-width:0;display:flex;flex-direction:column;gap:2px}
+.docrow strong{font-weight:600;font-size:1.02rem}
+.docrow small{color:var(--muted);font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.docrow.off .vicon{background:var(--line);color:var(--muted)}
+.dadd{font:700 .7rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;color:var(--olive)}
+.backbtn{align-self:flex-start;padding-left:4px;margin-bottom:-6px}
 </style>
 </head>
 <body>
@@ -259,6 +300,7 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
   <section class="view" id="v-vele" hidden></section>
   <section class="view" id="v-scadenze" hidden></section>
   <section class="view" id="v-checklist" hidden></section>
+  <section class="view" id="v-tessera" hidden></section>
 </main>
 
 <button class="btn amber fab" id="fab"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Nuova uscita</button>
@@ -269,8 +311,26 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
     <button role="tab" id="tab-vele" data-tab="vele" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg></span>Vele</button>
     <button role="tab" id="tab-scadenze" data-tab="scadenze" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>Scadenze</button>
     <button role="tab" id="tab-checklist" data-tab="checklist" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.3 12.4l2.6 2.6 4.8-5.4"/></svg></span>Pre-volo</button>
+    <button role="tab" id="tab-tessera" data-tab="tessera" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.3 16.2c.6-1.6 1.8-2.5 3.2-2.5s2.6.9 3.2 2.5M14 10h4.5M14 13.5h3"/></svg></span>Documenti</button>
   </div>
 </nav>
+<section class="welcome" id="welcome" hidden aria-labelledby="w-title">
+  <div class="w-in">
+    <img class="w-logo" src="logo.webp" alt="Toppa del corso: I can fly, primo corso ASD Volo anch'io" width="190" height="190">
+    <div><p class="w-eyebrow">Primo corso · ASD Volo anch'io</p><h1 id="w-title">Libretto di volo</h1></div>
+    <p class="w-lead">Il tuo libretto personale di campetti e voli, con il diario di ogni uscita.</p>
+    <ul class="w-feats">
+      <li><svg class="i" viewBox="0 0 24 24"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg>Voli e campetti</li>
+      <li><svg class="i" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M9 7h6M9 11h4"/></svg>Diario dopo ogni uscita</li>
+      <li><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Scadenze e vele</li>
+      <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.3 12.4l2.6 2.6 4.8-5.4"/></svg>Checklist pre-volo</li>
+    </ul>
+    <button class="w-btn" data-login><span id="w-glogo"></span>Accedi con Google</button>
+    <div class="w-tip"><svg class="i" viewBox="0 0 24 24" style="color:#f3c15a;width:20px;height:20px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg><span>Al primo accesso Google ti chiede il permesso per Drive: <b>spunta la casella</b>, altrimenti il libretto non può salvare.</span></div>
+    <p class="w-note">I dati restano <strong>nel tuo Google Drive</strong>, in una cartella privata che vede solo l'app. Nessun altro li legge.</p>
+    <div class="w-foot"><button class="w-skip" id="w-skip">Prova senza accedere</button><a href="privacy.html">Privacy</a></div>
+  </div>
+</section>
 <div id="sheet-root"></div>
 
 <script src="config.js"></script>
@@ -287,10 +347,10 @@ const moodColor=m=>(MOODS.find(x=>x[0]===m)||[])[1]||'var(--muted)';
 const CHECK=[
  ['Vela',['Bordo d\'attacco aperto e pulito, nessun cassone chiuso','Cordini districati, nessun nodo o cravatta','Freni liberi, passati nelle carrucole, maniglie a portata']],
  ['Imbrago ed emergenza',['Cosciali chiusi','Ventrale chiusa e regolata','Moschettoni chiusi e bloccati','Maniglia dell\'emergenza libera, spinotti in sede']],
- ['Pilota',['Casco allacciato','Radio accesa sul canale della scuola','Telefono o vario acceso, traccia avviata','Guanti e abbigliamento adatto alla quota']],
+ ['Pilota',['Casco allacciato','Scarpe allacciate, lacci infilati e senza ganci liberi','Piedi liberi: nessun cordino tra le gambe o attorno alle scarpe','Radio accesa sul canale della scuola','Telefono o vario acceso, traccia avviata','Guanti e abbigliamento adatto alla quota']],
  ['Condizioni',['Vento in decollo nei limiti del mio livello','Spazio davanti libero, nessuno in decollo','Atterraggio scelto, piano chiaro anche per l\'alternativa','Mi sento lucido e tranquillo per volare oggi']]
 ];
-const SUGG=['Certificato medico','Assicurazione RC','Ripiegatura emergenza','Revisione vela','Tessera club','Esame attestato VDS'];
+const SUGG=['Assicurazione RC','Ripiegatura emergenza','Revisione vela','Tessera club','Esame attestato VDS'];
 const IC={
   close:'<svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   wing:'<svg class="i" viewBox="0 0 24 24"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg>',
@@ -404,7 +464,7 @@ function renderLibretto(){
     let cur='';
     for(const f of list){const k=(f.data||'').slice(0,7);if(k!==cur){cur=k;const[y,m]=k.split('-');h+=`<h3 class="month">${MESI_L[+m-1]||''} ${y||''}</h3>`}h+=entryCard(f)}
   }
-  h+=`<div class="card backup"><span class="lbl">Backup</span><p class="hint">Scarica una copia di tutto in un file, oppure carica un backup, anche quello creato con il libretto su Claude.</p>
+  h+=`<div class="card backup"><span class="lbl">Backup</span><p class="hint">Scarica una copia di tutto in un file, oppure ricarica un backup salvato in precedenza.</p>
     <div class="row"><button class="btn small" id="exp">Esporta</button><label class="btn small" for="imp-file">Importa</label><input type="file" id="imp-file" accept=".json,application/json" hidden></div>
     <p class="hint" id="imp-msg"></p></div>`;
   v.innerHTML=h;
@@ -444,9 +504,9 @@ function renderChecklist(){
   h+=`<p class="hint">La checklist non sostituisce il briefing: in corso, l'ultima parola sul decollo è dell'istruttore.</p>`;
   v.innerHTML=h;
 }
-function renderAll(){renderHero();renderLibretto();renderVele();renderScadenze();renderChecklist()}
+function renderAll(){renderHero();renderLibretto();renderVele();renderScadenze();renderChecklist();renderDocs()}
 function setTab(t){tab=t;for(const b of document.querySelectorAll('.tabbar button'))b.setAttribute('aria-selected',b.dataset.tab===t);
-  for(const id of ['libretto','vele','scadenze','checklist'])$('#v-'+id).hidden=id!==t;$('#fab').hidden=t!=='libretto';window.scrollTo(0,0)}
+  for(const id of ['libretto','vele','scadenze','checklist','tessera'])$('#v-'+id).hidden=id!==t;$('#fab').hidden=t!=='libretto';window.scrollTo(0,0)}
 
 /* ---------- fogli ---------- */
 function closeSheet(){$('#sheet-root').innerHTML=''}
@@ -619,14 +679,190 @@ async function importData(file){
 }
 
 /* ---------- archivio sul telefono ---------- */
-const COLS=['voli','vele','scadenze'];
+const COLS=['voli','vele','scadenze','tessere'];
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 let store=LS.get('lv-data',null)||{};for(const c of COLS)if(!Array.isArray(store[c]))store[c]=[];
-function derive(){flights=store.voli.filter(x=>!x.eliminato);vele=store.vele.filter(x=>!x.eliminato);deadlines=store.scadenze.filter(x=>!x.eliminato)}
+function derive(){flights=store.voli.filter(x=>!x.eliminato);vele=store.vele.filter(x=>!x.eliminato);deadlines=store.scadenze.filter(x=>!x.eliminato);docs={};for(const x of store.tessere)if(!x.eliminato)docs[x.id]=x}
 function putItem(col,id,data){const arr=store[col];const i=arr.findIndex(x=>x.id===id);const it={...JSON.parse(JSON.stringify(data)),id};if(i>=0)arr[i]=it;else arr.push(it)}
 function commit(){LS.set('lv-data',store);dirty=true;LS.set('lv-dirty',true);derive();renderAll();scheduleSync()}
 async function saveDoc(col,id,data){const {id:_x,eliminato:_e,...rest}=data;putItem(col,id,{...rest,agg:Date.now()});commit()}
 async function removeDoc(col,id){putItem(col,id,{eliminato:true,agg:Date.now()});commit()}
+
+/* ---------- documenti ---------- */
+const PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+const DI={
+  card:'<svg class="i" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.3 16.2c.6-1.6 1.8-2.5 3.2-2.5s2.6.9 3.2 2.5M14 10h4.5M14 13.5h3"/></svg>',
+  wings:'<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3.2"/><path d="M8.8 10H2.5c1 2.2 3 3.4 5.5 3.4M15.2 10h6.3c-1 2.2-3 3.4-5.5 3.4"/><path d="M9.5 15.5L8 21l4-2 4 2-1.5-5.5"/></svg>',
+  med:'<svg class="i" viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M12 8v6M9 11h6M8 17.5h8"/></svg>',
+  stamp:'<svg class="i" viewBox="0 0 24 24"><path d="M6 3.5h9l3.5 3.5v13.5H6z"/><path d="M15 3.5V7h3.5"/><circle cx="11.5" cy="13.5" r="3"/><path d="M10.3 13.6l.9.9 1.8-2"/></svg>'
+};
+const DOCS=[
+  {id:'fivl',nome:'Tessera FIVL',icon:DI.card,vuoto:'Ti arriva per email come PDF',
+   aiuto:"Ti arriva per email come PDF. Sul telefono apri l'email, salva il PDF in File e caricalo qui: i dati si leggono da soli. Va bene anche una foto della tessera.",
+   campi:[['numero','N° FIVL'],['anno','Anno'],['socio','Socio'],['associazione','Associazione'],['attivita','Attività'],['tipoAss','Tipo di assicurazione'],['certificato','N° certificato'],['scadenza','Scadenza assicurazione','date']],
+   scad:{sid:'fivl-ass',titolo:'Assicurazione FIVL'},riga:c=>c.numero?'N° '+c.numero:''},
+  {id:'attestato',nome:'Attestato VDS',icon:DI.wings,vuoto:"Lo ricevi dopo l'esame",
+   aiuto:"L'attestato di pilota VDS lo rilascia l'Aero Club d'Italia dopo l'esame. Carica il PDF o due foto (fronte e retro). La scadenza della visita medica annotata sull'attestato finisce tra le Scadenze.",
+   campi:[['numero','N° attestato'],['rilascio','Rilasciato il','date'],['abilitazioni','Abilitazioni'],['scadenza','Scadenza visita medica','date']],
+   scad:{sid:'att-medica',titolo:'Visita medica (attestato VDS)'},riga:c=>c.numero?'N° '+c.numero:''},
+  {id:'medico',nome:'Certificato medico',icon:DI.med,vuoto:"Idoneità al volo",
+   aiuto:"Il certificato medico di idoneità al volo. Carica il PDF o una foto, poi indica la data di scadenza: te la ricordo tra le Scadenze.",
+   campi:[['rilascio','Rilasciato il','date'],['medico','Medico o struttura'],['scadenza','Scade il','date']],
+   scad:{sid:'medico',titolo:'Certificato medico'},riga:c=>c.medico||''},
+  {id:'nullaosta',nome:'Nulla osta Questura',icon:DI.stamp,vuoto:'Per il corso e l\'attestato',
+   aiuto:"Il nulla osta della Questura per il volo da diporto o sportivo. Carica il PDF arrivato per PEC o una foto del documento.",
+   campi:[['questura','Questura'],['protocollo','N° protocollo'],['rilascio','Rilasciato il','date'],['scadenza','Scadenza (se indicata)','date']],
+   scad:{sid:'nullaosta',titolo:'Nulla osta Questura'},riga:c=>c.questura?'Questura di '+c.questura.replace(/^questura di\s*/i,''):''}
+];
+const ddef=id=>DOCS.find(d=>d.id===id);
+const dkey=(id,k)=>id==='fivl'?{img:'lv-tess-img',file:'lv-tess-file',up:'lv-tess-up'}[k]:'lv-doc-'+k+'-'+id;
+const dname=id=>id==='fivl'?'tessera-fivl.json':'doc-'+id+'.json';
+let docs={},docOpen=null,docSide=0,wakeLock=null;
+function docImg(id){return LS.get(dkey(id,'img'),null)}
+
+function loadPdfJs(){return new Promise((ok,ko)=>{
+  if(window.pdfjsLib)return ok(window.pdfjsLib);
+  const s=document.createElement('script');s.src=PDFJS+'pdf.min.js';
+  s.onload=()=>{window.pdfjsLib.GlobalWorkerOptions.workerSrc=PDFJS+'pdf.worker.min.js';ok(window.pdfjsLib)};
+  s.onerror=()=>ko(new Error('pdfjs'));document.head.appendChild(s)})}
+function findSplit(cv){
+  const w=cv.width,h=cv.height,d=cv.getContext('2d').getImageData(0,0,w,h).data,rows=[];
+  for(let y=0;y<h;y++){let n=0,t=0;for(let x=0;x<w;x+=3){t++;const i=(y*w+x)*4;if(d[i]<232||d[i+1]<232||d[i+2]<232)n++}rows.push(n>t*0.05)}
+  const segs=[];let s=-1;
+  for(let y=0;y<=h;y++){const on=y<h&&rows[y];if(on&&s<0)s=y;if(!on&&s>=0){if(y-s>h*0.15)segs.push([s/h,y/h]);s=-1}}
+  return segs.length===2?segs:null}
+function linesFrom(items){
+  const rows=[];
+  for(const it of items){if(!it.str||!it.str.trim())continue;const y=Math.round(it.transform[5]);let r=rows.find(r=>Math.abs(r.y-y)<3);if(!r){r={y,parts:[]};rows.push(r)}r.parts.push({x:it.transform[4],s:it.str})}
+  rows.sort((a,b)=>b.y-a.y);
+  return rows.map(r=>r.parts.sort((a,b)=>a.x-b.x).map(p=>p.s.trim()).join(' ').replace(/\s+/g,' ').trim())}
+function itDate(s){const[d,m,y]=s.split('/');return y+'-'+m.padStart(2,'0')+'-'+d.padStart(2,'0')}
+function parseFivl(lines,fname){
+  const U=lines.map(l=>l.toUpperCase());
+  const after=lab=>{const i=U.findIndex(l=>l===lab);return i>=0&&lines[i+1]?lines[i+1]:''};
+  const find=re=>{for(const l of lines){const m=l.match(re);if(m)return m[1].trim()}return ''};
+  const scad=find(/SCADENZA\s+ASS\.?\s*(\d{1,2}\/\d{1,2}\/\d{4})/i);
+  return {numero:find(/N°\s*FIVL\s*(\S+)/i),socio:after('SOCIO'),associazione:after('A.S.'),attivita:after('ATTIVITÀ')||after('ATTIVITA'),
+    tipoAss:find(/TIPO\s+ASS\.?\s*(.+)$/i),certificato:find(/N°\s*CERT\.?\s*(\S+)/i),scadenza:scad?itDate(scad):'',anno:(fname.match(/(20\d\d)/)||[])[1]||''}}
+function stack(cvs){
+  const W=1000,gap=28,hs=cvs.map(c=>Math.round(c.height*W/c.width)),H=hs.reduce((a,b)=>a+b,0)+gap*(cvs.length-1);
+  const cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,H);
+  let y=0;const segs=[];cvs.forEach((c,i)=>{x.drawImage(c,0,y,W,hs[i]);segs.push([y/H,(y+hs[i])/H]);y+=hs[i]+gap});
+  return {cv,segs:segs.length>1?segs:null}}
+async function imgCanvas(file){
+  const url=URL.createObjectURL(file);
+  try{const im=await new Promise((ok,ko)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=ko;i.src=url});
+    const k=Math.min(1,1400/Math.max(im.width,im.height));const cv=document.createElement('canvas');
+    cv.width=Math.round(im.width*k);cv.height=Math.round(im.height*k);cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);return cv}
+  finally{URL.revokeObjectURL(url)}}
+async function readDoc(id,files){
+  const f=files[0],isPdf=f.type==='application/pdf'||/\.pdf$/i.test(f.name);
+  if(isPdf){
+    const lib=await loadPdfJs();const pdf=await lib.getDocument({data:new Uint8Array(await f.arrayBuffer())}).promise;
+    const n=id==='fivl'?1:Math.min(2,pdf.numPages),cvs=[];let lines=[];
+    for(let p=1;p<=n;p++){
+      const page=await pdf.getPage(p);const v0=page.getViewport({scale:1});const vp=page.getViewport({scale:Math.min(5,1000/v0.width)});
+      const cv=document.createElement('canvas');cv.width=Math.round(vp.width);cv.height=Math.round(vp.height);
+      const ctx=cv.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,cv.width,cv.height);
+      await page.render({canvasContext:ctx,viewport:vp}).promise;cvs.push(cv);
+      if(p===1)lines=linesFrom((await page.getTextContent()).items);
+    }
+    const st=n>1?stack(cvs):{cv:cvs[0],segs:null};
+    return {img:st.cv.toDataURL('image/jpeg',.84),w:st.cv.width,h:st.cv.height,split:id==='fivl'?findSplit(st.cv):st.segs,campi:id==='fivl'?parseFivl(lines,f.name):{}};
+  }
+  const cvs=[];for(const x of [...files].slice(0,2))cvs.push(await imgCanvas(x));
+  const st=cvs.length>1?stack(cvs):{cv:cvs[0],segs:null};
+  return {img:st.cv.toDataURL('image/jpeg',.84),w:st.cv.width,h:st.cv.height,split:st.segs,campi:id==='fivl'?{anno:(f.name.match(/(20\d\d)/)||[])[1]||''}:{}};
+}
+function saveScad(id,c,now){const d=ddef(id);if(c.scadenza)putItem('scadenze',d.scad.sid,{titolo:d.scad.titolo,data:c.scadenza,note:id==='fivl'&&c.certificato?'Cert. '+c.certificato:'',agg:now})}
+async function uploadDoc(id,files){
+  const msg=$('#doc-msg');if(msg)msg.textContent='Leggo il documento…';
+  try{
+    const r=await readDoc(id,files);const now=Date.now();const old=(docs[id]&&docs[id].campi)||{};
+    const campi={...old};for(const k in r.campi)if(r.campi[k])campi[k]=r.campi[k];
+    LS.set(dkey(id,'img'),{agg:now,img:r.img,w:r.w,h:r.h,split:r.split});
+    putItem('tessere',id,{campi,imgAgg:now,agg:now});saveScad(id,campi,now);docSide=0;commit();
+    toast(id==='fivl'&&r.campi.scadenza?'Tessera salvata, scadenza aggiunta':'Documento salvato');
+    if(id==='fivl'?!campi.numero:!campi.scadenza&&!campi.rilascio)editDoc(id);
+  }catch(e){const m=$('#doc-msg');if(m)m.textContent=e&&e.message==='pdfjs'?'Per leggere il PDF serve la connessione. Riprova quando hai rete.':'Non riesco a leggere il file. Prova con il PDF originale o con una foto del documento.'}
+}
+function docFrame(im,side,cls){
+  const sp=im.split&&im.split[side];const a=sp?sp[0]:0,b=sp?sp[1]:1;
+  return `<div class="tess-frame ${cls||''}" style="aspect-ratio:${(im.w/(im.h*(b-a))).toFixed(4)}"><img src="${im.img}" alt="${sp?(side?'Retro':'Fronte'):'Documento'}" style="margin-top:-${(a*im.h/im.w*100).toFixed(3)}%"></div>`}
+function docPill(c){if(!c.scadenza)return '';const n=daysTo(c.scadenza);return `<span class="pill-s ${n<0?'bad':n<=30?'warn':'ok'}">${n<0?'scaduto':n===0?'scade oggi':'tra '+n+' gg'}</span>`}
+function renderDocs(){
+  const v=$('#v-tessera');if(!v)return;
+  if(docOpen)return renderDoc(docOpen);
+  let h=`<div class="vhead"><h2>Documenti</h2></div><p class="hint" style="margin-top:-4px">I documenti da avere con te in volo, sempre a portata anche senza rete. Le scadenze finiscono da sole tra le Scadenze.</p>`;
+  for(const d of DOCS){const t=docs[d.id],c=(t&&t.campi)||{};
+    const sub=t?(d.riga(c)||(c.scadenza?'Scade il '+fmtDate(c.scadenza):'Caricato')):d.vuoto;
+    h+=`<button class="card docrow${t?'':' off'}" data-doc="${d.id}"><span class="vicon">${d.icon}</span><span class="dmain"><strong>${esc(d.nome)}</strong><small>${esc(sub)}</small></span>${t?docPill(c):'<span class="dadd">+ Aggiungi</span>'}${IC.chev}</button>`}
+  v.innerHTML=h;
+}
+function renderDoc(id){
+  const v=$('#v-tessera'),d=ddef(id),t=docs[id],im=docImg(id),c=(t&&t.campi)||{};
+  let h=`<button class="btn ghost small backbtn" id="doc-back"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Documenti</button>
+    <div class="vhead"><h2>${esc(d.nome)}${id==='fivl'&&c.anno?' '+esc(c.anno):''}</h2>${t?'<button class="btn small" id="doc-edit">Modifica dati</button>':''}</div>
+    <input type="file" id="doc-file" accept="application/pdf,image/*" multiple hidden>`;
+  if(!t){
+    h+=`<div class="card empty"><span class="vicon" style="width:64px;height:64px;border-radius:18px">${d.icon}</span><strong>${esc(d.nome)}</strong><p>${esc(d.aiuto)}</p>
+      <div class="row"><label class="btn primary" for="doc-file">Carica PDF o foto</label><button class="btn" id="doc-only">Solo i dati</button></div><p class="hint" id="doc-msg"></p></div>`;
+    v.innerHTML=h;return;
+  }
+  if(t.imgAgg){
+    if(im&&im.img&&im.agg===t.imgAgg){
+      if(im.split)h+=`<div class="seg" role="group" aria-label="Lato" style="grid-template-columns:1fr 1fr">${['Fronte','Retro'].map((l,i)=>`<button data-side="${i}" aria-pressed="${docSide===i}">${l}</button>`).join('')}</div>`;
+      h+=`<button class="tess-card" id="doc-open" aria-label="Mostra a schermo intero">${docFrame(im,docSide)}<span class="tess-zoom"><svg class="i" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Schermo intero</span></button>`;
+    }else h+=`<div class="card empty"><p>L'immagine arriva da Google Drive alla prossima sincronizzazione.</p></div>`;
+  }
+  const rows=d.campi.filter(([k])=>c[k]&&k!=='anno').map(([k,lab,type])=>`<div><dt>${esc(lab)}</dt><dd>${type==='date'?fmtDate(c[k]):esc(c[k])}${k==='scadenza'?' '+docPill(c):''}</dd></div>`).join('');
+  if(rows)h+=`<dl class="card kv" style="margin:0">${rows}</dl>`;
+  h+=`<div class="row"><label class="btn" for="doc-file">${t.imgAgg?'Sostituisci file':'Aggiungi PDF o foto'}</label><button class="btn danger" id="doc-del">Elimina</button></div><p class="hint" id="doc-msg"></p>`;
+  v.innerHTML=h;
+}
+function openDocFull(id){
+  const im=docImg(id);if(!im||!im.img)return;
+  const draw=()=>{const sp=im.split&&im.split[docSide];const a=sp?sp[0]:0,b=sp?sp[1]:1;const ratio=im.w/(im.h*(b-a));
+    $('#sheet-root').innerHTML=`<div class="tess-full" id="tfull" role="dialog" aria-modal="true" aria-label="${esc(ddef(id).nome)}">
+      <button class="close tf-x" id="tf-x" aria-label="Chiudi">${IC.close}</button>
+      <div class="tf-box" style="width:min(94vw,calc((100vh - 160px)*${ratio.toFixed(4)}))">${docFrame(im,docSide,'big')}</div>
+      ${im.split?`<p class="tf-hint">${docSide?'Retro':'Fronte'} · tocca per girare</p>`:''}</div>`;
+    $('#tf-x').onclick=closeDocFull;
+    $('#tfull').onclick=e=>{if(e.target.closest('#tf-x'))return;if(im.split){docSide=1-docSide;draw();renderDocs()}};
+  };
+  draw();try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(l=>wakeLock=l).catch(()=>{})}catch(e){}
+}
+function closeDocFull(){closeSheet();try{wakeLock&&wakeLock.release()}catch(e){}wakeLock=null}
+function editDoc(id){
+  const d=ddef(id),t=docs[id],c={...((t&&t.campi)||{})};
+  const fld=([k,lab,type])=>`<div class="field"><label for="dc-${k}">${esc(lab)}</label><input id="dc-${k}" type="${type||'text'}" value="${esc(c[k])}"></div>`;
+  openSheet(d.nome,`<form id="dcf" class="card fs">${d.campi.map(fld).join('')}<p class="hint">La scadenza compare anche tra le Scadenze.</p></form>`,`<button class="btn primary" type="submit" form="dcf">Salva</button>`);
+  $('#dcf').onsubmit=e=>{e.preventDefault();const now=Date.now(),n={};for(const [k] of d.campi)n[k]=$('#dc-'+k).value.trim();
+    putItem('tessere',id,{campi:n,imgAgg:(t&&t.imgAgg)||0,agg:now});saveScad(id,n,now);commit();closeSheet();toast('Dati salvati')};
+}
+function deleteDoc(id){
+  const d=ddef(id);
+  openSheet('Eliminare il documento?',`<p style="margin:0">${esc(d.nome)} viene tolto da questo telefono e dal tuo Google Drive. La scadenza resta tra le Scadenze finché non la elimini.</p>`,
+    `<button class="btn danger" id="yes" style="flex:1">Sì, elimina</button><button class="btn" id="no" style="flex:1">Annulla</button>`);
+  $('#no').onclick=closeSheet;
+  $('#yes').onclick=()=>{putItem('tessere',id,{eliminato:true,agg:Date.now()});try{localStorage.removeItem(dkey(id,'img'))}catch(e){}commit();closeSheet();toast('Documento eliminato')};
+}
+function clearDocKeys(){for(const d of DOCS)for(const k of ['img','file','up'])try{localStorage.removeItem(dkey(d.id,k))}catch(e){}}
+async function syncDocs(){
+  for(const d of DOCS){
+    const t=store.tessere.find(x=>x.id===d.id);if(!t)continue;
+    const NAME=dname(d.id),KF=dkey(d.id,'file'),KU=dkey(d.id,'up');let fid=LS.get(KF,null);
+    const getId=async()=>{if(!fid){const f=await findFile(NAME);fid=f&&f.id;if(fid)LS.set(KF,fid)}return fid};
+    const put=async data=>{try{fid=await uploadFile(await getId(),data,NAME)}catch(e){if(e.status===404){fid=null;LS.set(KF,null);fid=await uploadFile(await getId(),data,NAME)}else throw e}LS.set(KF,fid)};
+    if(t.eliminato||!t.imgAgg){if(LS.get(KU,0)){await put({agg:t.agg,img:null});LS.set(KU,0)}continue}
+    const im=docImg(d.id);
+    if(im&&im.agg===t.imgAgg){if(LS.get(KU,0)!==t.imgAgg){await put(im);LS.set(KU,t.imgAgg)}continue}
+    if(!await getId())continue;
+    let r=null;try{r=await downloadFile(fid)}catch(e){if(e.status===404){LS.set(KF,null);continue}throw e}
+    if(r&&r.img&&r.agg===t.imgAgg){LS.set(dkey(d.id,'img'),r);LS.set(KU,t.imgAgg)}
+  }
+  renderDocs();
+}
 
 /* ---------- Google: accesso ---------- */
 const CFG=window.LIBRETTO_CONFIG||{};
@@ -666,16 +902,19 @@ async function checkAccount(){
   if(!j.email)return;
   if(auth.email&&auth.email!==j.email){
     // un altro account su questo telefono: non mescolare i dati
-    store={voli:[],vele:[],scadenze:[]};fileId=null;dirty=false;lastSync=0;
+    store={voli:[],vele:[],scadenze:[],tessere:[]};fileId=null;dirty=false;lastSync=0;
+    clearDocKeys();
     LS.set('lv-data',store);LS.set('lv-file',null);LS.set('lv-dirty',false);LS.set('lv-last',0);derive();renderAll();
   }
   auth.email=j.email;LS.set('lv-auth',auth);
 }
+function showWelcome(v){const w=$('#welcome');if(!w)return;w.hidden=!v;document.documentElement.style.overflow=v?'hidden':'';if(v){$('#w-glogo').innerHTML=GLOGO;}}
+function wantWelcome(){return CONFIGURED&&!(auth&&auth.email)&&!LS.get('lv-skip',false)}
 function logout(){
   if(auth&&auth.token){try{fetch('https://oauth2.googleapis.com/revoke?token='+encodeURIComponent(auth.token),{method:'POST',mode:'no-cors'})}catch(e){}}
-  auth=null;store={voli:[],vele:[],scadenze:[]};fileId=null;dirty=false;lastSync=0;
-  for(const k of ['lv-auth','lv-data','lv-file','lv-dirty','lv-last'])try{localStorage.removeItem(k)}catch(e){}
-  derive();renderAll();renderSync();
+  auth=null;store={voli:[],vele:[],scadenze:[],tessere:[]};fileId=null;dirty=false;lastSync=0;
+  for(const k of ['lv-auth','lv-data','lv-file','lv-dirty','lv-last','lv-skip'])try{localStorage.removeItem(k)}catch(e){}
+  clearDocKeys();derive();renderAll();renderSync();showWelcome(wantWelcome());
 }
 
 /* ---------- Google Drive: cartella privata dell'app ---------- */
@@ -686,17 +925,17 @@ async function gapi(url,opt={}){
   if(!r.ok)throw {code:'http',status:r.status};
   return r;
 }
-async function findFile(){
-  const q=encodeURIComponent("name='libretto.json'");
+async function findFile(name='libretto.json'){
+  const q=encodeURIComponent("name='"+name+"'");
   const r=await gapi('https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&fields=files(id,modifiedTime)&orderBy=modifiedTime%20desc&q='+q);
   const j=await r.json();return j.files&&j.files[0];
 }
 async function downloadFile(id){const r=await gapi('https://www.googleapis.com/drive/v3/files/'+id+'?alt=media');try{return await r.json()}catch(e){return {}}}
-async function uploadFile(id,data){
+async function uploadFile(id,data,name='libretto.json'){
   const body=JSON.stringify(data);
   if(id){await gapi('https://www.googleapis.com/upload/drive/v3/files/'+id+'?uploadType=media',{method:'PATCH',headers:{'Content-Type':'application/json'},body});return id}
   const b='libretto'+Date.now();
-  const mp='--'+b+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify({name:'libretto.json',parents:['appDataFolder']})+'\r\n--'+b+'\r\nContent-Type: application/json\r\n\r\n'+body+'\r\n--'+b+'--';
+  const mp='--'+b+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify({name,parents:['appDataFolder']})+'\r\n--'+b+'\r\nContent-Type: application/json\r\n\r\n'+body+'\r\n--'+b+'--';
   const r=await gapi('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+b},body:mp});
   return (await r.json()).id;
 }
@@ -717,6 +956,7 @@ async function sync(){
     fileId=id;LS.set('lv-file',id);
     const fin=merge(store,merged);const later=canon(fin)!==canon(merged);
     store=fin;LS.set('lv-data',store);dirty=later;LS.set('lv-dirty',dirty);if(later)again=true;
+    try{await syncDocs()}catch(e){if(e&&e.code==='auth')throw e}
     lastSync=Date.now();LS.set('lv-last',lastSync);syncState='ok';derive();renderAll();
   }catch(e){syncState=e&&e.code==='auth'?'login':e&&e.code==='scope'?'scope':'error';if(syncState==='scope')scopeSheet()}
   finally{syncing=false;renderSync();if(again){again=false;setTimeout(sync,400)}}
@@ -770,9 +1010,16 @@ const GLOGO='<svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
 
 /* ---------- eventi ---------- */
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-tab]');if(t)return setTab(t.dataset.tab);
+  const t=e.target.closest('[data-tab]');if(t){if(t.dataset.tab==='tessera'){docOpen=null;renderDocs()}return setTab(t.dataset.tab)}
   if(e.target.closest('[data-login]'))return login(false);
   if(e.target.closest('#sync'))return accountSheet();
+  const sd=e.target.closest('[data-side]');if(sd){docSide=+sd.dataset.side;return renderDocs()}
+  const dc=e.target.closest('[data-doc]');if(dc){docOpen=dc.dataset.doc;docSide=0;renderDocs();window.scrollTo(0,0);return}
+  if(e.target.closest('#doc-back')){docOpen=null;return renderDocs()}
+  if(e.target.closest('#doc-open'))return openDocFull(docOpen);
+  if(e.target.closest('#doc-edit')||e.target.closest('#doc-only'))return editDoc(docOpen);
+  if(e.target.closest('#doc-del'))return deleteDoc(docOpen);
+  if(e.target.closest('#w-skip')){LS.set('lv-skip',true);showWelcome(false);return}
   const nw=e.target.closest('[data-new]');if(nw)return nw.dataset.new==='camp'?editCamp(null):editFlight(null);
   const fl=e.target.closest('[data-filtro]');if(fl){filtro=fl.dataset.filtro;return renderLibretto()}
   const o=e.target.closest('[data-open]');if(o)return showFlight(o.dataset.open);
@@ -787,9 +1034,10 @@ document.addEventListener('click',e=>{
   if(e.target.closest('#reset-ck')){checks={};try{localStorage.setItem('pv-checks','{}')}catch(_){}return renderChecklist()}
 });
 document.addEventListener('change',e=>{
+  if(e.target.id==='doc-file'){const f=[...e.target.files];e.target.value='';if(f.length&&docOpen)uploadDoc(docOpen,f);return}
   if(e.target.id==='imp-file'){const f=e.target.files[0];e.target.value='';if(f)importData(f);return}
   const k=e.target.dataset&&e.target.dataset.ck;if(!k)return;checks[k]=e.target.checked;try{localStorage.setItem('pv-checks',JSON.stringify(checks))}catch(_){}renderChecklist()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#tfull'))closeDocFull();else closeSheet()}});
 window.addEventListener('online',()=>{syncState='idle';if(tokenOk())sync();else renderSync()});
 window.addEventListener('offline',()=>{syncState='offline';renderSync()});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&tokenOk()&&Date.now()-lastSync>60000)sync()});
@@ -799,6 +1047,7 @@ $('#fab').onclick=chooseKind;
 derive();renderAll();renderSync();
 (async()=>{
   const red=readRedirect();
+  if(!red||!red.error)showWelcome(wantWelcome()&&!(red&&red.ok));
   if(red&&red.error==='scope'){syncState='scope';renderSync();scopeSheet();return}
   if(red&&red.error){
     if(red.silent)LS.set('lv-nosilent',true);
@@ -806,7 +1055,7 @@ derive();renderAll();renderSync();
     syncState='login';renderSync();return;
   }
   if(tokenOk()){
-    if(red&&red.ok){try{await checkAccount()}catch(e){}}
+    if(red&&red.ok){try{await checkAccount()}catch(e){}showWelcome(false)}
     await sync();return;
   }
   if(CONFIGURED&&auth&&auth.email&&navigator.onLine&&!LS.get('lv-nosilent',false)){
