@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Guida · Libretto di volo</title>
+<meta name="description" content="Come installare e usare il Libretto di volo: accesso con Google, libretto, diario, vele, scadenze, controlli pre-volo e documenti.">
+<meta name="theme-color" content="#16180f">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#eff0e7;--paper:#fbfbf7;--ink:#1b1e15;--muted:#666a58;--line:#dcdccc;--olive:#56651f;--olive-soft:#e4e8cf;--amber:#c98a12;--amber-ink:#8a5c08;--amber-soft:#f6e7c4;--hero-bg:#16180f;--hero-fg:#e6d4a3;--hero-dim:#a99c78;--stitch:#7d8c38;
+  --f-patch:"Saira Stencil One","Barlow Condensed",Impact,sans-serif;--f-label:"Barlow Condensed","Arial Narrow",sans-serif;--f-body:"Barlow",system-ui,-apple-system,sans-serif}
+@media (prefers-color-scheme: dark){:root{--bg:#111309;--paper:#1a1d14;--ink:#ece7d6;--muted:#a2a38d;--line:#2f3326;--olive:#aebd6f;--olive-soft:#262d17;--amber-ink:#f0c46a;--amber-soft:#382a0f;color-scheme:dark}}
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--f-body)}
+img{max-width:100%}
+.hero{background:var(--hero-bg);color:var(--hero-fg);border-bottom:3px dashed var(--stitch);padding:28px max(16px,env(safe-area-inset-right,0px)) 26px max(16px,env(safe-area-inset-left,0px))}
+.hero-in{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.hero img{width:84px;height:84px;border-radius:50%;box-shadow:0 0 0 2px var(--stitch);flex:none}
+.eyebrow{margin:0;font:600 .76rem var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:var(--hero-dim)}
+h1{margin:2px 0 4px;font:400 2.1rem/1.05 var(--f-patch);color:#fff;text-wrap:balance}
+.hero p.sub{margin:0;color:var(--hero-fg);font-size:.98rem}
+main{max-width:680px;margin:0 auto;padding:8px max(16px,env(safe-area-inset-right,0px)) 56px max(16px,env(safe-area-inset-left,0px))}
+.cta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--olive);color:var(--paper);text-decoration:none;font-weight:600;padding:12px 18px;border-radius:12px}
+.cta span{color:var(--muted);font-size:.92rem}
+nav.toc{margin:18px 0 8px;display:flex;flex-wrap:wrap;gap:8px}
+nav.toc a{font:600 .82rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;color:var(--olive);text-decoration:none;border:1px solid var(--line);background:var(--paper);padding:6px 11px;border-radius:99px}
+h2{font:700 1.5rem/1.15 var(--f-label);letter-spacing:.01em;margin:38px 0 10px;scroll-margin-top:16px}
+h3{font:700 1.08rem var(--f-label);letter-spacing:.06em;text-transform:uppercase;color:var(--olive);margin:20px 0 6px}
+p{margin:8px 0}
+ol,ul{margin:8px 0;padding-left:1.3em}
+li{margin:6px 0}
+li::marker{color:var(--olive);font-weight:700}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:12px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+.grid .card{margin:0}
+.warn{background:var(--amber-soft);border-color:transparent}
+.warn strong{color:var(--amber-ink)}
+.shot{display:block;height:auto;border-radius:10px;border:1px solid var(--line);margin:10px 0 4px;background:#fff}
+.cap{font-size:.86rem;color:var(--muted);margin:0}
+.feat{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0}
+.feat div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.feat b{display:block;font:700 1.05rem var(--f-label);letter-spacing:.02em}
+.faq dt{font-weight:600;margin-top:14px}
+.faq dd{margin:4px 0 0;color:var(--ink)}
+footer{max-width:680px;margin:0 auto;padding:0 16px 40px;color:var(--muted);font-size:.9rem}
+footer a{color:var(--olive)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <img src="logo.webp" alt="Toppa del corso I can fly" width="84" height="84">
+    <div><p class="eyebrow">Primo corso · ASD Volo anch'io</p><h1>Libretto di volo</h1><p class="sub">Guida rapida per installarlo e usarlo</p></div>
+  </div>
+</header>
+<main>
+  <div class="cta"><a class="btn" href="./">Apri il libretto</a><span>librettovolo.it</span></div>
+  <p>Il Libretto di volo è un'app gratuita per noi allievi: ci si segnano campetti e voli, si tiene un breve diario dopo ogni uscita e si hanno sempre a portata scadenze e documenti. Funziona sul telefono e sul computer, anche senza campo.</p>
+  <nav class="toc" aria-label="Indice">
+    <a href="#installa">Installare</a><a href="#accesso">Primo accesso</a><a href="#dentro">Cosa c'è dentro</a><a href="#tessera">Tessera FIVL</a><a href="#privacy">I tuoi dati</a><a href="#problemi">Problemi</a>
+  </nav>
+
+  <h2 id="installa">1. Installala sul telefono</h2>
+  <div class="grid">
+    <div class="card"><h3 style="margin-top:0">iPhone</h3><ol>
+      <li>Apri <strong>librettovolo.it</strong> con <strong>Safari</strong> (non da WhatsApp o da altre app).</li>
+      <li>Tocca il tasto <strong>Condividi</strong>, il quadrato con la freccia verso l'alto.</li>
+      <li>Scorri e tocca <strong>Aggiungi alla schermata Home</strong>, poi <strong>Aggiungi</strong>.</li></ol></div>
+    <div class="card"><h3 style="margin-top:0">Android</h3><ol>
+      <li>Apri <strong>librettovolo.it</strong> con <strong>Chrome</strong>.</li>
+      <li>Tocca il menu <strong>⋮</strong> in alto a destra.</li>
+      <li>Tocca <strong>Installa app</strong> oppure <strong>Aggiungi a schermata Home</strong>.</li></ol></div>
+  </div>
+  <p>Da quel momento la apri dall'icona, come un'app vera.</p>
+
+  <h2 id="accesso">2. Il primo accesso</h2>
+  <ol>
+    <li>Apri l'app e tocca <strong>Accedi con Google</strong>.</li>
+    <li>Scegli il tuo account Google: va bene un Gmail o qualsiasi altro account Google.</li>
+    <li>Google ti chiede il permesso per Drive. <strong>Spunta la casella</strong> e poi tocca <strong>Continua</strong>.</li>
+  </ol>
+  <img class="shot" src="guida-spunta.webp" alt="Schermata di Google con la casella da spuntare per Google Drive, cerchiata in giallo" width="741" height="237">
+  <p class="cap">La casella da spuntare, cerchiata in giallo.</p>
+  <div class="card warn"><strong>Importante:</strong> senza questa spunta l'app non può salvare. Se la salti, l'app te lo segnala e puoi riprovare. “Dati di configurazione” è solo il nome che Google dà alla cartella privata dell'app: <strong>l'app non vede né tocca gli altri file del tuo Drive</strong>.</div>
+  <p>Sotto i contatori compare la scritta <strong>“Su Google Drive”</strong> con il tuo indirizzo: vuol dire che è tutto a posto.</p>
+
+  <h2 id="dentro">3. Cosa c'è dentro</h2>
+  <div class="feat">
+    <div><b>Libretto</b>Tocca <strong>Nuova uscita</strong> e scegli campetto o volo. Per il campetto segni orari, gonfiaggi, esercizi e cosa ti ha detto l'istruttore. Per il volo puoi caricare la traccia <strong>.igc</strong> della tua app di volo (XCTrack, Flyskyhy…): durata, quote e distanza si compilano da sole.</div>
+    <div><b>Diario</b>Dopo ogni uscita: come mi sentivo, cosa è andato bene, dove ho sentito tensione, cosa porto alla prossima. Due righe scritte subito valgono molto, soprattutto rilette dopo qualche settimana.</div>
+    <div><b>Vele</b>Inserisci la vela che usi (anche quella della scuola). A ogni uscita scegli quale hai usato e vedi quanto ci hai volato.</div>
+    <div><b>Scadenze</b>Certificato medico, assicurazione, ripiegatura dell'emergenza… In verde quelle lontane, in giallo quelle vicine, in rosso quelle scadute.</div>
+    <div><b>Pre-volo</b>La sequenza dei controlli indicata dagli istruttori. <strong>Si impara a memoria</strong>: in decollo il telefono resta in tasca. Con <strong>Allenati a memoria</strong> la ripassi a casa, controllo dopo controllo.</div>
+    <div><b>Documenti</b>Tessera FIVL, certificato medico, nulla osta della Questura e, dopo l'esame, l'attestato VDS. Si mostrano a schermo intero, fronte e retro, anche senza rete.</div>
+  </div>
+
+  <h2 id="tessera">4. Caricare la tessera FIVL</h2>
+  <ol>
+    <li>Apri l'email della FIVL sul telefono e tocca il PDF della tessera.</li>
+    <li>Tocca <strong>Condividi</strong> → <strong>Salva in File</strong> (su Android: <strong>Scarica</strong>).</li>
+    <li>Nell'app vai su <strong>Documenti</strong> → <strong>Tessera FIVL</strong> → <strong>Carica PDF o foto</strong> e scegli il file.</li>
+  </ol>
+  <p>Numero, nome, associazione e scadenza dell'assicurazione si leggono da soli, e la scadenza finisce tra le Scadenze. Gli altri documenti si caricano allo stesso modo, con un PDF o una o due foto.</p>
+
+  <h2 id="privacy">5. I tuoi dati</h2>
+  <ul>
+    <li>Tutto quello che scrivi resta nel <strong>tuo Google Drive</strong>, in una cartella privata dell'app, e una copia sul telefono per usarla senza rete.</li>
+    <li><strong>Nessun altro può leggere i tuoi dati</strong>: né gli altri allievi, né gli istruttori, né chi ha fatto l'app.</li>
+    <li>Se cambi telefono, accedi con lo stesso account Google e ritrovi tutto.</li>
+    <li>Occupa pochissimo spazio: meno di 1 MB.</li>
+  </ul>
+  <p>I dettagli sono nell'<a href="privacy.html">informativa sulla privacy</a>.</p>
+
+  <h2 id="problemi">6. Se qualcosa non va</h2>
+  <dl class="faq">
+    <dt>Sotto i contatori c'è scritto “Manca il permesso per Drive”.</dt>
+    <dd>Al primo accesso non hai spuntato la casella. Tocca la scritta, poi <strong>Riprova</strong>, e questa volta spunta la casella di Google Drive.</dd>
+    <dt>C'è scritto “Senza rete” o “Da sincronizzare”.</dt>
+    <dd>Va bene così: le modifiche restano sul telefono e partono da sole appena torna la connessione.</dd>
+    <dt>Non vedo una funzione nuova.</dt>
+    <dd>Chiudi l'app e riaprila, a volte serve farlo due volte. Gli aggiornamenti arrivano da soli.</dd>
+    <dt>Sul computer non ritrovo quello che ho scritto sul telefono.</dt>
+    <dd>Controlla di aver fatto l'accesso con lo stesso account Google su tutti e due.</dd>
+    <dt>Voglio togliere tutto.</dt>
+    <dd>Tocca la riga dell'account sotto i contatori e scegli <strong>Esci</strong>. Per cancellare anche la copia su Drive segui le istruzioni nell'<a href="privacy.html">informativa sulla privacy</a>.</dd>
+  </dl>
+  <p>Per dubbi, problemi o idee di nuove funzioni scrivi a Dario nel gruppo del corso.</p>
+  <div class="cta"><a class="btn" href="./">Apri il libretto</a></div>
+</main>
+<footer>A cura di don Dario Acquaroli · <a href="privacy.html">Privacy</a> · Buoni voli! 🪂</footer>
+</body>
+</html>
