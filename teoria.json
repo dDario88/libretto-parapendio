@@ -1,0 +1,60 @@
+{
+ "versione": 1,
+ "nota": "Elenco degli argomenti. Le schede si aggiungono qui dopo la revisione degli istruttori: non serve aggiornare l'app.",
+ "argomenti": [
+  {
+   "id": "meteo",
+   "nome": "Meteorologia",
+   "descrizione": "Vento, ascendenze e segnali del cielo: quello che serve per decidere se e dove volare.",
+   "stato": "in preparazione",
+   "revisore": "",
+   "schede": [],
+   "domande": []
+  },
+  {
+   "id": "aero",
+   "nome": "Aerodinamica",
+   "descrizione": "Come vola una vela: portanza, velocità, stallo, polare.",
+   "stato": "in preparazione",
+   "schede": [],
+   "domande": [],
+   "revisore": ""
+  },
+  {
+   "id": "pilotaggio",
+   "nome": "Tecnica di pilotaggio",
+   "descrizione": "Gonfiaggio, decollo, virate, avvicinamento e atterraggio.",
+   "stato": "in preparazione",
+   "schede": [],
+   "domande": [],
+   "revisore": ""
+  },
+  {
+   "id": "materiali",
+   "nome": "Materiali",
+   "descrizione": "Vela, imbrago, emergenza e loro controlli.",
+   "stato": "in preparazione",
+   "schede": [],
+   "domande": [],
+   "revisore": ""
+  },
+  {
+   "id": "sicurezza",
+   "nome": "Sicurezza ed emergenza",
+   "descrizione": "Chiusure, emergenza, atterraggi d'emergenza.",
+   "stato": "in preparazione",
+   "schede": [],
+   "domande": [],
+   "revisore": ""
+  },
+  {
+   "id": "normativa",
+   "nome": "Normativa",
+   "descrizione": "Regole del volo da diporto o sportivo, spazi aerei, precedenze.",
+   "stato": "in preparazione",
+   "schede": [],
+   "domande": [],
+   "revisore": ""
+  }
+ ]
+}

@@ -703,7 +703,7 @@ function renderControlli(){
 }
 /* ---------- studio: teoria e quiz ---------- */
 // Teoria e quiz: metti true quando le schede sono state approvate dagli istruttori
-const TEORIA_ON=false;
+const TEORIA_ON=true;
 let studyMode='controlli',teoria=null,teoriaErr=false,topicOpen=null;
 function loadTeoria(){
   if(teoria||teoriaErr)return;
@@ -734,6 +734,7 @@ function renderTeoria(){
   if(!teoria){h+=teoriaErr?`<div class="card empty"><p>Non riesco a caricare la teoria. Serve la connessione la prima volta che apri questa sezione.</p></div>`:`<div class="card empty"><p>Carico le schede…</p></div>`;return h}
   if(!topicOpen){
     h+=`<p class="hint" style="margin-top:-2px">I punti fondamentali, spiegati in poche righe. Non sostituiscono le lezioni né i manuali, ma aiutano a ripassare.</p>`;
+    if(!teoria.argomenti.some(t=>t.schede.length))h+=`<div class="card ck-note" style="padding:12px 14px"><p><strong style="font-size:1rem">In arrivo.</strong> Le schede sono in preparazione insieme agli istruttori della scuola: compariranno qui una alla volta, dopo la loro revisione.</p></div>`;
     const rs=readSet();
     for(const t of teoria.argomenti){const n=t.schede.length,l=t.schede.filter(s=>rs.has(t.id+'/'+s.id)).length;
       h+=`<button class="card docrow topic${n?'':' off'}" data-topic="${esc(t.id)}" ${n?'':'disabled'}><span class="vicon"><svg class="i" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/></svg></span>
@@ -768,6 +769,7 @@ function renderQuizHome(){
   const best=LS.get('lv-quiz',{});
   for(const t of teoria.argomenti){if(!t.domande.length)continue;const b=best[t.id];
     h+=`<button class="card docrow topic" data-quiz="${esc(t.id)}"><span class="vicon"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6M12 17v.2"/></svg></span><span class="dmain"><strong>${esc(t.nome)}</strong><small>${t.domande.length} domande${b!=null?` · miglior risultato ${b}/${t.domande.length}`:''}</small><span>${topicBadge(t)}</span></span>${IC.chev}</button>`}
+  if(!teoria.argomenti.some(t=>t.domande.length))h+=`<div class="card empty"><strong>Ancora nessun quiz</strong><p>Le domande arrivano insieme alle schede di teoria, argomento per argomento.</p></div>`;
   const prep=teoria.argomenti.filter(t=>!t.domande.length).map(t=>t.nome);
   if(prep.length)h+=`<p class="hint">In preparazione: ${esc(prep.join(', '))}.</p>`;
   return h;
