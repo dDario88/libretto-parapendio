@@ -370,7 +370,7 @@ const CHECK=[
  ['Vento',['Direzione e intensità']],
  ['Spazio aereo',['Spazio aereo libero']]
 ];
-const SUGG=['Assicurazione RC','Ripiegatura emergenza','Revisione vela','Tessera club','Esame attestato VDS'];
+const SUGG=['Assicurazione RC','Ripiegatura emergenza','Revisione vela','Esame attestato VDS'];
 const IC={
   close:'<svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   wing:'<svg class="i" viewBox="0 0 24 24"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg>',
@@ -737,6 +737,7 @@ const DI={
   card:'<svg class="i" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.3 16.2c.6-1.6 1.8-2.5 3.2-2.5s2.6.9 3.2 2.5M14 10h4.5M14 13.5h3"/></svg>',
   wings:'<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3.2"/><path d="M8.8 10H2.5c1 2.2 3 3.4 5.5 3.4M15.2 10h6.3c-1 2.2-3 3.4-5.5 3.4"/><path d="M9.5 15.5L8 21l4-2 4 2-1.5-5.5"/></svg>',
   med:'<svg class="i" viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M12 8v6M9 11h6M8 17.5h8"/></svg>',
+  club:'<svg class="i" viewBox="0 0 24 24"><path d="M6 21V3.5"/><path d="M6 4h11.5l-2.5 4 2.5 4H6"/><circle cx="6" cy="21" r=".5"/></svg>',
   stamp:'<svg class="i" viewBox="0 0 24 24"><path d="M6 3.5h9l3.5 3.5v13.5H6z"/><path d="M15 3.5V7h3.5"/><circle cx="11.5" cy="13.5" r="3"/><path d="M10.3 13.6l.9.9 1.8-2"/></svg>'
 };
 const DOCS=[
@@ -748,6 +749,10 @@ const DOCS=[
    aiuto:"L'attestato di pilota VDS lo rilascia l'Aero Club d'Italia dopo l'esame. Carica il PDF o due foto (fronte e retro). La scadenza della visita medica annotata sull'attestato finisce tra le Scadenze.",
    campi:[['numero','N° attestato'],['rilascio','Rilasciato il','date'],['abilitazioni','Abilitazioni'],['scadenza','Scadenza visita medica','date']],
    scad:{sid:'att-medica',titolo:'Visita medica (attestato VDS)'},riga:c=>c.numero?'N° '+c.numero:''},
+  {id:'club',nome:'Tessera del club',icon:DI.club,vuoto:"Quando ti iscriverai a un club",
+   aiuto:"La tessera del club di volo a cui ti iscrivi, di solito dopo l'esame. Carica il PDF o una o due foto (fronte e retro) e indica quando va rinnovata: te lo ricordo tra le Scadenze.",
+   campi:[['club','Club'],['numero','N° tessera'],['anno','Anno'],['scadenza','Da rinnovare entro','date']],
+   scad:{sid:'club',titolo:'Rinnovo tessera club'},riga:c=>[c.club,c.numero?'N° '+c.numero:''].filter(Boolean).join(' · ')},
   {id:'medico',nome:'Certificato medico',icon:DI.med,vuoto:"Idoneità al volo",
    aiuto:"Il certificato medico di idoneità al volo. Carica il PDF o una foto, poi indica la data di scadenza: te la ricordo tra le Scadenze.",
    campi:[['rilascio','Rilasciato il','date'],['medico','Medico o struttura'],['scadenza','Scade il','date']],
