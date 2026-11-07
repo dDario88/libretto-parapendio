@@ -17,7 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap">
 <style>
-html{padding-top:env(safe-area-inset-top,0px)}
+html{padding-top:env(safe-area-inset-top,0px);background:#10283d}
+body{min-height:100vh}
 body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
@@ -391,6 +392,48 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 .tr-meta,.tsec h4,.warnsec h4,.scwarn h4{font:700 .9rem var(--f-body)}
 .tiles span,.mini span,.eright small{font:500 .78rem var(--f-body)}
 .scband{font:700 .82rem var(--f-body)}
+.gear{margin-left:auto;flex:none;width:42px;height:42px;border-radius:50%;border:1px solid color-mix(in srgb,var(--hero-fg) 30%,transparent);background:none;color:var(--hero-fg);display:grid;place-items:center;cursor:pointer}
+.gear:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.tab-imp{display:none!important}
+.setcard{padding:16px;display:flex;flex-direction:column;gap:10px}
+.setcard h3{margin:0;font:700 1.1rem var(--f-label)}
+.setrow{display:flex;gap:10px;align-items:center}
+.setrow small{display:block;color:var(--muted);font-size:.86rem}
+.setdot{width:12px;height:12px;border-radius:50%;flex:none;background:var(--ok)}
+.setdot.warn{background:var(--warn)}
+.setlink{display:grid;grid-template-columns:42px minmax(0,1fr) 22px;gap:12px;align-items:center;text-decoration:none;color:var(--ink);padding:6px 0}
+.setlink+.setlink{border-top:1px solid var(--line);padding-top:12px}
+.setlink strong{display:block;font-weight:600}.setlink small{color:var(--muted);font-size:.86rem}
+.setfoot{display:flex;align-items:center;gap:8px;justify-content:center}.setfoot img{border-radius:8px}
+/* ---------- computer: menu laterale, contenuto largo, finestre al centro ---------- */
+@media (min-width:1000px){
+  body{padding-left:300px}
+  body::after{content:"";position:fixed;left:0;top:0;bottom:0;width:300px;background:linear-gradient(180deg,var(--hero-bg),var(--hero-bg2));border-right:3px dashed var(--stitch);z-index:7}
+  .hero{position:fixed;left:0;top:0;width:300px;background:none;border-bottom:0;padding:26px 20px 10px;z-index:9}
+  .hero-in{max-width:none}
+  .hero h1{font-size:1.55rem}
+  .gear{display:none}
+  .hstats div{flex-direction:column;align-items:flex-start;gap:0}
+  .tabbar{position:fixed;left:0;right:auto;top:var(--hero-h,330px);bottom:90px;width:300px;background:none;border:0;padding:6px 14px;overflow:auto;z-index:9}
+  .tabbar-in{display:flex;flex-direction:column;gap:2px;max-width:none}
+  .tabbar button{flex-direction:row;justify-content:flex-start;gap:12px;padding:10px 12px;border-radius:12px;color:var(--hero-fg);font:600 1rem var(--f-body)}
+  .tabbar button .pillbg{width:auto;height:auto;background:none!important}
+  .tabbar button:hover{background:rgba(255,255,255,.07)}
+  .tabbar button[aria-selected="true"]{background:rgba(255,255,255,.14);color:#fff}
+  .tab-imp{display:flex!important;margin-top:16px;position:relative}
+  .tab-imp::before{content:"";position:absolute;left:12px;right:12px;top:-9px;border-top:1px solid rgba(255,255,255,.14)}
+  .fab{left:20px;right:auto;bottom:24px;width:260px;z-index:10}
+  .wrap{max-width:1120px;padding-left:40px;padding-right:40px;padding-block:32px 60px}
+  section.view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+  section.view>*{grid-column:1/-1}
+  section.view>.entry,section.view>.due,section.view>.vcard,section.view>.cgroup,section.view>.setcard{grid-column:auto}
+  #v-tessera>.docrow:not(.topic){grid-column:auto}
+  .sheet-bg{align-items:center}
+  .sheet{max-width:700px;max-height:88vh;border-radius:20px}
+  .sheet-head::before{display:none}
+  .toast{bottom:32px;left:calc(50% + 150px)}
+  .cf-view .radar,.cf-radar .radar{max-width:440px;margin-inline:auto}
+}
 </style>
 </head>
 <body>
@@ -400,6 +443,7 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
     <div class="brand">
       <img class="applogo" src="logo-app.png" alt="Logo di Libretto di volo" width="52" height="52">
       <div class="bt"><h1>Libretto di volo</h1><span class="corso"><img src="logo.webp" alt="Toppa del corso" width="22" height="22">Primo corso · ASD Volo anch'io</span></div>
+      <button class="gear" id="open-imp" aria-label="Impostazioni"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.5 7.5 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.5 7.5 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.5 7.5 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.5 7.5 0 0 0 2.6-1.5l2.4 1 2-3.4z"/></svg></button>
     </div>
     <div class="hstats">
       <div><b id="g-voli">0</b><span>Voli</span></div>
@@ -418,6 +462,7 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
   <section class="view" id="v-scadenze" hidden></section>
   <section class="view" id="v-checklist" hidden></section>
   <section class="view" id="v-tessera" hidden></section>
+  <section class="view" id="v-impostazioni" hidden></section>
 </main>
 
 <button class="btn amber fab" id="fab"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Nuova uscita</button>
@@ -429,6 +474,7 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
     <button role="tab" id="tab-scadenze" data-tab="scadenze" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>Scadenze</button>
     <button role="tab" id="tab-checklist" data-tab="checklist" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M2.5 8.5L12 4l9.5 4.5L12 13z"/><path d="M6.5 10.5v4.5c3.2 2.3 7.8 2.3 11 0v-4.5M21.5 8.5v5"/></svg></span><span id="tab-study-l">Studio</span></button>
     <button role="tab" id="tab-tessera" data-tab="tessera" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.3 16.2c.6-1.6 1.8-2.5 3.2-2.5s2.6.9 3.2 2.5M14 10h4.5M14 13.5h3"/></svg></span>Documenti</button>
+    <button role="tab" id="tab-impostazioni" class="tab-imp" data-tab="impostazioni" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.5 7.5 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.5 7.5 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.5 7.5 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.5 7.5 0 0 0 2.6-1.5l2.4 1 2-3.4z"/></svg></span>Impostazioni</button>
   </div>
 </nav>
 <section class="welcome" id="welcome" aria-labelledby="w-title">
@@ -582,10 +628,6 @@ function renderLibretto(){
     let cur='';
     for(const f of list){const k=(f.data||'').slice(0,7);if(k!==cur){cur=k;const[y,m]=k.split('-');h+=`<h3 class="month">${MESI_L[+m-1]||''} ${y||''}</h3>`}h+=entryCard(f)}
   }
-  h+=`<a class="card guide" href="guida.html"><span class="vicon"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6M12 17v.2"/></svg></span><span><strong>Come si usa</strong><small>Guida all'installazione e a tutte le funzioni</small></span>${IC.chev}</a>`;
-  h+=`<div class="card backup"><span class="lbl">Backup</span><p class="hint">Scarica una copia di tutto in un file, oppure ricarica un backup salvato in precedenza.</p>
-    <div class="row"><button class="btn small" id="exp">Esporta</button><label class="btn small" for="imp-file">Importa</label><input type="file" id="imp-file" accept=".json,application/json" hidden></div>
-    <p class="hint" id="imp-msg"></p></div>`;
   v.innerHTML=h;
 }
 function renderVele(){
@@ -752,9 +794,9 @@ function trainChecklist(){
   };
   draw();
 }
-function renderAll(){renderHero();renderLibretto();renderVele();renderScadenze();renderChecklist();renderDocs()}
+function renderAll(){renderHero();renderLibretto();renderVele();renderScadenze();renderChecklist();renderDocs();renderImpostazioni()}
 function setTab(t){tab=t;for(const b of document.querySelectorAll('.tabbar button'))b.setAttribute('aria-selected',b.dataset.tab===t);
-  for(const id of ['libretto','vele','scadenze','checklist','tessera'])$('#v-'+id).hidden=id!==t;$('#fab').hidden=t!=='libretto';window.scrollTo(0,0)}
+  for(const id of ['libretto','vele','scadenze','checklist','tessera','impostazioni'])$('#v-'+id).hidden=id!==t;$('#fab').hidden=t!=='libretto';window.scrollTo(0,0)}
 
 /* ---------- fogli ---------- */
 function closeSheet(){$('#sheet-root').innerHTML=''}
@@ -1217,6 +1259,27 @@ async function syncDocs(){
   renderDocs();
 }
 
+/* ---------- impostazioni ---------- */
+const IC_GEAR='<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.5 7.5 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.5 7.5 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.5 7.5 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.5 7.5 0 0 0 2.6-1.5l2.4 1 2-3.4z"/></svg>';
+function renderImpostazioni(){
+  const v=$('#v-impostazioni');if(!v)return;
+  const [cls,a,b]=syncInfo();const logged=auth&&auth.email;
+  let h=`<div class="vhead"><h2>Impostazioni</h2></div>`;
+  h+=`<div class="card setcard"><h3>Account e salvataggio</h3>
+    <div class="setrow"><span class="setdot ${cls}"></span><div style="min-width:0"><strong>${esc(a)}</strong>${b?`<small>${esc(b)}</small>`:''}</div></div>
+    ${logged?`<dl class="kv" style="margin:0;padding:0"><div><dt>Ultima sincronizzazione</dt><dd>${esc(fmtWhen(lastSync))}</dd></div><div><dt>Modifiche in attesa</dt><dd>${dirty?'Sì':'No'}</dd></div></dl>`:''}
+    <div class="row">${!CONFIGURED?'':!logged?`<button class="btn primary small" data-login>${GLOGO} Accedi con Google</button>`:tokenOk()?'<button class="btn primary small" id="set-sync">Sincronizza ora</button>':'<button class="btn primary small" data-login>Ricollega Google</button>'}${logged?'<button class="btn danger small" id="set-logout">Esci da questo dispositivo</button>':''}</div>
+    <p class="hint">I dati stanno nella cartella privata dell'app sul tuo Google Drive, con una copia su questo dispositivo per usarlo anche senza rete.</p></div>`;
+  h+=`<div class="card setcard"><h3>Backup</h3><p class="hint">Scarica una copia di tutto in un file, oppure ricarica un backup salvato in precedenza.</p>
+    <div class="row"><button class="btn small" id="exp">Esporta</button><label class="btn small" for="imp-file">Importa</label><input type="file" id="imp-file" accept=".json,application/json" hidden></div>
+    <p class="hint" id="imp-msg"></p></div>`;
+  h+=`<div class="card setcard"><h3>Aiuto</h3>
+    <a class="setlink" href="guida.html"><span class="vicon"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6M12 17v.2"/></svg></span><span><strong>Come si usa</strong><small>Guida all'installazione e a tutte le funzioni</small></span>${IC.chev}</a>
+    <a class="setlink" href="privacy.html"><span class="vicon"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.4-7 10-4-1.6-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span><strong>Privacy</strong><small>Dove finiscono i tuoi dati e come cancellarli</small></span>${IC.chev}</a></div>`;
+  h+=`<p class="hint setfoot"><img src="logo-app.png" alt="" width="28" height="28">Libretto di volo · librettovolo.it</p>`;
+  v.innerHTML=h;
+}
+
 /* ---------- Google: accesso ---------- */
 const CFG=window.LIBRETTO_CONFIG||{};
 const CONFIGURED=!!(CFG.clientId&&/\.apps\.googleusercontent\.com$/.test(CFG.clientId)&&!/INCOLLA/.test(CFG.clientId));
@@ -1331,7 +1394,7 @@ function syncInfo(){
 }
 function renderSync(){
   const el=$('#sync');if(!el)return;const [cls,a,b]=syncInfo();
-  el.className='syncline '+cls;el.innerHTML=`${CLOUD}<span><strong>${esc(a)}</strong>${b?' · '+esc(b):''}</span>${IC.chev}`;
+  el.className='syncline '+cls;el.innerHTML=`${CLOUD}<span><strong>${esc(a)}</strong>${b?' · '+esc(b):''}</span>${IC.chev}`;;renderImpostazioni()
 }
 function fmtWhen(t){if(!t)return 'mai';const d=new Date(t);const hm=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
   const iso=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');return (iso===today()?'oggi':fmtDate(iso))+' alle '+hm}
@@ -1366,6 +1429,9 @@ document.addEventListener('click',e=>{
   const t=e.target.closest('[data-tab]');if(t){if(t.dataset.tab==='tessera'){docOpen=null;renderDocs()}return setTab(t.dataset.tab)}
   if(e.target.closest('[data-login]'))return login(false);
   if(e.target.closest('#sync'))return accountSheet();
+  if(e.target.closest('#open-imp'))return setTab('impostazioni');
+  if(e.target.closest('#set-sync')){sync().then(()=>toast(syncState==='ok'?'Sincronizzato':'Sincronizzazione non riuscita'));return}
+  if(e.target.closest('#set-logout')){openSheet('Esci da questo dispositivo',`<p style="margin:0">${dirty?'Alcune modifiche non sono ancora su Google Drive e andrebbero perse.':'I tuoi dati restano al sicuro sul tuo Google Drive: rientrando li ritrovi.'}</p>`,`<button class="btn danger" id="yes" style="flex:1">Esci</button><button class="btn" id="no" style="flex:1">Annulla</button>`);$('#no').onclick=closeSheet;$('#yes').onclick=()=>{logout();closeSheet();setTab('libretto');toast('Uscito')};return}
   const sd=e.target.closest('[data-side]');if(sd){docSide=+sd.dataset.side;return renderDocs()}
   const dc=e.target.closest('[data-doc]');if(dc){docOpen=dc.dataset.doc;docSide=0;renderDocs();window.scrollTo(0,0);return}
   if(e.target.closest('#doc-back')){docOpen=null;return renderDocs()}
@@ -1404,6 +1470,7 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 $('#fab').onclick=chooseKind;
 
 /* ---------- avvio ---------- */
+{const hero=document.querySelector('.hero');const setH=()=>document.documentElement.style.setProperty('--hero-h',hero.offsetHeight+'px');setH();try{new ResizeObserver(setH).observe(hero)}catch(e){window.addEventListener('resize',setH)}}
 if(!TEORIA_ON){const l=$('#tab-study-l');if(l)l.textContent='Pre-volo'}
 derive();renderAll();renderSync();
 (async()=>{
