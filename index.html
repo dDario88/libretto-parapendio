@@ -92,6 +92,7 @@ section.view{display:flex;flex-direction:column;gap:12px}
 .seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px}
 .seg button{border:0;background:none;color:var(--muted);font:700 .85rem var(--f-label);letter-spacing:.1em;text-transform:uppercase;padding:8px 4px;border-radius:9px;cursor:pointer;min-height:38px}
 .seg button[aria-pressed="true"]{background:var(--olive);color:var(--paper)}
+.seg:has(>button:nth-child(2):last-child){grid-template-columns:1fr 1fr}
 
 .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
 button.card{width:100%;text-align:left;cursor:pointer;color:var(--ink);font:inherit}
@@ -406,6 +407,34 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 .setlink+.setlink{border-top:1px solid var(--line);padding-top:12px}
 .setlink strong{display:block;font-weight:600}.setlink small{color:var(--muted);font-size:.86rem}
 .setfoot{display:flex;align-items:center;gap:8px;justify-content:center}.setfoot img{border-radius:8px}
+/* ---------- nuove funzioni ---------- */
+.istr{padding:12px 14px;border-left:4px solid var(--olive);background:var(--olive-soft);box-shadow:none}
+.istr p{margin:4px 0 0}.istr small{display:block;margin-top:6px;color:var(--muted);font-size:.84rem}
+.istr.ricorda{border-left-color:var(--amber);background:var(--amber-soft)}
+.docrow.sos .vicon{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+.sos112{display:flex;gap:14px;align-items:center;padding:16px;text-decoration:none;background:var(--bad);color:#fff;border-color:transparent}
+.sos112 .i{width:30px;height:30px}.sos112 strong{display:block;font-size:1.15rem}.sos112 small{opacity:.9}
+.emc{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:center;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.emc strong{display:block}.emc small{color:var(--olive);font-weight:600;font-size:.95rem}
+.venti{display:inline-flex;gap:4px;flex-wrap:wrap;margin-left:auto}.venti b{font:700 .74rem var(--f-body);padding:2px 7px;border-radius:99px;background:var(--olive-soft);color:var(--olive)}
+.vcard.sito .vtop{align-items:flex-start}
+.sitehint{display:flex;gap:6px;align-items:center;margin:4px 0 0;font-size:.86rem}.sitehint .i{width:15px;height:15px;flex:none}
+.cam-cta{display:grid;grid-template-columns:42px minmax(0,1fr) 22px;gap:12px;align-items:center;padding:12px 14px;text-align:left;color:var(--ink);font:inherit;width:100%;cursor:pointer}
+.cam-cta strong{display:block}.cam-cta small{color:var(--muted);font-size:.86rem}
+.camsel{display:flex;flex-direction:column;gap:10px}
+.camcard{padding:16px;display:flex;flex-direction:column;gap:10px}
+.camcard .radar{max-width:440px;margin-inline:auto}
+.camleg{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;font-weight:600;font-size:.92rem}
+.camleg span{display:flex;align-items:center;gap:7px}.camleg small{color:var(--muted);font-weight:400}
+.sw{display:inline-block;width:22px;height:12px;border-radius:3px}
+.sw.now{background:color-mix(in srgb,var(--amber) 30%,transparent);border:2px solid var(--amber-ink)}
+.sw.pri{border:2px dashed var(--olive)}
+.chip small{opacity:.7;font-weight:600}
+.camwords{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.camwords li+li{border-top:1px solid var(--line)}
+.camwords button{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:2px;width:100%;padding:10px 2px;cursor:pointer}
+.camwords button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.camwords small{color:var(--muted);font-size:.82rem}
 /* ---------- computer: menu laterale, contenuto largo, finestre al centro ---------- */
 @media (min-width:1000px){
   body{padding-left:300px}
@@ -427,7 +456,7 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
   .wrap{max-width:1120px;padding-left:40px;padding-right:40px;padding-block:32px 60px}
   section.view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
   section.view>*{grid-column:1/-1}
-  section.view>.entry,section.view>.due,section.view>.vcard,section.view>.cgroup,section.view>.setcard{grid-column:auto}
+  section.view>.entry,section.view>.due,section.view>.vcard,section.view>.cgroup,section.view>.setcard,section.view>.camcard{grid-column:auto}
   #v-tessera>.docrow:not(.topic){grid-column:auto}
   .sheet-bg{align-items:center}
   .sheet{max-width:700px;max-height:88vh;border-radius:20px}
@@ -464,6 +493,7 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
   <section class="view" id="v-checklist" hidden></section>
   <section class="view" id="v-tessera" hidden></section>
   <section class="view" id="v-impostazioni" hidden></section>
+  <section class="view" id="v-cammino" hidden></section>
 </main>
 
 <button class="btn amber fab" id="fab"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Nuova uscita</button>
@@ -471,7 +501,7 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 <nav class="tabbar" aria-label="Sezioni">
   <div class="tabbar-in" role="tablist">
     <button role="tab" id="tab-libretto" data-tab="libretto" aria-selected="true"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M9 7h6"/></svg></span>Libretto</button>
-    <button role="tab" id="tab-vele" data-tab="vele" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg></span>Vele</button>
+    <button role="tab" id="tab-vele" data-tab="vele" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg></span>Vele e siti</button>
     <button role="tab" id="tab-scadenze" data-tab="scadenze" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>Scadenze</button>
     <button role="tab" id="tab-checklist" data-tab="checklist" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M2.5 8.5L12 4l9.5 4.5L12 13z"/><path d="M6.5 10.5v4.5c3.2 2.3 7.8 2.3 11 0v-4.5M21.5 8.5v5"/></svg></span><span id="tab-study-l">Studio</span></button>
     <button role="tab" id="tab-tessera" data-tab="tessera" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.3 16.2c.6-1.6 1.8-2.5 3.2-2.5s2.6.9 3.2 2.5M14 10h4.5M14 13.5h3"/></svg></span>Documenti</button>
@@ -624,6 +654,7 @@ function renderLibretto(){
       <strong>Il libretto è pronto</strong><p>Registra la prima uscita: un campetto o un volo. Per i voli puoi caricare la traccia .igc della tua app.</p>
       <div class="row"><button class="btn amber" data-new="camp">${IC.ground} Campetto</button><button class="btn primary" data-new="volo">${IC.wing} Volo</button></div></div>`;
   }else{
+    h+=cammCta();
     h+=`<div class="seg" role="group" aria-label="Mostra">${[['tutto','Tutto'],['voli','Voli'],['campetti','Campetti']].map(([k,l])=>`<button data-filtro="${k}" aria-pressed="${filtro===k}">${l}</button>`).join('')}</div>`;
     if(!list.length)h+=`<div class="card empty"><p>${filtro==='campetti'?'Nessun campetto registrato.':'Nessun volo registrato.'}</p></div>`;
     let cur='';
@@ -633,7 +664,9 @@ function renderLibretto(){
 }
 function renderVele(){
   const box=$('#v-vele');const list=[...vele].sort((a,b)=>(b.principale?1:0)-(a.principale?1:0)||(a.nome||'').localeCompare(b.nome||''));
-  let h=`<div class="vhead"><h2>Le mie vele</h2><button class="btn primary small" id="add-vela">+ Aggiungi</button></div>`;
+  let h=`<div class="seg" role="group" aria-label="Mostra">${[['vele','Vele'],['siti','Siti di volo']].map(([k,l])=>`<button data-veleseg="${k}" aria-pressed="${veleSeg===k}">${l}</button>`).join('')}</div>`;
+  if(veleSeg==='siti'){box.innerHTML=h+renderSiti();return}
+  h+=`<div class="vhead"><h2>Le mie vele</h2><button class="btn primary small" id="add-vela">+ Aggiungi</button></div>`;
   if(!list.length)h+=`<div class="card empty"><svg class="art" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:72px"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg>
     <strong>Nessuna vela</strong><p>Aggiungi la tua vela, o quelle della scuola che usi più spesso. A ogni uscita scegli quale hai usato.</p></div>`;
   h+=list.map(x=>{const us=flights.filter(f=>f.velaId===x.id);const vo=us.filter(f=>!isCamp(f));const ore=vo.reduce((s,f)=>s+(+f.durata||0),0);
@@ -795,9 +828,9 @@ function trainChecklist(){
   };
   draw();
 }
-function renderAll(){renderHero();renderLibretto();renderVele();renderScadenze();renderChecklist();renderDocs();renderImpostazioni()}
-function setTab(t){tab=t;for(const b of document.querySelectorAll('.tabbar button'))b.setAttribute('aria-selected',b.dataset.tab===t);
-  for(const id of ['libretto','vele','scadenze','checklist','tessera','impostazioni'])$('#v-'+id).hidden=id!==t;$('#fab').hidden=t!=='libretto';window.scrollTo(0,0)}
+function renderAll(){renderHero();renderLibretto();renderVele();renderScadenze();renderChecklist();renderDocs();renderImpostazioni();renderCammino()}
+function setTab(t){tab=t;for(const b of document.querySelectorAll('.tabbar button'))b.setAttribute('aria-selected',b.dataset.tab===(t==='cammino'?'libretto':t));
+  for(const id of ['libretto','vele','scadenze','checklist','tessera','impostazioni','cammino'])$('#v-'+id).hidden=id!==t;$('#fab').hidden=t!=='libretto';window.scrollTo(0,0)}
 
 /* ---------- fogli ---------- */
 function closeSheet(){$('#sheet-root').innerHTML=''}
@@ -902,6 +935,7 @@ function showFlight(id){
    ${prof}
    ${kv([['Atterraggio',f.atterraggio],['Vela',velaName(f)],['Condizioni',f.vento],['Quota decollo',f.quotaDecollo!=null?f.quotaDecollo+' m':'']])}
    ${f.note?`<div><span class="lbl">Note tecniche</span><p style="margin:4px 0 0;white-space:pre-wrap">${esc(f.note)}</p></div>`:''}
+   ${istrView(f)}
    ${diaryView(f,'Dove ho sentito paura o tensione')}`,
    `<button class="btn primary" id="edit">Modifica</button><button class="btn danger" id="del">Elimina</button>`);
   $('#edit').onclick=()=>editFlight(f);
@@ -909,14 +943,14 @@ function showFlight(id){
 }
 function editFlight(f){
   const isNew=!f;f=f?{...f}:{data:today(),tipo:'Volo con istruttore'};
-  openSheet(isNew?'Nuovo volo':'Modifica volo',`<form id="ff" class="picks" style="gap:14px">
+  openSheet(isNew?'Nuovo volo':'Modifica volo',`<form id="ff" class="picks" style="gap:14px">${isNew?istrReminder():''}
     <label class="drop" for="igc" id="drop"><span class="vicon">${IC.file}</span><span><strong>Carica la traccia .igc</strong><small id="igc-msg">Da XCTrack, Flyskyhy o dal vario: data, durata, quote e distanza si compilano da sole.</small></span></label>
     <input type="file" id="igc" accept=".igc,.IGC,text/plain" hidden>
     <div class="card fs"><p class="fs-title">Quando e dove</p>
       <div class="grid2"><div class="field"><label for="f-data">Data</label><input type="date" id="f-data" value="${esc(f.data)}" required></div>
         <div class="field"><label for="f-tipo">Tipo</label><select id="f-tipo">${TIPI.map(t=>`<option ${t===f.tipo?'selected':''}>${t}</option>`).join('')}</select></div></div>
-      <div class="field"><label for="f-sito">Decollo</label><input id="f-sito" value="${esc(f.sito)}" placeholder="es. Monte Linzone" list="siti"><datalist id="siti">${[...new Set(flights.map(x=>x.sito).filter(Boolean))].map(s=>`<option value="${esc(s)}">`).join('')}</datalist></div>
-      <div class="field"><label for="f-att">Atterraggio</label><input id="f-att" value="${esc(f.atterraggio)}"></div></div>
+      <div class="field"><label for="f-sito">Decollo</label><input id="f-sito" value="${esc(f.sito)}" placeholder="es. Monte Linzone" list="siti"><datalist id="siti">${siteOptions(['decollo'])}${[...new Set(flights.map(x=>x.sito).filter(Boolean))].filter(n=>!sitoBy(n)).map(s=>`<option value="${esc(s)}">`).join('')}</datalist></div>
+      <div class="field"><label for="f-att">Atterraggio</label><input id="f-att" value="${esc(f.atterraggio)}" list="siti-att"><datalist id="siti-att">${siteOptions(['atterraggio'])}</datalist></div></div>
     <div class="card fs"><p class="fs-title">Numeri del volo</p>
       ${durField('f-dur',f,['Decollo alle','Atterraggio alle'])}
       <div class="grid2"><div class="field"><label for="f-qmax">Quota max m</label><input type="number" inputmode="numeric" id="f-qmax" value="${esc(f.quotaMax)}"></div>
@@ -924,12 +958,13 @@ function editFlight(f){
     <div class="card fs"><p class="fs-title">Vela e condizioni</p>
       ${velaSelect('f-vela',f)}
       <div class="field"><label for="f-vento">Condizioni</label><input id="f-vento" value="${esc(f.vento)}" placeholder="es. brezza da sud, 10 km/h"></div>
-      <div class="field"><label for="f-note">Note tecniche</label><textarea id="f-note" placeholder="Decollo, correzioni, consigli dell'istruttore">${esc(f.note)}</textarea></div></div>
+      <div class="field"><label for="f-note">Note tecniche</label><textarea id="f-note" placeholder="Decollo, virate, avvicinamento, atterraggio">${esc(f.note)}</textarea></div>
+      <div class="field"><label for="f-istr">Cosa mi ha detto l'istruttore</label><textarea id="f-istr" placeholder="Correzioni, cose da ripetere">${esc(f.istruttore)}</textarea></div></div>
     ${diaryForm(f,false)}
   </form>`,`<button class="btn primary" type="submit" form="ff">Salva volo</button><button class="btn ghost" type="button" id="cancel">Annulla</button>`);
   let umore=f.umore||'',extra={};
   $('#cancel').onclick=()=>isNew?closeSheet():showFlight(f.id);
-  wireMood(()=>umore,v=>umore=v);wireComfort(f);wireDur('f-dur',f.durata);
+  wireMood(()=>umore,v=>umore=v);wireComfort(f);wireDur('f-dur',f.durata);wireSiteHint('f-sito');
   $('#igc').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{const r=parseIGC(await file.text());
     extra={quotaDecollo:r.quotaDecollo,quotaAtterraggio:r.quotaAtterraggio,decLat:r.decLat,decLon:r.decLon,profilo:r.profilo};
     $('#f-data').value=r.data;setTimes('f-dur',localHM(r.data,r.t0),localHM(r.data,r.t1));$('#f-qmax').value=r.quotaMax;$('#f-dist').value=r.distanza;
@@ -940,7 +975,7 @@ function editFlight(f){
     const num=id=>{const v=$(id).value;return v===''?null:+v};
     const doc={...f,...extra,data:$('#f-data').value,tipo:$('#f-tipo').value,sito:$('#f-sito').value.trim(),atterraggio:$('#f-att').value.trim(),
       ...readTimes('f-dur',f.durata),quotaMax:num('#f-qmax'),distanza:num('#f-dist'),...readVela('f-vela'),vento:$('#f-vento').value.trim(),
-      note:$('#f-note').value.trim(),...readDiary(f,umore)};
+      note:$('#f-note').value.trim(),istruttore:$('#f-istr').value.trim(),...readDiary(f,umore)};
     delete doc.esempio;const id=doc.id||('v'+Date.now());delete doc.id;doc.creato=doc.creato||Date.now();
     await saveDoc('voli',id,doc);showFlight(id);toast('Volo salvato')};
 }
@@ -950,7 +985,7 @@ function showCamp(f){
    <div class="tiles"><div><b>${f.durata?fmtDur(f.durata):'—'}</b><span>Durata</span></div><div><b>${f.gonfiaggi??'—'}</b><span>Gonfiaggi</span></div><div><b>${f.voletti??'—'}</b><span>Piccoli voli</span></div></div>
    ${(f.esercizi||[]).length?`<div><span class="lbl">Su cosa ho lavorato</span><div class="chips" style="margin-top:6px">${f.esercizi.map(e=>`<span class="chip-t camp">${esc(e)}</span>`).join('')}</div></div>`:''}
    ${kv([['Vela',velaName(f)],['Condizioni',f.vento]])}
-   ${f.istruttore?`<div><span class="lbl">Cosa mi ha detto l'istruttore</span><p style="margin:4px 0 0;white-space:pre-wrap">${esc(f.istruttore)}</p></div>`:''}
+   ${istrView(f)}
    ${diaryView(f,'Dove ho fatto fatica o sentito tensione')}`,
    `<button class="btn primary" id="edit">Modifica</button><button class="btn danger" id="del">Elimina</button>`);
   $('#edit').onclick=()=>editCamp(f);
@@ -961,11 +996,11 @@ function editCamp(f){
   const last=flights.filter(isCamp).sort((a,b)=>(b.data||'').localeCompare(a.data||''))[0];
   if(isNew&&last)f.luogo=last.luogo;
   const es=new Set(f.esercizi||[]);
-  openSheet(isNew?'Nuovo campetto':'Modifica campetto',`<form id="cf" class="picks" style="gap:14px">
+  openSheet(isNew?'Nuovo campetto':'Modifica campetto',`<form id="cf" class="picks" style="gap:14px">${isNew?istrReminder():''}
     <div class="card fs"><p class="fs-title">Quando e dove</p>
       <div class="field"><label for="c-data">Data</label><input type="date" id="c-data" value="${esc(f.data)}" required></div>
       ${durField('c-dur',f,['Inizio','Fine'])}
-      <div class="field"><label for="c-luogo">Campo</label><input id="c-luogo" value="${esc(f.luogo)}" placeholder="dove si è svolto" list="campi"><datalist id="campi">${[...new Set(flights.filter(isCamp).map(x=>x.luogo).filter(Boolean))].map(s=>`<option value="${esc(s)}">`).join('')}</datalist></div></div>
+      <div class="field"><label for="c-luogo">Campo</label><input id="c-luogo" value="${esc(f.luogo)}" placeholder="dove si è svolto" list="campi"><datalist id="campi">${siteOptions(['campo'])}${[...new Set(flights.filter(isCamp).map(x=>x.luogo).filter(Boolean))].map(s=>`<option value="${esc(s)}">`).join('')}</datalist></div></div>
     <div class="card fs"><p class="fs-title">Il lavoro a terra</p>
       <div class="grid2"><div class="field"><label for="c-gonf">Gonfiaggi</label><input type="number" inputmode="numeric" id="c-gonf" value="${esc(f.gonfiaggi)}" min="0"></div>
         <div class="field"><label for="c-volt">Piccoli voli</label><input type="number" inputmode="numeric" id="c-volt" value="${esc(f.voletti)}" min="0"></div></div>
@@ -978,7 +1013,7 @@ function editCamp(f){
   </form>`,`<button class="btn primary" type="submit" form="cf">Salva campetto</button><button class="btn ghost" type="button" id="cancel">Annulla</button>`);
   let umore=f.umore||'';
   $('#cancel').onclick=()=>isNew?closeSheet():showCamp(f);
-  wireMood(()=>umore,v=>umore=v);wireComfort({...f,_camp:true});wireDur('c-dur',f.durata);
+  wireMood(()=>umore,v=>umore=v);wireComfort({...f,_camp:true});wireDur('c-dur',f.durata);wireSiteHint('c-luogo');
   $('#es').onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.es;es.has(k)?es.delete(k):es.add(k);b.setAttribute('aria-pressed',es.has(k))};
   $('#cf').onsubmit=async e=>{e.preventDefault();
     const num=id=>{const v=$(id).value;return v===''?null:+v};
@@ -1009,9 +1044,10 @@ function editDeadline(d,preset){
    <div class="field"><label for="d-t">Cosa scade</label><input id="d-t" value="${esc(d.titolo)}" required></div>
    <div class="field"><label for="d-d">Data di scadenza</label><input type="date" id="d-d" value="${esc(d.data)}" required></div>
    <div class="field"><label for="d-n">Note</label><input id="d-n" value="${esc(d.note)}" placeholder="es. compagnia, numero polizza, dove rinnovare"></div>
-  </form>${!isNew&&d.data?calBlock(d):''}`,`<button class="btn primary" type="submit" form="df">Salva</button>${isNew?'':'<button class="btn danger" type="button" id="ddel">Elimina</button>'}`);
+  </form>${isRip(d.titolo)?ripBlock(d):''}${!isNew&&d.data?calBlock(d):''}`,`<button class="btn primary" type="submit" form="df">Salva</button>${isNew?'':'<button class="btn danger" type="button" id="ddel">Elimina</button>'}`);
   if(!isNew&&d.data){$('#cal-ics').onclick=()=>addToCalendar(d);$('#cal-g').onclick=()=>calMark(d)}
-  $('#df').onsubmit=async e=>{e.preventDefault();const id=d.id||('s'+Date.now());const nd={titolo:$('#d-t').value.trim(),data:$('#d-d').value,note:$('#d-n').value.trim()};await saveDoc('scadenze',id,nd);
+  const rip=wireRip();
+  $('#df').onsubmit=async e=>{e.preventDefault();const id=d.id||('s'+Date.now());const nd={titolo:$('#d-t').value.trim(),data:$('#d-d').value,note:$('#d-n').value.trim(),...(rip?rip():{})};await saveDoc('scadenze',id,nd);
     const saved={...nd,id};if(isNew||calState(saved)==='old'){editDeadline(saved);toast(isNew?'Salvata: aggiungila al calendario':'Data cambiata: aggiorna il calendario')}else{closeSheet();toast('Scadenza salvata')}};
   if(!isNew)$('#ddel').onclick=()=>askDelete('la scadenza',async()=>{await removeDoc('scadenze',d.id);closeSheet();toast('Scadenza eliminata')},()=>editDeadline(d));
 }
@@ -1188,8 +1224,10 @@ function docFrame(im,side,cls){
 function docPill(c){if(!c.scadenza)return '';const n=daysTo(c.scadenza);return `<span class="pill-s ${n<0?'bad':n<=30?'warn':'ok'}">${n<0?'scaduto':n===0?'scade oggi':'tra '+n+' gg'}</span>`}
 function renderDocs(){
   const v=$('#v-tessera');if(!v)return;
+  if(docOpen==='emergenza')return renderEmerg();
   if(docOpen)return renderDoc(docOpen);
   let h=`<div class="vhead"><h2>Documenti</h2></div><p class="hint" style="margin-top:-4px">I documenti da avere con te in volo, sempre a portata anche senza rete. Le scadenze finiscono da sole tra le Scadenze.</p>`;
+  h+=emergRow();
   for(const d of DOCS){const t=docs[d.id],c=(t&&t.campi)||{};
     const sub=t?(d.riga(c)||(c.scadenza?'Scade il '+fmtDate(c.scadenza):'Caricato')):d.vuoto;
     h+=`<button class="card docrow${t?'':' off'}" data-doc="${d.id}"><span class="vicon">${d.icon}</span><span class="dmain"><strong>${esc(d.nome)}</strong><small>${esc(sub)}</small></span>${t?docPill(c):'<span class="dadd">+ Aggiungi</span>'}${IC.chev}</button>`}
@@ -1258,6 +1296,184 @@ async function syncDocs(){
     if(r&&r.img&&r.agg===t.imgAgg){LS.set(dkey(d.id,'img'),r);LS.set(KU,t.imgAgg)}
   }
   renderDocs();
+}
+
+/* ---------- istruttore ---------- */
+function istrView(f){return f.istruttore?`<div class="card istr"><span class="lbl">Cosa mi ha detto l'istruttore</span><p>${esc(f.istruttore).replace(/\n/g,'<br>')}</p></div>`:''}
+function lastIstr(){return [...flights].filter(f=>f.istruttore&&!f.esempio).sort((a,b)=>(b.data||'').localeCompare(a.data||'')||(b.creato||0)-(a.creato||0))[0]}
+function istrReminder(){const f=lastIstr();if(!f)return '';
+  return `<div class="card istr ricorda"><span class="lbl">L'ultima volta l'istruttore ti ha detto</span><p>${esc(f.istruttore).replace(/\n/g,'<br>')}</p><small>${isCamp(f)?'Campetto':'Volo'} del ${fmtDate(f.data)}${(f.sito||f.luogo)?' · '+esc(f.sito||f.luogo):''}</small></div>`}
+
+/* ---------- ripiegatura emergenza ---------- */
+const isRip=t=>/ripiegatura|paracadute|riserva/i.test(t||'');
+function addMonths(iso,m){const d=new Date(iso+'T00:00:00');const day=d.getDate();d.setMonth(d.getMonth()+m);if(d.getDate()!==day)d.setDate(0);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function ripBlock(d){const m=+d.mesi||6;
+  return `<div class="card fs" id="rip"><p class="fs-title">Calcola dalla ripiegatura</p>
+    <p class="hint" style="margin:0">Di solito il paracadute d'emergenza si ripiega ogni 6 mesi; alcuni costruttori ammettono 12. Segui il manuale del tuo.</p>
+    <div class="field"><label for="rip-d">Ultima ripiegatura</label><input type="date" id="rip-d" value="${esc(d.ultima)}"></div>
+    <div class="field"><span class="lbl">Ogni</span><div class="seg" role="group" aria-label="Intervallo" style="grid-template-columns:1fr 1fr">${[6,12].map(x=>`<button type="button" data-mesi="${x}" aria-pressed="${m===x}">${x} mesi</button>`).join('')}</div></div></div>`}
+function wireRip(){const box=$('#rip');if(!box)return;let m=+(box.querySelector('[aria-pressed="true"]')||{}).dataset?.mesi||6;
+  const upd=()=>{const u=$('#rip-d').value;if(u)$('#d-d').value=addMonths(u,m)};
+  box.onclick=e=>{const b=e.target.closest('[data-mesi]');if(!b)return;m=+b.dataset.mesi;box.querySelectorAll('[data-mesi]').forEach(x=>x.setAttribute('aria-pressed',x===b));upd()};
+  $('#rip-d').onchange=upd;
+  return ()=>({ultima:$('#rip-d').value,mesi:m});
+}
+
+/* ---------- in caso di emergenza ---------- */
+const IC_SOS='<svg class="i" viewBox="0 0 24 24"><path d="M12 3.5l8.5 15H3.5z"/><path d="M12 10v4M12 16.8v.2"/></svg>';
+const IC_TEL='<svg class="i" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg>';
+const EMERG=[['c1n','Persona da avvisare'],['c1t','Telefono','tel'],['c2n','Seconda persona'],['c2t','Telefono','tel'],['sangue','Gruppo sanguigno'],['allergie','Allergie'],['farmaci','Farmaci che prendi'],['salute','Condizioni da sapere'],['note','Altre note']];
+const emerg=()=>{const x=store.tessere.find(t=>t.id==='emergenza'&&!t.eliminato);return (x&&x.campi)||null};
+const telHref=t=>'tel:'+String(t).replace(/[^\d+]/g,'');
+function emergRow(){const c=emerg();
+  return `<button class="card docrow sos${c?'':' off'}" data-doc="emergenza"><span class="vicon">${IC_SOS}</span><span class="dmain"><strong>In caso di emergenza</strong><small>${c&&c.c1n?esc('Avvisare: '+c.c1n):'Chi avvisare, allergie, farmaci'}</small></span>${c?'':'<span class="dadd">+ Aggiungi</span>'}${IC.chev}</button>`}
+function renderEmerg(){
+  const v=$('#v-tessera'),c=emerg()||{};
+  let h=`<button class="btn ghost small backbtn" id="doc-back"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Documenti</button>
+    <div class="vhead"><h2>In caso di emergenza</h2><button class="btn small" id="em-edit">${emerg()?'Modifica':'Compila'}</button></div>
+    <a class="card sos112" href="tel:112">${IC_TEL}<span><strong>Chiama il 112</strong><small>Numero unico di emergenza: soccorso, anche in montagna</small></span></a>`;
+  const contacts=[[c.c1n,c.c1t],[c.c2n,c.c2t]].filter(x=>x[0]||x[1]);
+  if(contacts.length)h+=contacts.map(([n,t])=>`<${t?`a href="${esc(telHref(t))}"`:'div'} class="card emc"><span class="vicon">${IC_TEL}</span><span><strong>${esc(n||'Contatto')}</strong>${t?`<small>${esc(t)}</small>`:''}</span></${t?'a':'div'}>`).join('');
+  const info=EMERG.filter(([k])=>!/^c[12]/.test(k)&&c[k]);
+  if(info.length)h+=`<dl class="card kv" style="margin:0">${info.map(([k,l])=>`<div><dt>${esc(l)}</dt><dd>${esc(c[k])}</dd></div>`).join('')}</dl>`;
+  if(!contacts.length&&!info.length)h+=`<div class="card empty"><strong>Pronta in caso di bisogno</strong><p>Scrivi chi avvisare e le informazioni utili a chi ti soccorre. Resta sul telefono anche senza rete, e su nessun altro dispositivo che non sia tuo.</p></div>`;
+  h+=`<p class="hint">Mostra questa pagina a chi ti soccorre. I dati stanno solo sul tuo telefono e sul tuo Google Drive.</p>`;
+  v.innerHTML=h;
+}
+function editEmerg(){
+  const c=emerg()||{};
+  openSheet('In caso di emergenza',`<form id="emf" class="picks" style="gap:14px">
+    <div class="card fs"><p class="fs-title">Chi avvisare</p>
+      <div class="grid2"><div class="field"><label for="em-c1n">Persona</label><input id="em-c1n" value="${esc(c.c1n)}" placeholder="es. Marco (fratello)"></div>
+      <div class="field"><label for="em-c1t">Telefono</label><input id="em-c1t" type="tel" inputmode="tel" value="${esc(c.c1t)}"></div></div>
+      <div class="grid2"><div class="field"><label for="em-c2n">Seconda persona</label><input id="em-c2n" value="${esc(c.c2n)}"></div>
+      <div class="field"><label for="em-c2t">Telefono</label><input id="em-c2t" type="tel" inputmode="tel" value="${esc(c.c2t)}"></div></div></div>
+    <div class="card fs"><p class="fs-title">Per chi ti soccorre</p>
+      ${['sangue','allergie','farmaci','salute','note'].map(k=>{const l=EMERG.find(x=>x[0]===k)[1];return `<div class="field"><label for="em-${k}">${l}</label>${k==='sangue'?`<input id="em-${k}" value="${esc(c[k])}" placeholder="es. 0 Rh+">`:`<textarea id="em-${k}" style="min-height:64px">${esc(c[k])}</textarea>`}</div>`}).join('')}
+      <p class="hint" style="margin:0">Scrivi solo quello che ti senti di scrivere: tutto è facoltativo.</p></div>
+  </form>`,`<button class="btn primary" type="submit" form="emf">Salva</button><button class="btn ghost" type="button" id="cancel">Annulla</button>`);
+  $('#cancel').onclick=closeSheet;
+  $('#emf').onsubmit=e=>{e.preventDefault();const n={};for(const [k] of EMERG){const v=$('#em-'+k).value.trim();if(v)n[k]=v}
+    putItem('tessere','emergenza',{tipo:'emergenza',campi:n,agg:Date.now()});commit();closeSheet();toast('Salvato')};
+}
+
+/* ---------- i miei siti ---------- */
+const VENTI=['N','NE','E','SE','S','SO','O','NO'];
+const RUOLI=[['decollo','Decollo'],['atterraggio','Atterraggio'],['campo','Campetto']];
+let veleSeg='vele';
+const siti=()=>store.tessere.filter(t=>t.tipo==='sito'&&!t.eliminato).sort((a,b)=>(a.nome||'').localeCompare(b.nome||''));
+const norm=s=>(s||'').trim().toLowerCase();
+function sitoBy(name){const n=norm(name);return n?siti().find(s=>norm(s.nome)===n):null}
+function usciteAt(s){const n=norm(s.nome);return flights.filter(f=>!f.esempio&&[f.sito,f.atterraggio,f.luogo].some(x=>norm(x)===n))}
+function sitiSuggeriti(){const have=new Set(siti().map(s=>norm(s.nome)));const m=new Map();
+  for(const f of flights){if(f.esempio)continue;for(const [name,ruolo] of [[f.sito,'decollo'],[f.atterraggio,'atterraggio'],[f.luogo,'campo']]){const n=norm(name);if(!n||have.has(n)||m.has(n))continue;
+    m.set(n,{nome:name.trim(),ruolo,lat:ruolo==='decollo'?f.decLat:null,lon:ruolo==='decollo'?f.decLon:null,quota:ruolo==='decollo'?f.quotaDecollo:null})}}
+  return [...m.values()]}
+function ruoloLab(r){return (RUOLI.find(x=>x[0]===r)||[,''])[1]}
+function ventiChips(v){return (v||[]).length?`<span class="venti">${v.map(x=>`<b>${x}</b>`).join('')}</span>`:''}
+function renderSiti(){
+  const list=siti(),sug=sitiSuggeriti();
+  let h=`<div class="vhead"><h2>I miei siti</h2><button class="btn primary small" id="add-sito">+ Aggiungi</button></div>`;
+  if(!list.length)h+=`<div class="card empty"><strong>Nessun sito salvato</strong><p>Decolli, atterraggi e campetti dove vai di solito, con i venti adatti, le note e il link alle previsioni. Li ritrovi pronti quando registri un'uscita.</p></div>`;
+  h+=list.map(s=>{const u=usciteAt(s);const nv=u.filter(f=>!isCamp(f)).length,nc=u.length-nv;
+    const sub=[ruoloLab(s.ruolo),s.quota&&s.quota+' m'].filter(Boolean).join(' · ');
+    return `<button class="card vcard sito" data-sito="${esc(s.id)}"><div class="vtop"><span class="vicon">${IC_PIN}</span><div style="min-width:0"><strong>${esc(s.nome)}</strong>${sub?`<small>${esc(sub)}</small>`:''}</div>${ventiChips(s.venti)}</div>
+      ${s.note?`<p class="hint">${esc(s.note)}</p>`:''}
+      <div class="mini"><div><b>${nv}</b><span>Voli</span></div><div><b>${nc}</b><span>Campetti</span></div><div><b>${u.length?fmtDate(u.map(f=>f.data).sort().pop()).replace(/ \d{4}$/,''):'—'}</b><span>Ultima volta</span></div></div></button>`}).join('');
+  if(sug.length)h+=`<span class="lbl" style="margin-top:8px">Dai tuoi voli e campetti</span><div class="chips">${sug.slice(0,12).map((s,i)=>`<button class="chip" data-sitosugg="${i}">+ ${esc(s.nome)}</button>`).join('')}</div>`;
+  return h;
+}
+const IC_PIN='<svg class="i" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>';
+function mapUrl(s){return s.lat!=null&&s.lon!=null?`https://www.google.com/maps?q=${(+s.lat).toFixed(5)},${(+s.lon).toFixed(5)}`:`https://www.google.com/maps/search/${encodeURIComponent(s.nome)}`}
+function showSito(id){
+  const s=siti().find(x=>x.id===id);if(!s)return;const u=usciteAt(s).sort((a,b)=>(b.data||'').localeCompare(a.data||''));
+  openSheet(s.nome,`
+    <div class="meta">${s.ruolo?`<span class="chip-t${s.ruolo==='campo'?' camp':''}">${ruoloLab(s.ruolo)}</span>`:''}${s.quota?`<span>${esc(s.quota)} m</span>`:''}</div>
+    ${(s.venti||[]).length?`<div><span class="lbl">Venti adatti</span><div style="margin-top:6px">${ventiChips(s.venti)}</div></div>`:''}
+    ${s.note?`<div><span class="lbl">Note</span><p style="margin:4px 0 0;white-space:pre-wrap">${esc(s.note)}</p></div>`:''}
+    <div class="row">${s.meteo?`<a class="btn primary small" href="${esc(s.meteo)}" target="_blank" rel="noopener">Previsioni</a>`:''}<a class="btn small" href="${esc(mapUrl(s))}" target="_blank" rel="noopener">${IC_PIN} Mappa</a></div>
+    ${u.length?`<span class="lbl">Le tue uscite qui</span>${u.slice(0,8).map(entryCard).join('')}`:'<p class="hint">Non hai ancora uscite registrate in questo sito.</p>'}`,
+    `<button class="btn primary" id="edit">Modifica</button><button class="btn danger" id="del">Elimina</button>`);
+  $('#edit').onclick=()=>editSito(s);
+  $('#del').onclick=()=>askDelete('il sito (le uscite restano)',()=>{putItem('tessere',s.id,{eliminato:true,agg:Date.now()});commit();closeSheet();toast('Sito eliminato')},()=>showSito(id));
+}
+function editSito(s){
+  const isNew=!s||!s.id;s={ruolo:'decollo',venti:[],...(s||{})};const vv=new Set(s.venti||[]);
+  openSheet(isNew?'Nuovo sito':'Modifica sito',`<form id="sf" class="card fs">
+    <div class="field"><label for="s-nome">Nome</label><input id="s-nome" value="${esc(s.nome)}" required placeholder="es. Colli di San Fermo"></div>
+    <div class="field"><span class="lbl">È un</span><div class="seg" role="group" aria-label="Tipo di sito" id="s-ruolo">${RUOLI.map(([k,l])=>`<button type="button" data-ruolo="${k}" aria-pressed="${s.ruolo===k}">${l}</button>`).join('')}</div></div>
+    <div class="field"><label for="s-quota">Quota m</label><input id="s-quota" type="number" inputmode="numeric" value="${esc(s.quota)}"></div>
+    <div class="field"><span class="lbl">Venti adatti</span><div class="chips" id="s-venti">${VENTI.map(x=>`<button type="button" class="chip" data-vento="${x}" aria-pressed="${vv.has(x)}">${x}</button>`).join('')}</div></div>
+    <div class="field"><label for="s-note">Note</label><textarea id="s-note" placeholder="Accesso, parcheggio, ostacoli, cosa dicono gli istruttori">${esc(s.note)}</textarea></div>
+    <div class="field"><label for="s-meteo">Link alle previsioni</label><input id="s-meteo" inputmode="url" autocapitalize="off" autocorrect="off" value="${esc(s.meteo)}" placeholder="incolla l'indirizzo della pagina meteo che usi"></div>
+    ${s.lat!=null?`<p class="hint" style="margin:0">Posizione presa dalla traccia .igc: la mappa si apre sul punto del decollo.</p>`:''}
+  </form>`,`<button class="btn primary" type="submit" form="sf">Salva sito</button><button class="btn ghost" type="button" id="cancel">Annulla</button>`);
+  let ruolo=s.ruolo;
+  $('#cancel').onclick=()=>isNew?closeSheet():showSito(s.id);
+  $('#s-ruolo').onclick=e=>{const b=e.target.closest('[data-ruolo]');if(!b)return;ruolo=b.dataset.ruolo;$('#s-ruolo').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b))};
+  $('#s-venti').onclick=e=>{const b=e.target.closest('[data-vento]');if(!b)return;const k=b.dataset.vento;vv.has(k)?vv.delete(k):vv.add(k);b.setAttribute('aria-pressed',vv.has(k))};
+  $('#sf').onsubmit=e=>{e.preventDefault();const id=s.id||('sito-'+Date.now());const q=$('#s-quota').value;let url=$('#s-meteo').value.trim();if(url&&!/^https?:\/\//i.test(url))url='https://'+url;
+    putItem('tessere',id,{tipo:'sito',nome:$('#s-nome').value.trim(),ruolo,quota:q===''?null:+q,venti:VENTI.filter(x=>vv.has(x)),note:$('#s-note').value.trim(),meteo:url,lat:s.lat??null,lon:s.lon??null,agg:Date.now()});
+    commit();showSito(id);toast('Sito salvato')};
+}
+function siteOptions(ruoli){return siti().filter(s=>ruoli.includes(s.ruolo)).map(s=>`<option value="${esc(s.nome)}">`).join('')}
+function wireSiteHint(inputId){const el=$('#'+inputId);if(!el)return;let hint=document.createElement('p');hint.className='hint sitehint';el.after(hint);
+  const upd=()=>{const s=sitoBy(el.value);hint.hidden=!s;if(s)hint.innerHTML=`${IC_PIN} <span>${[(s.venti||[]).length?'Venti adatti: '+s.venti.join(', '):'',s.note].filter(Boolean).map(esc).join(' · ')||'Sito salvato'}</span>${s.meteo?` · <a href="${esc(s.meteo)}" target="_blank" rel="noopener">previsioni</a>`:''}`};
+  el.addEventListener('input',upd);upd()}
+
+/* ---------- il mio cammino ---------- */
+const CAM_PER=[[1,'Ultimo mese'],[3,'3 mesi'],[6,'6 mesi'],[12,'Un anno']];
+const CAM_Q=[['imparato','Imparato'],['migliorare','Da migliorare'],['resta','Resta dentro'],['dopo','Giorno dopo'],['istruttore','Istruttore']];
+let cam={set:'voli',per:1,q:'imparato'};
+function hasDiary(f){return !f.esempio&&(Object.keys(f.comfort||{}).length||DIARIO.some(([k])=>f[k])||f.dopo||f.istruttore)}
+function camStart(m){const d=new Date(today()+'T00:00:00');d.setMonth(d.getMonth()-m);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function avgComfort(list,SET){const o={};for(const [k] of SET){const v=list.map(f=>+(f.comfort||{})[k]).filter(x=>x>0);if(v.length)o[k]=v.reduce((a,b)=>a+b,0)/v.length}return o}
+function radarCompare(now,prima,SET){
+  const n=SET.length,W=430,cx=W/2,cy=126,R=80,H=256;
+  const pt=(i,r)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+Math.cos(a)*r,cy+Math.sin(a)*r]};
+  const poly=v=>SET.map(([k],i)=>pt(i,R*(v[k]||0)/5).map(x=>x.toFixed(1)).join(',')).join(' ');
+  let g='';
+  for(let k=1;k<=5;k++)g+=`<polygon points="${SET.map((_,i)=>pt(i,R*k/5).map(x=>x.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="var(--line)" stroke-width="1"/>`;
+  SET.forEach((_,i)=>{const [x,y]=pt(i,R);g+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--line)"/>`});
+  if(prima&&Object.keys(prima).length)g+=`<polygon points="${poly(prima)}" fill="color-mix(in srgb,var(--olive) 10%,transparent)" stroke="var(--olive)" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"/>`;
+  if(now&&Object.keys(now).length){g+=`<polygon points="${poly(now)}" fill="color-mix(in srgb,var(--amber) 30%,transparent)" stroke="var(--amber-ink)" stroke-width="2" stroke-linejoin="round"/>`;
+    SET.forEach(([k],i)=>{if(now[k]){const [x,y]=pt(i,R*now[k]/5);g+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="var(--amber-ink)"/>`}})}
+  SET.forEach(([k,,short],i)=>{const [x,y]=pt(i,R+14);const anchor=Math.abs(x-cx)<8?'middle':x<cx?'end':'start';const off=!(now&&now[k])&&!(prima&&prima[k]);
+    g+=`<text x="${x.toFixed(1)}" y="${(y+(y<cy-10?-2:y>cy+10?10:4)).toFixed(1)}" text-anchor="${anchor}" font-family="Barlow Condensed, sans-serif" font-size="12" font-weight="600" fill="var(--muted)" ${off?'opacity=".45"':''}>${esc(short)}</text>`});
+  return `<svg viewBox="0 0 ${W} ${H}" class="radar" role="img" aria-label="Zona di comfort: periodo scelto e prima">${g}</svg>`;
+}
+function camEntries(){return flights.filter(hasDiary).filter(f=>(cam.set==='campetti')===isCamp(f))}
+function camText(f,q){if(q==='istruttore')return f.istruttore;if(q==='dopo')return f.dopo;if(q==='migliorare')return f.migliorare;if(q==='resta')return f.resta;return f.imparato}
+function cammCta(){const n=flights.filter(hasDiary).length;if(n<3)return '';
+  return `<button class="card cam-cta" id="open-cam"><span class="vicon"><svg class="i" viewBox="0 0 24 24"><path d="M4 19c3-1 4-4 6-7s4-5 10-6"/><circle cx="4" cy="19" r="1.6"/><circle cx="20" cy="6" r="1.6"/><path d="M8 7.5l1.5 1.5M14.5 15l1.5 1.5"/></svg></span><span><strong>Rileggi il cammino</strong><small>Le tue parole e la zona di comfort, nel tempo</small></span>${IC.chev}</button>`}
+function renderCammino(){
+  const v=$('#v-cammino');if(!v)return;
+  const SET=cam.set==='campetti'?COMFORT_CAMP:COMFORT,start=camStart(cam.per);
+  const all=camEntries(),inP=all.filter(f=>(f.data||'')>=start),prima=all.filter(f=>(f.data||'')<start);
+  const cNow=inP.filter(f=>Object.keys(f.comfort||{}).length),cPri=prima.filter(f=>Object.keys(f.comfort||{}).length);
+  const per=CAM_PER.find(p=>p[0]===cam.per)[1];
+  let h=`<button class="btn ghost small backbtn" id="cam-back"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Libretto</button>
+    <div class="vhead"><h2>Il mio cammino</h2></div>
+    <div class="camsel"><div class="seg" role="group" aria-label="Uscite">${[['voli','Voli'],['campetti','Campetti']].map(([k,l])=>`<button data-camset="${k}" aria-pressed="${cam.set===k}">${l}</button>`).join('')}</div>
+    <div class="chips" role="group" aria-label="Periodo">${CAM_PER.map(([m,l])=>`<button class="chip" data-camper="${m}" aria-pressed="${cam.per===m}">${l}</button>`).join('')}</div></div>`;
+  h+=`<div class="card camcard"><p class="fs-title">La mia zona di comfort</p>`;
+  if(!cNow.length&&!cPri.length)h+=`<p class="hint">Non hai ancora compilato la zona di comfort ${cam.set==='voli'?'in un volo':'in un campetto'}. Comparirà qui man mano.</p>`;
+  else{
+    h+=radarCompare(avgComfort(cNow,SET),avgComfort(cPri,SET),SET);
+    h+=`<div class="camleg"><span><i class="sw now"></i>${esc(per)} <small>${cNow.length} ${cNow.length===1?'uscita':'uscite'}</small></span>${cPri.length?`<span><i class="sw pri"></i>Prima <small>${cPri.length} ${cPri.length===1?'uscita':'uscite'}</small></span>`:''}</div>`;
+    if(!cNow.length)h+=`<p class="hint">In questo periodo non hai uscite con la zona di comfort: prova un periodo più lungo.</p>`;
+    else if(!cPri.length)h+=`<p class="hint">Prima di questo periodo non ci sono uscite da confrontare: questo è il tuo punto di partenza.</p>`;
+    h+=`<p class="hint" style="margin:0">Le voci in grigio chiaro non le hai valutate.</p>`;
+  }
+  h+=`</div>`;
+  const items=inP.map(f=>({f,t:camText(f,cam.q)})).filter(x=>x.t).sort((a,b)=>(a.f.data||'').localeCompare(b.f.data||''));
+  const cnt=q=>inP.filter(f=>camText(f,q)).length;
+  h+=`<div class="card camcard"><p class="fs-title">Le mie parole</p>
+    <div class="chips" role="group" aria-label="Domanda">${CAM_Q.map(([k,l])=>`<button class="chip" data-camq="${k}" aria-pressed="${cam.q===k}">${l}${cnt(k)?` <small>${cnt(k)}</small>`:''}</button>`).join('')}</div>`;
+  h+=items.length?`<ol class="camwords">${items.map(({f,t})=>`<li><button data-open="${esc(f.id)}"><small>${fmtDate(f.data)}${(f.sito||f.luogo)?' · '+esc(f.sito||f.luogo):''}</small><span>${esc(t).replace(/\n/g,'<br>')}</span></button></li>`).join('')}</ol>`
+    :`<p class="hint">Nessuna risposta a questa domanda ${cam.per===1?"nell'ultimo mese":'in questo periodo'}.</p>`;
+  h+=`</div>`;
+  v.innerHTML=h;
 }
 
 /* ---------- impostazioni ---------- */
@@ -1356,7 +1572,7 @@ async function uploadFile(id,data,name='libretto.json'){
   const r=await gapi('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+b},body:mp});
   return (await r.json()).id;
 }
-function merge(a,b){const out={};for(const c of COLS){const m=new Map();for(const it of [...(a[c]||[]),...(b[c]||[])]){if(!it||!it.id)continue;const p=m.get(it.id);if(!p||(it.agg||0)>(p.agg||0))m.set(it.id,it)}out[c]=[...m.values()]}return out}
+function merge(a,b){const out={};for(const c of new Set([...COLS,...Object.keys(a).filter(k=>Array.isArray(a[k])),...Object.keys(b).filter(k=>Array.isArray(b[k]))])){const m=new Map();for(const it of [...(a[c]||[]),...(b[c]||[])]){if(!it||!it.id)continue;const p=m.get(it.id);if(!p||(it.agg||0)>(p.agg||0))m.set(it.id,it)}out[c]=[...m.values()]}return out}
 function canon(d){return JSON.stringify(COLS.map(c=>[...(d[c]||[])].sort((x,y)=>x.id<y.id?-1:x.id>y.id?1:0)))}
 async function sync(){
   if(!tokenOk()){renderSync();return}
@@ -1444,6 +1660,16 @@ document.addEventListener('click',e=>{
   const fl=e.target.closest('[data-filtro]');if(fl){filtro=fl.dataset.filtro;return renderLibretto()}
   const dp=e.target.closest('[data-dopo]');if(dp)return editDopo(dp.dataset.dopo);
   const o=e.target.closest('[data-open]');if(o)return showFlight(o.dataset.open);
+  if(e.target.closest('#open-cam')){renderCammino();return setTab('cammino')}
+  if(e.target.closest('#cam-back'))return setTab('libretto');
+  const cs=e.target.closest('[data-camset]');if(cs){cam.set=cs.dataset.camset;return renderCammino()}
+  const cp=e.target.closest('[data-camper]');if(cp){cam.per=+cp.dataset.camper;return renderCammino()}
+  const cq=e.target.closest('[data-camq]');if(cq){cam.q=cq.dataset.camq;return renderCammino()}
+  if(e.target.closest('#em-edit'))return editEmerg();
+  const vs=e.target.closest('[data-veleseg]');if(vs){veleSeg=vs.dataset.veleseg;return renderVele()}
+  if(e.target.closest('#add-sito'))return editSito(null);
+  const st=e.target.closest('[data-sito]');if(st)return showSito(st.dataset.sito);
+  const ss=e.target.closest('[data-sitosugg]');if(ss)return editSito(sitiSuggeriti()[+ss.dataset.sitosugg]);
   const ed=e.target.closest('[data-editdl]');if(ed)return editDeadline(deadlines.find(x=>x.id===ed.dataset.editdl));
   const sg=e.target.closest('[data-sugg]');if(sg)return editDeadline(null,sg.dataset.sugg);
   if(e.target.closest('#add-dl'))return editDeadline(null);
