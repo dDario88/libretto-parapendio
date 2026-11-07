@@ -294,6 +294,10 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 .guide strong{display:block;font-weight:600}
 .guide small{color:var(--muted);font-size:.86rem}
 .guide:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.calst{display:inline-block;margin-top:4px;font:700 .66rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;color:var(--olive)}
+.calst.old{color:var(--warn)}
+.calbox{background:var(--amber-soft);border-color:transparent;margin-top:12px}
+.calbox .fs-title{color:var(--amber-ink)}
 </style>
 </head>
 <body>
@@ -506,11 +510,13 @@ function renderScadenze(){
   const v=$('#v-scadenze');
   const list=[...deadlines].sort((a,b)=>(a.data||'').localeCompare(b.data||''));
   let h=`<div class="vhead"><h2>Scadenze</h2><button class="btn primary small" id="add-dl">+ Aggiungi</button></div>`;
+  if(list.length)h+=`<p class="hint" style="margin-top:-4px">Tocca una scadenza per aggiungerla al calendario del telefono: ti avvisa un mese prima e il giorno prima.</p>`;
   if(!list.length)h+=`<div class="card empty"><strong>Niente in scadenza</strong><p>Aggiungi certificato medico, assicurazione, ripiegatura dell'emergenza: qui vedi a colpo d'occhio cosa sta per scadere.</p></div>`;
   h+=list.map(d=>{const n=daysTo(d.data);const cls=n<0?'bad':n<=30?'warn':'';
     const big=n<0?-n:n;const lab=n<0?'gg fa':n===0?'oggi':n===1?'giorno':'giorni';
+    const cs=calState(d);
     return `<button class="card due ${cls}" data-editdl="${esc(d.id)}"><div class="cd"><b>${n===0?'!':big}</b><span>${lab}</span></div>
-    <div style="min-width:0"><strong>${esc(d.titolo)}</strong><small>${n<0?'Scaduta il ':'Scade il '}${fmtDate(d.data)}${d.note?' · '+esc(d.note):''}</small></div>${IC.chev}</button>`}).join('');
+    <div style="min-width:0"><strong>${esc(d.titolo)}</strong><small>${n<0?'Scaduta il ':'Scade il '}${fmtDate(d.data)}${d.note?' · '+esc(d.note):''}</small>${cs?`<span class="calst ${cs}">${cs==='ok'?'Nel calendario':'Data cambiata: aggiorna il calendario'}</span>`:''}</div>${IC.chev}</button>`}).join('');
   const missing=SUGG.filter(s=>!deadlines.some(d=>(d.titolo||'').toLowerCase()===s.toLowerCase()));
   if(missing.length)h+=`<span class="lbl" style="margin-top:8px">Da aggiungere</span><div class="chips">${missing.map(s=>`<button class="chip" data-sugg="${esc(s)}">+ ${esc(s)}</button>`).join('')}</div>`;
   v.innerHTML=h;
@@ -701,8 +707,10 @@ function editDeadline(d,preset){
    <div class="field"><label for="d-t">Cosa scade</label><input id="d-t" value="${esc(d.titolo)}" required></div>
    <div class="field"><label for="d-d">Data di scadenza</label><input type="date" id="d-d" value="${esc(d.data)}" required></div>
    <div class="field"><label for="d-n">Note</label><input id="d-n" value="${esc(d.note)}" placeholder="es. compagnia, numero polizza, dove rinnovare"></div>
-  </form>`,`<button class="btn primary" type="submit" form="df">Salva</button>${isNew?'':'<button class="btn danger" type="button" id="ddel">Elimina</button>'}`);
-  $('#df').onsubmit=async e=>{e.preventDefault();const id=d.id||('s'+Date.now());await saveDoc('scadenze',id,{titolo:$('#d-t').value.trim(),data:$('#d-d').value,note:$('#d-n').value.trim()});closeSheet();toast('Scadenza salvata')};
+  </form>${!isNew&&d.data?calBlock(d):''}`,`<button class="btn primary" type="submit" form="df">Salva</button>${isNew?'':'<button class="btn danger" type="button" id="ddel">Elimina</button>'}`);
+  if(!isNew&&d.data){$('#cal-ics').onclick=()=>addToCalendar(d);$('#cal-g').onclick=()=>calMark(d)}
+  $('#df').onsubmit=async e=>{e.preventDefault();const id=d.id||('s'+Date.now());const nd={titolo:$('#d-t').value.trim(),data:$('#d-d').value,note:$('#d-n').value.trim()};await saveDoc('scadenze',id,nd);
+    const saved={...nd,id};if(isNew||calState(saved)==='old'){editDeadline(saved);toast(isNew?'Salvata: aggiungila al calendario':'Data cambiata: aggiorna il calendario')}else{closeSheet();toast('Scadenza salvata')}};
   if(!isNew)$('#ddel').onclick=()=>askDelete('la scadenza',async()=>{await removeDoc('scadenze',d.id);closeSheet();toast('Scadenza eliminata')},()=>editDeadline(d));
 }
 
@@ -730,6 +738,44 @@ function putItem(col,id,data){const arr=store[col];const i=arr.findIndex(x=>x.id
 function commit(){LS.set('lv-data',store);dirty=true;LS.set('lv-dirty',true);derive();renderAll();scheduleSync()}
 async function saveDoc(col,id,data){const {id:_x,eliminato:_e,...rest}=data;putItem(col,id,{...rest,agg:Date.now()});commit()}
 async function removeDoc(col,id){putItem(col,id,{eliminato:true,agg:Date.now()});commit()}
+
+/* ---------- calendario ---------- */
+const IC_CAL='<svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v4M10 15h4"/></svg>';
+function ymd(dt){return dt.getFullYear()+String(dt.getMonth()+1).padStart(2,'0')+String(dt.getDate()).padStart(2,'0')}
+function calDates(iso){const s=new Date(iso+'T00:00:00'),e=new Date(s);e.setDate(e.getDate()+1);return [ymd(s),ymd(e)]}
+const icsEsc=t=>String(t||'').replace(/\\/g,'\\\\').replace(/([,;])/g,'\\$1').replace(/\r?\n/g,'\\n');
+function icsFor(d){
+  const [a,b]=calDates(d.data),t=icsEsc(d.titolo||'Scadenza');
+  const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  const alarm=(trig,txt)=>['BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+txt,'TRIGGER;RELATED=START:'+trig,'END:VALARM'];
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Libretto di volo//IT','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+    'BEGIN:VEVENT','UID:'+d.id+'-'+a+'@librettovolo.it','DTSTAMP:'+stamp,'DTSTART;VALUE=DATE:'+a,'DTEND;VALUE=DATE:'+b,
+    'SUMMARY:Scade: '+t,'DESCRIPTION:'+(d.note?icsEsc(d.note)+'\\n':'')+'Dal Libretto di volo · librettovolo.it','URL:https://librettovolo.it/','TRANSP:TRANSPARENT',
+    ...alarm('-P29DT15H','Tra un mese scade: '+t),...alarm('-PT15H','Domani scade: '+t),
+    'END:VEVENT','END:VCALENDAR'].join('\r\n')+'\r\n';
+}
+function gcalUrl(d){
+  const [a,b]=calDates(d.data);
+  return 'https://calendar.google.com/calendar/render?'+new URLSearchParams({action:'TEMPLATE',text:'Scade: '+(d.titolo||'Scadenza'),dates:a+'/'+b,details:(d.note?d.note+'\n':'')+'Imposta gli avvisi: un mese prima e il giorno prima.\nDal Libretto di volo · https://librettovolo.it'}).toString();
+}
+function calMark(d){const m=LS.get('lv-cal',{});m[d.id]=d.data;LS.set('lv-cal',m);renderScadenze()}
+function calState(d){const m=LS.get('lv-cal',{});return m[d.id]?(m[d.id]===d.data?'ok':'old'):''}
+function addToCalendar(d){
+  const blob=new Blob([icsFor(d)],{type:'text/calendar;charset=utf-8'}),url=URL.createObjectURL(blob);
+  const ios=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  if(ios){location.href=url}
+  else{const a=document.createElement('a');a.href=url;a.download=(d.titolo||'scadenza').replace(/[^\wÀ-ÿ\- ]+/g,'').trim()+'.ics';document.body.appendChild(a);a.click();a.remove()}
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+  calMark(d);
+}
+function calBlock(d){
+  const st=calState(d);
+  return `<div class="card fs calbox"><p class="fs-title">Avviso sul telefono</p>
+    <p style="margin:0">${st==='old'?'<strong>La data è cambiata.</strong> Aggiungila di nuovo al calendario e cancella il vecchio evento.':st==='ok'?'Già aggiunta al calendario da questo telefono.':'Aggiungila al calendario: il telefono ti avvisa <strong>un mese prima</strong> e <strong>il giorno prima</strong>, alle 9.'}</p>
+    <div class="row"><button type="button" class="btn amber" id="cal-ics">${IC_CAL} Calendario del telefono</button>
+    <a class="btn" id="cal-g" href="${esc(gcalUrl(d))}" target="_blank" rel="noopener">Google Calendar</a></div>
+    <p class="hint">Con Google Calendar gli avvisi sono quelli predefiniti del tuo calendario: puoi cambiarli prima di salvare.</p></div>`;
+}
 
 /* ---------- documenti ---------- */
 const PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
