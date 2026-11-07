@@ -27,6 +27,7 @@ code{font-size:.9em}
   --bg:#eff0e7; --paper:#fbfbf7; --ink:#1b1e15; --muted:#666a58; --line:#dcdccc;
   --olive:#56651f; --olive-soft:#e4e8cf; --amber:#c98a12; --amber-ink:#8a5c08; --amber-soft:#f6e7c4;
   --ok:#2f7a4d; --ok-soft:#dcefe2; --warn:#a86f12; --warn-soft:#f7ebd2; --bad:#b03c34; --bad-soft:#f6dfdc;
+  --sc-red:#b43128; --sc-red-soft:#f6e1de; --sc-navy:#0a2330; --sc-sky:#79b9e0; --sc-sky-soft:#e3f0f8;
   --hero-bg:#16180f; --hero-fg:#e6d4a3; --hero-dim:#a99c78; --stitch:#7d8c38;
   --f-patch:"Saira Stencil One","Barlow Condensed",Impact,sans-serif;
   --f-label:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
@@ -38,11 +39,13 @@ code{font-size:.9em}
   --bg:#111309; --paper:#1a1d14; --ink:#ece7d6; --muted:#a2a38d; --line:#2f3326;
   --olive:#aebd6f; --olive-soft:#262d17; --amber:#f0b43f; --amber-ink:#f0c46a; --amber-soft:#382a0f;
   --ok:#73c995; --ok-soft:#163021; --warn:#e6b45c; --warn-soft:#33280f; --bad:#ee8a82; --bad-soft:#3a1c19;
+  --sc-red:#ef7f74; --sc-red-soft:#3a1b18; --sc-sky:#8fc6e8; --sc-sky-soft:#13283a;
   --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#111309; --paper:#1a1d14; --ink:#ece7d6; --muted:#a2a38d; --line:#2f3326;
   --olive:#aebd6f; --olive-soft:#262d17; --amber:#f0b43f; --amber-ink:#f0c46a; --amber-soft:#382a0f;
   --ok:#73c995; --ok-soft:#163021; --warn:#e6b45c; --warn-soft:#33280f; --bad:#ee8a82; --bad-soft:#3a1c19;
+  --sc-red:#ef7f74; --sc-red-soft:#3a1b18; --sc-sky:#8fc6e8; --sc-sky-soft:#13283a;
   --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:16px/1.45 var(--f-body);-webkit-tap-highlight-color:transparent}
@@ -298,6 +301,59 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 .calst.old{color:var(--warn)}
 .calbox{background:var(--amber-soft);border-color:transparent;margin-top:12px}
 .calbox .fs-title{color:var(--amber-ink)}
+.subh{margin:6px 0 -2px;font:700 1.15rem var(--f-label);letter-spacing:.02em}
+.sbtn{width:100%;background:none;border:0;text-align:left;cursor:pointer;font:inherit;color:var(--ink)}
+.sbtn span{flex:1}
+.sbtn em.read{font:700 .66rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;color:var(--olive);font-style:normal}
+.sbtn:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.docrow.topic{grid-template-columns:42px minmax(0,1fr) 22px}
+.docrow.topic .dmain>span{margin-top:3px}
+.docrow:disabled{cursor:default;opacity:.75}
+.fig{padding:10px}.fig svg{width:100%;height:auto;display:block}
+.tsec h4{margin:0 0 4px;font:700 .78rem var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--olive)}
+.tsec p{margin:0;line-height:1.55}
+.warnsec{background:var(--amber-soft);border-radius:12px;padding:12px 14px}
+.warnsec h4{color:var(--amber-ink)}
+.qtext{margin:0;font:600 1.12rem/1.35 var(--f-body)}
+.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{text-align:left;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:500 1rem var(--f-body);cursor:pointer;min-height:48px}
+.qopt.right{border:2px solid var(--ok);background:var(--ok-soft);color:var(--ink)}
+.qopt.wrong{border:2px solid var(--bad);background:var(--bad-soft)}
+.qopt.dim{opacity:.55}
+.qopt:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.scband{display:flex;justify-content:space-between;align-items:center;background:var(--sc-navy);color:#fff;border-radius:10px;padding:8px 12px;font:700 .76rem var(--f-label);letter-spacing:.14em;text-transform:uppercase}
+.scband span:last-child{color:var(--sc-sky)}
+.tsec.sc h4{color:var(--sc-red)}
+.scwarn{background:var(--sc-red-soft);border-left:4px solid var(--sc-red);border-radius:10px;padding:12px 14px}
+.scwarn h4{margin:0 0 4px;font:700 .78rem var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--sc-red)}
+.scwarn p{margin:0;line-height:1.55}
+.screv{display:flex;align-items:center;gap:10px;margin:0;font-size:.86rem;color:var(--muted)}
+.screv img{background:#fff;border-radius:8px;padding:4px 6px;height:auto}
+.schead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:16px;background:var(--sc-navy);border-color:transparent;color:#fff}
+.schead h2{margin:2px 0 4px;font:700 1.6rem/1.1 var(--f-label);color:#fff}
+.schead p{margin:0;color:#c9d6de;font-size:.92rem}
+.schead .scband-t{font:700 .74rem var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:var(--sc-sky)}
+.schead img{background:#fff;border-radius:10px;padding:6px 8px;height:auto;flex:none}
+.scgroup .cstep b{background:var(--sc-sky-soft);color:var(--sc-navy)}
+:root[data-theme="dark"] .scgroup .cstep b{color:var(--sc-sky)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .scgroup .cstep b{color:var(--sc-sky)}}
+.mood3{grid-template-columns:repeat(3,1fr)}
+.mood3 button{padding:10px 4px;gap:4px}
+.mood3 button svg{width:30px;height:30px;stroke-width:1.6}
+.mood3 button[aria-pressed="true"]{background:var(--amber-soft)}
+.mview{display:inline-flex;align-items:center;gap:6px}.mview svg{width:20px;height:20px}
+.cf-radar{max-width:240px;margin:0 auto;width:100%}
+.radar{width:100%;height:auto;display:block}
+.cf-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid color-mix(in srgb,var(--amber-ink) 18%,transparent)}
+.cf-row span{font-size:.92rem;min-width:0}
+.cf-pills{display:flex;gap:4px;flex:none}
+.cf-pills button{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:700 .9rem var(--f-label);cursor:pointer;padding:0}
+.cf-pills button[aria-pressed="true"]{background:var(--amber-ink);border-color:var(--amber-ink);color:var(--paper)}
+.cf-pills button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.cf-view{padding:8px}
+.dopo-cta{display:flex;flex-direction:column;gap:2px;padding:14px;text-align:left;border-style:dashed;border-color:var(--amber-ink);background:var(--amber-soft);box-shadow:none}
+.dopo-cta strong{color:var(--amber-ink)}.dopo-cta small{color:var(--muted)}
+.chip-t.dopo{background:var(--amber-soft);color:var(--amber-ink)}
 </style>
 </head>
 <body>
@@ -334,7 +390,7 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
     <button role="tab" id="tab-libretto" data-tab="libretto" aria-selected="true"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M9 7h6"/></svg></span>Libretto</button>
     <button role="tab" id="tab-vele" data-tab="vele" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg></span>Vele</button>
     <button role="tab" id="tab-scadenze" data-tab="scadenze" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>Scadenze</button>
-    <button role="tab" id="tab-checklist" data-tab="checklist" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.3 12.4l2.6 2.6 4.8-5.4"/></svg></span>Pre-volo</button>
+    <button role="tab" id="tab-checklist" data-tab="checklist" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M2.5 8.5L12 4l9.5 4.5L12 13z"/><path d="M6.5 10.5v4.5c3.2 2.3 7.8 2.3 11 0v-4.5M21.5 8.5v5"/></svg></span><span id="tab-study-l">Studio</span></button>
     <button role="tab" id="tab-tessera" data-tab="tessera" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.3 16.2c.6-1.6 1.8-2.5 3.2-2.5s2.6.9 3.2 2.5M14 10h4.5M14 13.5h3"/></svg></span>Documenti</button>
   </div>
 </nav>
@@ -367,7 +423,7 @@ const MESI_L=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','
 const TIPI=['Volo con istruttore','Volo da solo','Volo in biposto'];
 const ESERCIZI=['Preparazione vela','Gonfiaggio frontale','Gonfiaggio rovescio','Controllo a terra','Corsa di decollo','Piccoli voli','Atterraggio'];
 const MOODS=[['Teso','var(--bad)'],['Incerto','var(--warn)'],['Sereno','var(--olive)'],['Pieno','var(--amber)']];
-const moodColor=m=>(MOODS.find(x=>x[0]===m)||[])[1]||'var(--muted)';
+const moodColor=m=>({Bene:'var(--ok)','Così così':'var(--warn)',Male:'var(--bad)'})[m]||(MOODS.find(x=>x[0]===m)||[])[1]||'var(--muted)';
 const CHECK=[
  ['Pilota',['I pin e la maniglia dell\'emergenza sono al loro posto','Scarpe allacciate, fuori dai cordini','Cosciale destro allacciato','Cosciale sinistro allacciato','Ventrale allacciato','Pettorale allacciato','Casco allacciato','Moschettone destro agganciato','Moschettone sinistro agganciato']],
  ['Vela',['“A” destre libere','Freni destra liberi, controlla anche la maniglia del freno','“A” sinistre libere','Freni sinistra liberi, controlla anche la maniglia del freno','Vela ben distesa sul terreno, pilota centrato alla vela']],
@@ -459,6 +515,7 @@ function renderHero(){
     al.innerHTML=`${IC.bell}<span><strong>${esc(next.titolo)}</strong><small>${n<0?'Scaduta da '+(-n)+' giorni':n===0?'Scade oggi':'Scade tra '+n+' giorni'} · ${fmtDate(next.data)}</small></span>`}
   else al.hidden=true;
 }
+function needDopo(f){if(f.dopo||!f.data||f.esempio)return false;const n=daysTo(f.data);return n<0&&n>=-7}
 function entryCard(f){
   const[y,m,d]=(f.data||'--').split('-');const c=isCamp(f);
   const title=(c?f.luogo:f.sito)||(c?'Campo non indicato':'Decollo non indicato');
@@ -469,7 +526,7 @@ function entryCard(f){
   return `<button class="card entry${c?' camp':''}" data-open="${esc(f.id)}">
     <div class="dblock"><b>${+d||'?'}</b><span>${MESI[+m-1]||''}</span></div>
     <div class="emain"><strong>${esc(title)}</strong>
-      <div class="meta">${f.esempio?'<span class="chip-t ex">Esempio</span>':''}<span class="chip-t${c?' camp':''}">${c?'Campetto':esc(f.tipo||'Volo')}</span>${f.umore?`<span><i class="dot" style="background:${moodColor(f.umore)}"></i>${esc(f.umore)}</span>`:''}${vn?`<span>${esc(vn)}</span>`:''}</div></div>
+      <div class="meta">${f.esempio?'<span class="chip-t ex">Esempio</span>':''}<span class="chip-t${c?' camp':''}">${c?'Campetto':esc(f.tipo||'Volo')}</span>${f.umore?`<span><i class="dot" style="background:${moodColor(f.umore)}"></i>${esc(f.umore)}</span>`:''}${vn?`<span>${esc(vn)}</span>`:''}${needDopo(f)?'<span class="chip-t dopo">Giorno dopo</span>':''}</div></div>
     <div class="eright">${right}</div></button>`;
 }
 function renderLibretto(){
@@ -521,13 +578,118 @@ function renderScadenze(){
   if(missing.length)h+=`<span class="lbl" style="margin-top:8px">Da aggiungere</span><div class="chips">${missing.map(s=>`<button class="chip" data-sugg="${esc(s)}">+ ${esc(s)}</button>`).join('')}</div>`;
   v.innerHTML=h;
 }
-function renderChecklist(){
-  const v=$('#v-checklist');let n=0;
-  let h=`<div class="vhead"><h2>Controlli pre-volo</h2></div>
+function renderControlli(){
+  let n=0;
+  let h=`
   <div class="card ck-note"><strong>Si imparano a memoria</strong><p>In decollo non si usa il telefono: mani e testa restano sulla vela. Qui trovi la sequenza dei controlli indicata dagli istruttori, sempre nello stesso ordine, per ripassarla finché diventa automatica.</p>
     <button class="btn amber" id="ck-train">Allenati a memoria</button></div>`;
+  h=`<h3 class="subh">Controlli pre-volo</h3>`+h;
   h+=CHECK.map(([g,it])=>`<div class="card cgroup"><h3>${esc(g)}<span>${it.length===1?'1 controllo':it.length+' controlli'}</span></h3>${it.map(t=>{n++;return `<div class="cstep"><b>${n}</b><span>${esc(t)}</span></div>`}).join('')}</div>`).join('');
   h+=`<p class="hint">Sequenza della scuola: pilota, vela, vento, spazio aereo. Il briefing e l'ultima parola sul decollo restano dell'istruttore.</p>`;
+  return h;
+}
+/* ---------- studio: teoria e quiz ---------- */
+// Teoria e quiz: metti true quando le schede sono state approvate dagli istruttori
+const TEORIA_ON=false;
+let studyMode='controlli',teoria=null,teoriaErr=false,topicOpen=null;
+function loadTeoria(){
+  if(teoria||teoriaErr)return;
+  fetch('teoria.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{teoria=j;LS.set('lv-teoria',j);renderChecklist()})
+    .catch(()=>{const c=LS.get('lv-teoria',null);if(c)teoria=c;else teoriaErr=true;renderChecklist()});
+}
+const FIG={
+  gradiente:`<svg viewBox="0 0 300 150" role="img" aria-label="Il vento aumenta con la quota: frecce più corte vicino al suolo"><g fill="none" stroke="var(--sc-sky)" stroke-width="3" stroke-linecap="round">
+    <path d="M30 30h200m-12-8 12 8-12 8"/><path d="M30 62h160m-12-8 12 8-12 8"/><path d="M30 94h110m-12-8 12 8-12 8"/><path d="M30 122h55m-12-7 12 7-12 7"/></g>
+    <path d="M20 138h270" stroke="var(--ink)" stroke-width="3"/><g fill="var(--muted)" font-family="Barlow Condensed, sans-serif" font-size="13" font-weight="700"><text x="240" y="34">più vento</text><text x="100" y="127">meno vento</text><text x="22" y="150" font-size="11">suolo</text></g></svg>`,
+  dinamica:`<svg viewBox="0 0 300 150" role="img" aria-label="Il vento risale il pendio: zona di salita davanti al pendio, sottovento turbolento dietro il crinale">
+    <path d="M10 140 L170 50 L200 50 L290 140 Z" fill="var(--sc-sky-soft)" stroke="var(--sc-sky)" stroke-width="2"/>
+    <g fill="none" stroke="var(--sc-red)" stroke-width="3" stroke-linecap="round"><path d="M20 110 C60 100 100 80 140 52"/><path d="M135 47l9 2-4 9"/><path d="M20 70 C70 62 120 40 170 32"/><path d="M164 27l9 3-6 8"/></g>
+    <g fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="4 4" opacity=".6"><path d="M215 60 c10 -12 28 -6 24 8 c-4 14 -22 12 -22 2"/><path d="M240 85 c10 -12 28 -6 24 8 c-4 14 -22 12 -22 2"/></g>
+    <g font-family="Barlow Condensed, sans-serif" font-size="13" font-weight="700"><text x="30" y="40" fill="var(--sc-red)">l'aria sale</text><text x="215" y="40" fill="var(--ink)">sottovento</text></g></svg>`,
+  rotore:`<svg viewBox="0 0 300 150" role="img" aria-label="Il vento scavalca una fila di alberi e dietro forma vortici turbolenti">
+    <g fill="var(--sc-sky)" opacity=".85"><ellipse cx="110" cy="85" rx="20" ry="32"/><ellipse cx="140" cy="80" rx="22" ry="38"/><rect x="106" y="110" width="8" height="28"/><rect x="136" y="112" width="8" height="26"/></g>
+    <path d="M10 138h280" stroke="var(--ink)" stroke-width="3"/>
+    <g fill="none" stroke="var(--sc-red)" stroke-width="3" stroke-linecap="round"><path d="M15 70 C60 64 90 40 150 32 C190 28 220 40 250 60"/><path d="M243 52l8 9-11 3"/></g>
+    <g fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-dasharray="5 4" opacity=".6"><path d="M180 95 c14 -18 40 -8 34 10 c-6 18 -32 14 -30 0"/><path d="M225 118 c10 -12 28 -6 24 8 c-4 12 -22 10 -20 0"/></g>
+    <g font-family="Barlow Condensed, sans-serif" font-size="13" font-weight="700"><text x="15" y="60" fill="var(--sc-red)">vento</text><text x="190" y="78" fill="var(--ink)">rotore</text></g></svg>`
+};
+function readSet(){return new Set(LS.get('lv-lette',[]))}
+function studyTabs(){return `<div class="seg" role="group" aria-label="Studio">${[['controlli','Controlli'],['teoria','Teoria'],['quiz','Quiz']].map(([k,l])=>`<button data-study="${k}" aria-pressed="${studyMode===k}">${l}</button>`).join('')}</div>`}
+function topicBadge(t){return t.stato==='rivisto'?`<span class="chip-t">Rivista dall'istruttore</span>`:t.stato==='bozza'?`<span class="chip-t camp">Bozza da rivedere</span>`:`<span class="chip-t ex">In preparazione</span>`}
+function renderTeoria(){
+  let h='';
+  if(!teoria){h+=teoriaErr?`<div class="card empty"><p>Non riesco a caricare la teoria. Serve la connessione la prima volta che apri questa sezione.</p></div>`:`<div class="card empty"><p>Carico le schede…</p></div>`;return h}
+  if(!topicOpen){
+    h+=`<p class="hint" style="margin-top:-2px">I punti fondamentali, spiegati in poche righe. Non sostituiscono le lezioni né i manuali, ma aiutano a ripassare.</p>`;
+    const rs=readSet();
+    for(const t of teoria.argomenti){const n=t.schede.length,l=t.schede.filter(s=>rs.has(t.id+'/'+s.id)).length;
+      h+=`<button class="card docrow topic${n?'':' off'}" data-topic="${esc(t.id)}" ${n?'':'disabled'}><span class="vicon"><svg class="i" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/></svg></span>
+        <span class="dmain"><strong>${esc(t.nome)}</strong><small>${n?`${l} di ${n} schede lette`:esc(t.descrizione)}</small><span>${topicBadge(t)}</span></span>${n?IC.chev:'<span></span>'}</button>`}
+    return h;
+  }
+  const t=teoria.argomenti.find(x=>x.id===topicOpen),rs=readSet();
+  h+=`<button class="btn ghost small backbtn" id="topic-back"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Teoria</button>
+    <div class="card schead"><div><p class="scband-t">Teoria</p><h2>${esc(t.nome)}</h2><p>${esc(t.descrizione)}</p></div>${t.stato==='rivisto'?'<img src="logo-scuola.webp" alt="Volo Anch\'io" width="96" height="51">':topicBadge(t)}</div>`;
+  if(t.stato==='bozza')h+=`<div class="card ck-note" style="padding:12px 14px"><p><strong style="font-size:1rem">Bozza.</strong> Queste schede devono ancora essere controllate dagli istruttori. In caso di dubbio vale quello che dicono loro.</p></div>`;
+  h+=`<div class="card cgroup scgroup">${t.schede.map((s,i)=>`<button class="cstep sbtn" data-card="${i}"><b>${i+1}</b><span>${esc(s.titolo)}</span>${rs.has(t.id+'/'+s.id)?'<em class="read">letta</em>':''}</button>`).join('')}</div>`;
+  if(t.domande.length)h+=`<button class="btn amber" data-quiz="${esc(t.id)}">Mettiti alla prova · ${t.domande.length} domande</button>`;
+  return h;
+}
+function openCard(i){
+  const t=teoria.argomenti.find(x=>x.id===topicOpen),s=t.schede[i];if(!s)return;
+  const rs=readSet();rs.add(t.id+'/'+s.id);LS.set('lv-lette',[...rs]);renderChecklist();
+  openSheet(s.titolo,`<div class="scband"><span>Teoria · ${esc(t.nome)}</span><span>${i+1}/${t.schede.length}</span></div>
+    ${s.fig&&FIG[s.fig]?`<div class="card fig">${FIG[s.fig]}</div>`:''}
+    <div class="tsec sc"><h4>Cos'è</h4><p>${esc(s.cose)}</p></div>
+    <div class="tsec sc"><h4>Perché conta in volo</h4><p>${esc(s.perche)}</p></div>
+    <div class="tsec scwarn"><h4>L'errore tipico</h4><p>${esc(s.errore)}</p></div>
+    ${s.approfondisci?`<p class="hint">Per approfondire: ${esc(s.approfondisci)}</p>`:''}
+    ${t.stato==='rivisto'?`<p class="screv"><img src="logo-scuola.webp" alt="Volo Anch'io" width="72" height="38">Scheda rivista dagli istruttori${t.revisore?' · '+esc(t.revisore):''}</p>`:`<p class="hint">Bozza: in attesa di revisione degli istruttori.</p>`}`,
+    `${i>0?'<button class="btn" id="c-prev">← Precedente</button>':''}${i<t.schede.length-1?'<button class="btn primary" id="c-next">Successiva →</button>':'<button class="btn primary" id="c-end">Fine</button>'}`);
+  const sh=document.querySelector('.sheet');if(sh&&openCard.again)sh.style.animation='none';openCard.again=true;
+  const p=$('#c-prev'),n=$('#c-next'),e=$('#c-end');if(p)p.onclick=()=>openCard(i-1);if(n)n.onclick=()=>openCard(i+1);if(e)e.onclick=()=>{closeSheet();renderChecklist()};
+}
+function renderQuizHome(){
+  if(!teoria)return renderTeoria();
+  let h=`<p class="hint" style="margin-top:-2px">Domande a scelta multipla, con la spiegazione della risposta giusta.</p>`;
+  const best=LS.get('lv-quiz',{});
+  for(const t of teoria.argomenti){if(!t.domande.length)continue;const b=best[t.id];
+    h+=`<button class="card docrow topic" data-quiz="${esc(t.id)}"><span class="vicon"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6M12 17v.2"/></svg></span><span class="dmain"><strong>${esc(t.nome)}</strong><small>${t.domande.length} domande${b!=null?` · miglior risultato ${b}/${t.domande.length}`:''}</small><span>${topicBadge(t)}</span></span>${IC.chev}</button>`}
+  const prep=teoria.argomenti.filter(t=>!t.domande.length).map(t=>t.nome);
+  if(prep.length)h+=`<p class="hint">In preparazione: ${esc(prep.join(', '))}.</p>`;
+  return h;
+}
+function startQuiz(id){
+  const t=teoria.argomenti.find(x=>x.id===id);if(!t)return;
+  const qs=[...t.domande].map(q=>{const o=q.r.map((r,k)=>({r,k}));for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]]}return {...q,o}});
+  for(let i=qs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[qs[i],qs[j]]=[qs[j],qs[i]]}
+  let i=0,score=0,ans=null,first=true;
+  const still=()=>{const sh=document.querySelector('.sheet');if(sh&&!first)sh.style.animation='none';first=false};
+  const draw=()=>{
+    if(i>=qs.length){
+      const best=LS.get('lv-quiz',{});best[id]=Math.max(best[id]||0,score);LS.set('lv-quiz',best);
+      openSheet('Risultato',`<div class="card fs" style="text-align:center"><p style="margin:0;font:700 2.6rem var(--f-label)">${score}/${qs.length}</p><p style="margin:0">${score===qs.length?'Tutte giuste!':score>=qs.length*0.7?'Buon risultato. Rileggi le schede delle domande sbagliate.':'Ripassa le schede di '+esc(t.nome)+' e riprova.'}</p></div>`,
+        `<button class="btn primary" id="q-again">Ricomincia</button><button class="btn ghost" id="q-close">Chiudi</button>`);still();
+      $('#q-again').onclick=()=>startQuiz(id);$('#q-close').onclick=()=>{closeSheet();renderChecklist()};return;
+    }
+    const q=qs[i];
+    openSheet(t.nome,`<div class="tr-prog"><i style="width:${(i/qs.length*100).toFixed(1)}%"></i></div>
+      <p class="tr-meta">Domanda ${i+1} di ${qs.length}</p><p class="qtext">${esc(q.d)}</p>
+      <div class="qopts">${q.o.map((o,k)=>{const cls=ans==null?'':o.k===q.ok?'right':k===ans?'wrong':'dim';return `<button class="qopt ${cls}" data-opt="${k}" ${ans!=null?'disabled':''}>${esc(o.r)}</button>`}).join('')}</div>
+      ${ans!=null?`<div class="card tsec ${q.o[ans].k===q.ok?'':'warnsec'}" style="padding:12px 14px"><h4>${q.o[ans].k===q.ok?'Giusto':'Non proprio'}</h4><p>${esc(q.spiega)}</p></div>`:''}`,
+      ans!=null?`<button class="btn primary" id="q-next">${i<qs.length-1?'Avanti':'Vedi il risultato'}</button>`:'');still();
+    if(ans==null)document.querySelectorAll('.qopt').forEach(b=>b.onclick=()=>{ans=+b.dataset.opt;if(q.o[ans].k===q.ok)score++;draw()});
+    else $('#q-next').onclick=()=>{i++;ans=null;draw()};
+  };
+  draw();
+}
+
+function renderChecklist(){
+  const v=$('#v-checklist');if(!v)return;
+  if(!TEORIA_ON){v.innerHTML=renderControlli().replace('<h3 class="subh">Controlli pre-volo</h3>','<div class="vhead"><h2>Controlli pre-volo</h2></div>');return}
+  let h=`<div class="vhead"><h2>Studio</h2></div>`+studyTabs();
+  if(studyMode==='controlli')h+=renderControlli();
+  else{loadTeoria();h+=studyMode==='teoria'?renderTeoria():renderQuizHome()}
   v.innerHTML=h;
 }
 function trainChecklist(){
@@ -574,17 +736,77 @@ function chooseKind(){
     <button class="card pick camp" data-new="camp"><span class="vicon">${IC.ground}</span><span><strong>Campetto</strong><small>Gonfiaggi, esercizi a terra, consigli dell'istruttore, diario</small></span></button>
     <button class="card pick" data-new="volo"><span class="vicon">${IC.wing}</span><span><strong>Volo</strong><small>Traccia .igc, decollo, quote e durata, diario del volo</small></span></button></div>`);
 }
-function diaryView(f,second){
-  const items=[['Come mi sentivo',f.umore],['Cosa è andato bene',f.bene],[second,f.paura],['Cosa porto alla prossima uscita',f.prossimo]].filter(x=>x[1]);
-  if(!items.length)return '';
-  return `<span class="lbl">Diario</span><dl class="diary" style="margin:0">${items.map(([a,b])=>`<dt>${a}</dt><dd>${esc(b)}</dd>`).join('')}</dl>`;
+const DIARIO=[['bene','Cosa è andato bene'],['imparato','Cosa ho imparato'],['migliorare','Cosa posso migliorare'],['resta','Cosa resta dentro di me'],['progredire','Come posso progredire']];
+const COMFORT_CAMP=[['prep','Preparazione della vela e controlli','Preparazione'],['vento','Lettura del vento','Lettura del vento'],['frontale','Gonfiaggio frontale','Gonfiaggio frontale'],['rovescio','Gonfiaggio rovescio','Gonfiaggio rovescio'],['terra','Controllo a terra','Controllo a terra'],['corsa','Corsa e decollo','Corsa e decollo'],['emotivo','Stato emotivo','Stato emotivo'],['ascolto',"Ascolto delle indicazioni dell'istruttore",'Ascolto istruttore']];
+const COMFORT=[['pianif','Pianificazione del volo e della meta','Pianificazione'],['decollo','Decollo','Decollo'],['termica','Volo in termica','Termica'],['strategia','Strategia e meteo','Strategia e meteo'],['emotivo','Stato emotivo in volo','Stato emotivo'],['mentale','Chiarezza mentale in volo','Chiarezza mentale'],['atterraggio','Atterraggio','Atterraggio'],['analisi','Analisi del volo','Analisi del volo']];
+const FACE={
+  Bene:'<svg viewBox="0 0 24 24" class="i"><circle cx="12" cy="12" r="9"/><path d="M8 14.5c1 1.4 2.4 2 4 2s3-.6 4-2"/><path d="M9 9.5h.01M15 9.5h.01" stroke-width="2.6"/></svg>',
+  'Così così':'<svg viewBox="0 0 24 24" class="i"><circle cx="12" cy="12" r="9"/><path d="M8.5 15h7"/><path d="M9 9.5h.01M15 9.5h.01" stroke-width="2.6"/></svg>',
+  Male:'<svg viewBox="0 0 24 24" class="i"><circle cx="12" cy="12" r="9"/><path d="M8 16.5c1-1.4 2.4-2 4-2s3 .6 4 2"/><path d="M9 9.5h.01M15 9.5h.01" stroke-width="2.6"/></svg>'
+};
+function radarSvg(v,labels,set){
+  const C=set||COMFORT;
+  const n=C.length,W=labels?380:300,cx=W/2,cy=labels?126:100,R=labels?80:90,H=labels?256:200;
+  const pt=(i,r)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+Math.cos(a)*r,cy+Math.sin(a)*r]};
+  let g='';
+  for(let k=1;k<=5;k++)g+=`<polygon points="${C.map((_,i)=>pt(i,R*k/5).map(x=>x.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="var(--line)" stroke-width="1"/>`;
+  C.forEach((_,i)=>{const [x,y]=pt(i,R);g+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--line)"/>`});
+  const rated=C.map(([k])=>+(v&&v[k])||0);
+  if(rated.some(x=>x)){
+    g+=`<polygon points="${rated.map((s,i)=>pt(i,R*s/5).map(x=>x.toFixed(1)).join(',')).join(' ')}" fill="color-mix(in srgb,var(--amber) 30%,transparent)" stroke="var(--amber-ink)" stroke-width="2" stroke-linejoin="round"/>`;
+    rated.forEach((s,i)=>{if(s){const [x,y]=pt(i,R*s/5);g+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="var(--amber-ink)"/>`}});
+  }
+  if(labels)C.forEach(([k,,short],i)=>{const [x,y]=pt(i,R+14);const anchor=Math.abs(x-cx)<8?'middle':x<cx?'end':'start';
+    g+=`<text x="${x.toFixed(1)}" y="${(y+(y<cy-10?-2:y>cy+10?10:4)).toFixed(1)}" text-anchor="${anchor}" font-family="Barlow Condensed, sans-serif" font-size="12" font-weight="600" fill="var(--muted)">${esc(short)}${rated[i]?' '+rated[i]:''}</text>`});
+  return `<svg viewBox="0 0 ${W} ${H}" class="radar" role="img" aria-label="La mia zona di comfort">${g}</svg>`;
 }
-function diaryForm(f,second){
+function readDiary(f,umore){
+  const o={umore};for(const [k] of DIARIO)o[k]=$('#dz-'+k).value.trim();
+  o.dopo=$('#dz-dopo').value.trim();
+  const c={};document.querySelectorAll('.cf-row').forEach(r=>{const s=r.querySelector('[aria-pressed="true"]');if(s)c[r.dataset.k]=+s.dataset.v});
+  o.comfort=c;if(f.paura)o.paura=f.paura;if(f.prossimo)o.prossimo=f.prossimo;
+  return o;
+}
+function wireComfort(f){
+  const box=$('#cf-box');if(!box)return;
+  const set=isCamp(f)||f._camp?COMFORT_CAMP:COMFORT;
+  const upd=()=>{const c={};box.querySelectorAll('.cf-row').forEach(r=>{const s=r.querySelector('[aria-pressed="true"]');if(s)c[r.dataset.k]=+s.dataset.v});$('#cf-radar').innerHTML=radarSvg(c,false,set)};
+  box.onclick=e=>{const b=e.target.closest('[data-v]');if(!b)return;const row=b.closest('.cf-row'),was=b.getAttribute('aria-pressed')==='true';
+    row.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed','false'));if(!was)b.setAttribute('aria-pressed','true');upd()};
+  upd();
+}
+function diaryForm(f,camp){
+  const c=f.comfort||{},SET=camp?COMFORT_CAMP:COMFORT;
   return `<div class="card fs diary-fs"><p class="fs-title">Diario</p>
-    <div class="field"><span class="lbl">Come mi sentivo</span><div class="mood" id="mood">${MOODS.map(([m,c])=>`<button type="button" aria-pressed="${m===f.umore}" data-m="${m}"><i class="dot" style="background:${c}"></i>${m}</button>`).join('')}</div></div>
-    <div class="field"><label for="f-bene">Cosa è andato bene</label><textarea id="f-bene">${esc(f.bene)}</textarea></div>
-    <div class="field"><label for="f-paura">${second}</label><textarea id="f-paura">${esc(f.paura)}</textarea></div>
-    <div class="field"><label for="f-pross">Cosa porto alla prossima uscita</label><textarea id="f-pross">${esc(f.prossimo)}</textarea></div></div>`;
+    <div class="field"><span class="lbl">Feeling</span><div class="mood mood3" id="mood">${Object.keys(FACE).map(m=>`<button type="button" aria-pressed="${m===f.umore}" data-m="${m}">${FACE[m]}${m}</button>`).join('')}</div></div>
+    ${DIARIO.map(([k,l])=>`<div class="field"><label for="dz-${k}">${l}</label><textarea id="dz-${k}">${esc(f[k]||(k==='progredire'?f.prossimo:'')||'')}</textarea></div>`).join('')}
+  </div>
+  <div class="card fs diary-fs"><p class="fs-title">La mia zona di comfort</p>
+    <p class="hint">${camp?'Al campetto: da 1 a 5, quanto ti sei sentito a tuo agio. Valuta solo quello che hai fatto oggi.':'In volo: da 1 a 5, quanto ti sei sentito a tuo agio. Valuta solo quello che hai fatto oggi.'}</p>
+    <div id="cf-radar" class="cf-radar"></div>
+    <div id="cf-box">${SET.map(([k,l])=>`<div class="cf-row" data-k="${k}"><span>${esc(l)}</span><div class="cf-pills">${[1,2,3,4,5].map(v=>`<button type="button" data-v="${v}" aria-pressed="${+c[k]===v}" aria-label="${esc(l)}: ${v}">${v}</button>`).join('')}</div></div>`).join('')}</div>
+  </div>
+  <div class="card fs diary-fs"><p class="fs-title">Riflessioni del giorno dopo</p>
+    <p class="hint">Rileggi l'uscita a mente fredda, anche il giorno dopo: puoi tornare qui quando vuoi.</p>
+    <textarea id="dz-dopo">${esc(f.dopo)}</textarea></div>`;
+}
+function moodView(m){return FACE[m]?`<span class="mview">${FACE[m]}${esc(m)}</span>`:esc(m)}
+function diaryView(f,second){
+  const items=[['Feeling',f.umore,true],...DIARIO.map(([k,l])=>[l,f[k]]),[second,f.paura],['Cosa porto alla prossima uscita',f.prossimo&&f.progredire!==f.prossimo?f.prossimo:'']].filter(x=>x[1]);
+  const hasC=f.comfort&&Object.keys(f.comfort).length;
+  let h='';
+  if(items.length)h+=`<span class="lbl">Diario</span><dl class="diary" style="margin:0">${items.map(([a,b,raw])=>`<dt>${a}</dt><dd>${raw?moodView(b):esc(b)}</dd>`).join('')}</dl>`;
+  if(hasC)h+=`<span class="lbl">La mia zona di comfort${isCamp(f)?' · campetto':' · volo'}</span><div class="card cf-view">${radarSvg(f.comfort,true,isCamp(f)?COMFORT_CAMP:COMFORT)}</div>`;
+  if(f.dopo)h+=`<span class="lbl">Riflessioni del giorno dopo</span><div class="diary">${esc(f.dopo).replace(/\n/g,'<br>')}</div>`;
+  else if(f.data&&f.data<today())h+=`<button class="card dopo-cta" data-dopo="${esc(f.id)}"><strong>Riflessioni del giorno dopo</strong><small>Rileggi l'uscita a mente fredda e aggiungi due righe.</small></button>`;
+  return h;
+}
+function editDopo(id){
+  const f=flights.find(x=>x.id===id);if(!f)return;
+  openSheet('Riflessioni del giorno dopo',`<p class="hint">${isCamp(f)?'Campetto':'Volo'} del ${fmtDate(f.data)}${(f.sito||f.luogo)?' · '+esc(f.sito||f.luogo):''}</p>
+    <div class="card fs diary-fs"><textarea id="dz-solo" style="min-height:160px" placeholder="Come la vedi oggi, a mente fredda?">${esc(f.dopo)}</textarea></div>`,
+    `<button class="btn primary" id="dz-save">Salva</button>`);
+  $('#dz-save').onclick=async()=>{const {id:_i,...rest}=f;await saveDoc('voli',id,{...rest,dopo:$('#dz-solo').value.trim()});isCamp(f)?showCamp({...f,dopo:$('#dz-solo').value.trim()}):showFlight(id);toast('Riflessione salvata')};
 }
 function wireMood(get,set){$('#mood').onclick=e=>{const b=e.target.closest('button');if(!b)return;set(get()===b.dataset.m?'':b.dataset.m);for(const x of $('#mood').children)x.setAttribute('aria-pressed',x.dataset.m===get())}}
 function kv(rows){rows=rows.filter(r=>r[1]);return rows.length?`<dl class="card kv" style="margin:0">${rows.map(([a,b])=>`<div><dt>${a}</dt><dd>${esc(b)}</dd></div>`).join('')}</dl>`:''}
@@ -623,11 +845,11 @@ function editFlight(f){
       ${velaSelect('f-vela',f)}
       <div class="field"><label for="f-vento">Condizioni</label><input id="f-vento" value="${esc(f.vento)}" placeholder="es. brezza da sud, 10 km/h"></div>
       <div class="field"><label for="f-note">Note tecniche</label><textarea id="f-note" placeholder="Decollo, correzioni, consigli dell'istruttore">${esc(f.note)}</textarea></div></div>
-    ${diaryForm(f,'Dove ho sentito paura o tensione')}
+    ${diaryForm(f,false)}
   </form>`,`<button class="btn primary" type="submit" form="ff">Salva volo</button><button class="btn ghost" type="button" id="cancel">Annulla</button>`);
   let umore=f.umore||'',extra={};
   $('#cancel').onclick=()=>isNew?closeSheet():showFlight(f.id);
-  wireMood(()=>umore,v=>umore=v);wireDur('f-dur',f.durata);
+  wireMood(()=>umore,v=>umore=v);wireComfort(f);wireDur('f-dur',f.durata);
   $('#igc').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{const r=parseIGC(await file.text());
     extra={quotaDecollo:r.quotaDecollo,quotaAtterraggio:r.quotaAtterraggio,decLat:r.decLat,decLon:r.decLon,profilo:r.profilo};
     $('#f-data').value=r.data;setTimes('f-dur',localHM(r.data,r.t0),localHM(r.data,r.t1));$('#f-qmax').value=r.quotaMax;$('#f-dist').value=r.distanza;
@@ -638,7 +860,7 @@ function editFlight(f){
     const num=id=>{const v=$(id).value;return v===''?null:+v};
     const doc={...f,...extra,data:$('#f-data').value,tipo:$('#f-tipo').value,sito:$('#f-sito').value.trim(),atterraggio:$('#f-att').value.trim(),
       ...readTimes('f-dur',f.durata),quotaMax:num('#f-qmax'),distanza:num('#f-dist'),...readVela('f-vela'),vento:$('#f-vento').value.trim(),
-      note:$('#f-note').value.trim(),umore,bene:$('#f-bene').value.trim(),paura:$('#f-paura').value.trim(),prossimo:$('#f-pross').value.trim()};
+      note:$('#f-note').value.trim(),...readDiary(f,umore)};
     delete doc.esempio;const id=doc.id||('v'+Date.now());delete doc.id;doc.creato=doc.creato||Date.now();
     await saveDoc('voli',id,doc);showFlight(id);toast('Volo salvato')};
 }
@@ -672,17 +894,17 @@ function editCamp(f){
       ${velaSelect('c-vela',f)}
       <div class="field"><label for="c-vento">Condizioni</label><input id="c-vento" value="${esc(f.vento)}" placeholder="es. vento leggero e costante"></div>
       <div class="field"><label for="c-istr">Cosa mi ha detto l'istruttore</label><textarea id="c-istr" placeholder="Correzioni, cose da ripetere">${esc(f.istruttore)}</textarea></div></div>
-    ${diaryForm(f,'Dove ho fatto fatica o sentito tensione')}
+    ${diaryForm(f,true)}
   </form>`,`<button class="btn primary" type="submit" form="cf">Salva campetto</button><button class="btn ghost" type="button" id="cancel">Annulla</button>`);
   let umore=f.umore||'';
   $('#cancel').onclick=()=>isNew?closeSheet():showCamp(f);
-  wireMood(()=>umore,v=>umore=v);wireDur('c-dur',f.durata);
+  wireMood(()=>umore,v=>umore=v);wireComfort({...f,_camp:true});wireDur('c-dur',f.durata);
   $('#es').onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.es;es.has(k)?es.delete(k):es.add(k);b.setAttribute('aria-pressed',es.has(k))};
   $('#cf').onsubmit=async e=>{e.preventDefault();
     const num=id=>{const v=$(id).value;return v===''?null:+v};
     const doc={genere:'campetto',data:$('#c-data').value,...readTimes('c-dur',f.durata),luogo:$('#c-luogo').value.trim(),gonfiaggi:num('#c-gonf'),voletti:num('#c-volt'),
       esercizi:ESERCIZI.filter(x=>es.has(x)),...readVela('c-vela'),vento:$('#c-vento').value.trim(),istruttore:$('#c-istr').value.trim(),
-      umore,bene:$('#f-bene').value.trim(),paura:$('#f-paura').value.trim(),prossimo:$('#f-pross').value.trim(),creato:f.creato||Date.now()};
+      ...readDiary(f,umore),creato:f.creato||Date.now()};
     const id=f.id||('c'+Date.now());await saveDoc('voli',id,doc);showCamp({...doc,id});toast('Campetto salvato')};
 }
 function editVela(x){
@@ -1116,6 +1338,7 @@ document.addEventListener('click',e=>{
   if(e.target.closest('#w-skip')){LS.set('lv-skip',true);showWelcome(false);return}
   const nw=e.target.closest('[data-new]');if(nw)return nw.dataset.new==='camp'?editCamp(null):editFlight(null);
   const fl=e.target.closest('[data-filtro]');if(fl){filtro=fl.dataset.filtro;return renderLibretto()}
+  const dp=e.target.closest('[data-dopo]');if(dp)return editDopo(dp.dataset.dopo);
   const o=e.target.closest('[data-open]');if(o)return showFlight(o.dataset.open);
   const ed=e.target.closest('[data-editdl]');if(ed)return editDeadline(deadlines.find(x=>x.id===ed.dataset.editdl));
   const sg=e.target.closest('[data-sugg]');if(sg)return editDeadline(null,sg.dataset.sugg);
@@ -1126,6 +1349,11 @@ document.addEventListener('click',e=>{
   if(e.target.closest('[data-gotovele]')){closeSheet();return setTab('vele')}
   if(e.target.closest('#alert'))return setTab('scadenze');
   if(e.target.closest('#ck-train'))return trainChecklist();
+  const sm=e.target.closest('[data-study]');if(sm){studyMode=sm.dataset.study;topicOpen=null;return renderChecklist()}
+  const tp=e.target.closest('[data-topic]');if(tp){topicOpen=tp.dataset.topic;renderChecklist();window.scrollTo(0,0);return}
+  if(e.target.closest('#topic-back')){topicOpen=null;return renderChecklist()}
+  const cd=e.target.closest('[data-card]');if(cd){openCard.again=false;return openCard(+cd.dataset.card)}
+  const qz=e.target.closest('[data-quiz]');if(qz)return startQuiz(qz.dataset.quiz);
   if(e.target.closest('#reset-ck')){checks={};try{localStorage.setItem('pv-checks','{}')}catch(_){}return renderChecklist()}
 });
 document.addEventListener('change',e=>{
@@ -1139,6 +1367,7 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 $('#fab').onclick=chooseKind;
 
 /* ---------- avvio ---------- */
+if(!TEORIA_ON){const l=$('#tab-study-l');if(l)l.textContent='Pre-volo'}
 derive();renderAll();renderSync();
 (async()=>{
   const red=readRedirect();
