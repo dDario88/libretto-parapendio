@@ -1,6 +1,6 @@
 // Fa funzionare il libretto anche senza rete (per esempio in decollo).
 // Quando pubblichi una nuova versione dei file, aumenta il numero qui sotto.
-const VERSIONE = 'libretto-v2';
+const VERSIONE = 'libretto-v3';
 const FILE_APP = [
   './', 'index.html', 'config.js', 'manifest.webmanifest', 'privacy.html',
   'logo.webp', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'

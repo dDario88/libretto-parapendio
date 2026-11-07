@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Libretto di volo</title>
 <meta name="description" content="Libretto personale di voli e campetti di parapendio, con diario, vele, scadenze e checklist pre-volo.">
-<meta name="theme-color" content="#16180f">
+<meta name="theme-color" content="#10283d">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,7 +15,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap">
 <style>
 html{padding-top:env(safe-area-inset-top,0px)}
 body{margin:0}
@@ -24,27 +24,28 @@ img{max-width:100%}
 code{font-size:.9em}
 /* Layout: toppa ricamata del corso in testata, schede a pagina singola, barra di navigazione in basso, fogli a scomparsa per i dettagli */
 :root{
-  --bg:#eff0e7; --paper:#fbfbf7; --ink:#1b1e15; --muted:#666a58; --line:#dcdccc;
-  --olive:#56651f; --olive-soft:#e4e8cf; --amber:#c98a12; --amber-ink:#8a5c08; --amber-soft:#f6e7c4;
-  --ok:#2f7a4d; --ok-soft:#dcefe2; --warn:#a86f12; --warn-soft:#f7ebd2; --bad:#b03c34; --bad-soft:#f6dfdc;
+  /* Palette "cielo e vela": blu del cielo per le azioni, arancio della vela per l'accento, blu notte per testata e testo */
+  --bg:#edf3f8; --paper:#ffffff; --ink:#10283d; --muted:#5b7085; --line:#d6e2ec;
+  --olive:#1d6fb8; --olive-soft:#dcebf7; --amber:#ff7a1a; --amber-ink:#c2410c; --amber-soft:#ffe9d9;
+  --ok:#22804f; --ok-soft:#dcf1e4; --warn:#b26a00; --warn-soft:#fbedd3; --bad:#c63b2f; --bad-soft:#fbe1de;
   --sc-red:#b43128; --sc-red-soft:#f6e1de; --sc-navy:#0a2330; --sc-sky:#79b9e0; --sc-sky-soft:#e3f0f8;
-  --hero-bg:#16180f; --hero-fg:#e6d4a3; --hero-dim:#a99c78; --stitch:#7d8c38;
-  --f-patch:"Saira Stencil One","Barlow Condensed",Impact,sans-serif;
+  --hero-bg:#10283d; --hero-bg2:#1a4f80; --hero-fg:#e6f0f8; --hero-dim:#9db6cb; --stitch:#79b9e0;
+  --f-patch:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --f-label:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --f-body:"Barlow",system-ui,-apple-system,sans-serif;
   --f-diary:"Source Serif 4",Georgia,serif;
-  --shadow:0 1px 2px rgba(27,30,21,.06),0 4px 14px rgba(27,30,21,.06);
+  --shadow:0 1px 2px rgba(16,40,61,.06),0 4px 14px rgba(16,40,61,.07);
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#111309; --paper:#1a1d14; --ink:#ece7d6; --muted:#a2a38d; --line:#2f3326;
-  --olive:#aebd6f; --olive-soft:#262d17; --amber:#f0b43f; --amber-ink:#f0c46a; --amber-soft:#382a0f;
-  --ok:#73c995; --ok-soft:#163021; --warn:#e6b45c; --warn-soft:#33280f; --bad:#ee8a82; --bad-soft:#3a1c19;
+  --bg:#0a1724; --paper:#10233a; --ink:#e7eef5; --muted:#93a9bd; --line:#223a52;
+  --olive:#7cc4ef; --olive-soft:#14324d; --amber:#ff9142; --amber-ink:#ffab70; --amber-soft:#3a2310;
+  --ok:#6fd39a; --ok-soft:#123425; --warn:#f0b45a; --warn-soft:#352710; --bad:#f08a80; --bad-soft:#3d1b18;
   --sc-red:#ef7f74; --sc-red-soft:#3a1b18; --sc-sky:#8fc6e8; --sc-sky-soft:#13283a;
   --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#111309; --paper:#1a1d14; --ink:#ece7d6; --muted:#a2a38d; --line:#2f3326;
-  --olive:#aebd6f; --olive-soft:#262d17; --amber:#f0b43f; --amber-ink:#f0c46a; --amber-soft:#382a0f;
-  --ok:#73c995; --ok-soft:#163021; --warn:#e6b45c; --warn-soft:#33280f; --bad:#ee8a82; --bad-soft:#3a1c19;
+  --bg:#0a1724; --paper:#10233a; --ink:#e7eef5; --muted:#93a9bd; --line:#223a52;
+  --olive:#7cc4ef; --olive-soft:#14324d; --amber:#ff9142; --amber-ink:#ffab70; --amber-soft:#3a2310;
+  --ok:#6fd39a; --ok-soft:#123425; --warn:#f0b45a; --warn-soft:#352710; --bad:#f08a80; --bad-soft:#3d1b18;
   --sc-red:#ef7f74; --sc-red-soft:#3a1b18; --sc-sky:#8fc6e8; --sc-sky-soft:#13283a;
   --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
 *{box-sizing:border-box}
@@ -54,19 +55,19 @@ button{font:inherit;color:inherit}
 svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
 /* testata */
-.hero{background:var(--hero-bg);color:var(--hero-fg);border-bottom:3px dashed var(--stitch);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 18px}
+.hero{background:linear-gradient(180deg,var(--hero-bg),var(--hero-bg2));color:var(--hero-fg);border-bottom:3px dashed var(--stitch);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 18px}
 .hero-in{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
 .brand{display:flex;align-items:center;gap:14px}
 .logo{width:76px;height:76px;flex:none;border-radius:50%;box-shadow:0 0 0 2px var(--stitch),0 6px 18px rgba(0,0,0,.45)}
 .eyebrow{margin:0 0 2px;font:600 .74rem var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:var(--hero-dim)}
-.hero h1{margin:0;font:400 2rem/1 var(--f-patch);letter-spacing:.02em;text-wrap:balance}
+.hero h1{margin:0;font:700 2.15rem/1 var(--f-patch);letter-spacing:.02em;text-wrap:balance}
 .hstats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px dashed color-mix(in srgb,var(--hero-fg) 30%,transparent);border-radius:12px}
 .hstats div{padding:10px 12px;display:flex;flex-direction:column;gap:2px}
 .hstats div+div{border-left:1px dashed color-mix(in srgb,var(--hero-fg) 30%,transparent)}
 .hstats b{font:700 1.6rem/1 var(--f-label);font-variant-numeric:tabular-nums;color:#fff}
 .hstats span{font:600 .7rem var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--hero-dim)}
 .alert{display:flex;align-items:center;gap:10px;background:color-mix(in srgb,var(--amber) 22%,var(--hero-bg));border:1px solid color-mix(in srgb,var(--amber) 55%,transparent);color:#fff;border-radius:10px;padding:10px 12px;text-align:left;cursor:pointer;width:100%}
-.alert svg{color:#f3c15a}
+.alert svg{color:#ffb36b}
 .alert small{display:block;color:var(--hero-fg);font-size:.82rem}
 
 /* pagina */
@@ -230,30 +231,30 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 .syncline span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .syncline strong{color:var(--hero-fg);font-weight:600}
 .syncline svg{width:18px;height:18px}
-.syncline.ok>svg:first-child{color:#9fc26a}
-.syncline.warn>svg:first-child,.syncline.warn strong{color:#f3c15a}
+.syncline.ok>svg:first-child{color:#7fe0a8}
+.syncline.warn>svg:first-child,.syncline.warn strong{color:#ffb36b}
 .syncline:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
 .gcard{padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--hero-bg);color:var(--hero-fg);border-color:transparent}
 .gcard strong{font:700 1.2rem var(--f-label);letter-spacing:.02em;color:#fff}
 .gcard p{margin:0;color:var(--hero-dim);font-size:.92rem}
 .gbtn{background:#fff;color:#1f1f1f;border-color:#fff;align-self:flex-start}
 .signed .welcome{display:none}
-.welcome{position:fixed;inset:0;z-index:15;background:var(--hero-bg);color:var(--hero-fg);overflow:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:calc(28px + env(safe-area-inset-top,0px)) calc(28px + env(safe-area-inset-bottom,0px))}
+.welcome{position:fixed;inset:0;z-index:15;background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%);color:var(--hero-fg);overflow:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:calc(28px + env(safe-area-inset-top,0px)) calc(28px + env(safe-area-inset-bottom,0px))}
 .welcome::before{content:"";position:fixed;inset:12px;border:2px dashed color-mix(in srgb,var(--stitch) 70%,transparent);border-radius:28px;pointer-events:none}
 .w-in{max-width:440px;min-height:100%;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;position:relative}
 .w-logo{width:min(46vw,190px);height:auto;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 3px var(--stitch),0 14px 40px rgba(0,0,0,.55);animation:wIn .5s ease-out both}
 .w-eyebrow{margin:0;font:600 .78rem var(--f-label);letter-spacing:.18em;text-transform:uppercase;color:var(--hero-dim)}
-.welcome h1{margin:4px 0 0;font:400 clamp(2.3rem,10vw,3rem)/1 var(--f-patch);letter-spacing:.02em;color:#fff;text-wrap:balance}
+.welcome h1{margin:4px 0 0;font:700 clamp(2.4rem,10vw,3.1rem)/1 var(--f-patch);letter-spacing:.02em;color:#fff;text-wrap:balance}
 .w-lead{margin:0;color:var(--hero-fg);font-size:1.02rem;max-width:32ch}
 .w-feats{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
 .w-feats li{display:flex;align-items:center;gap:10px;text-align:left;border:1px dashed color-mix(in srgb,var(--hero-fg) 28%,transparent);border-radius:12px;padding:10px 12px;font-size:.9rem;color:var(--hero-fg)}
-.w-feats svg{color:#c9d48a;width:20px;height:20px}
+.w-feats svg{color:var(--stitch);width:20px;height:20px}
 .w-btn{width:100%;min-height:54px;border-radius:14px;background:#fff;color:#1f1f1f;border:0;font:600 1.05rem var(--f-body);display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
 .w-btn:focus-visible,.w-skip:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
 .w-note{margin:0;font-size:.86rem;color:var(--hero-dim);max-width:38ch}
 .w-note strong{color:var(--hero-fg)}
 .w-tip{display:flex;gap:10px;align-items:flex-start;text-align:left;background:color-mix(in srgb,var(--amber) 16%,var(--hero-bg));border:1px solid color-mix(in srgb,var(--amber) 45%,transparent);border-radius:12px;padding:10px 12px;font-size:.86rem;color:var(--hero-fg);width:100%}
-.w-tip b{color:#f3c15a}
+.w-tip b{color:#ffb36b}
 .w-foot{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap}
 .w-skip{background:none;border:0;color:var(--hero-dim);font:500 .92rem var(--f-body);text-decoration:underline;cursor:pointer;padding:6px}
 .w-foot a{color:var(--hero-dim);font-size:.92rem}
@@ -265,11 +266,11 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 .tess-frame{width:100%;max-width:100%;overflow:hidden;border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.22);background:#fff}
 .tess-frame img{display:block;width:100%;max-width:none}
 .tess-zoom{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:6px;background:rgba(12,14,8,.72);color:#fff;font:600 .78rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:99px}
-.tess-full{position:fixed;inset:0;z-index:25;background:#0b0c08;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(56px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));cursor:pointer}
+.tess-full{position:fixed;inset:0;z-index:25;background:#06111c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(56px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));cursor:pointer}
 .tf-box{max-width:100%}
 .tess-frame.big{border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
 .tf-x{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px))}
-.tf-hint{margin:0;color:#c9c6b4;font:600 .8rem var(--f-label);letter-spacing:.12em;text-transform:uppercase}
+.tf-hint{margin:0;color:#b9c8d6;font:600 .8rem var(--f-label);letter-spacing:.12em;text-transform:uppercase}
 .pill-s{display:inline-block;margin-left:6px;font:700 .68rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:var(--ok-soft);color:var(--ok)}
 .pill-s.warn{background:var(--warn-soft);color:var(--warn)}.pill-s.bad{background:var(--bad-soft);color:var(--bad)}
 .docrow{display:grid;grid-template-columns:42px minmax(0,1fr) auto 22px;gap:12px;align-items:center;padding:12px 10px 12px 12px}
@@ -354,6 +355,42 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 .dopo-cta{display:flex;flex-direction:column;gap:2px;padding:14px;text-align:left;border-style:dashed;border-color:var(--amber-ink);background:var(--amber-soft);box-shadow:none}
 .dopo-cta strong{color:var(--amber-ink)}.dopo-cta small{color:var(--muted)}
 .chip-t.dopo{background:var(--amber-soft);color:var(--amber-ink)}
+.w-mark{display:flex;align-items:center;gap:10px;color:var(--hero-dim);font:600 .8rem var(--f-label);letter-spacing:.1em;text-transform:uppercase}
+.w-mark img{border-radius:12px;box-shadow:0 0 0 1px color-mix(in srgb,var(--stitch) 60%,transparent)}
+/* testata compatta */
+.hero{padding-block:12px 12px}
+.hero-in{gap:10px}
+.brand{gap:12px}
+.applogo{width:52px;height:52px;border-radius:14px;flex:none;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.bt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.hero h1{font-size:1.7rem}
+.corso{display:inline-flex;align-items:center;gap:6px;font:500 .82rem var(--f-body);color:var(--hero-dim);min-width:0}
+.corso img{width:22px;height:22px;border-radius:50%;flex:none;box-shadow:0 0 0 1px color-mix(in srgb,var(--stitch) 60%,transparent)}
+.hstats div{padding:6px 10px;flex-direction:row;align-items:baseline;gap:6px}
+.hstats b{font-size:1.25rem}
+.hstats span{font:500 .8rem var(--f-body);letter-spacing:0;text-transform:none}
+.syncline{padding-top:8px}
+/* avviso scadenza: riquadro chiaro con bordo arancio */
+.alert{background:#fff4ea;border:0;border-left:4px solid #ff7a1a;color:#10283d}
+.alert svg{color:#c2410c}
+.alert small{color:#5b7085}
+/* benvenuto */
+.w-logo{width:min(36vw,150px);border-radius:34px;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.w-title{display:flex;flex-direction:column;align-items:center;gap:8px}
+.w-title .corso{font-size:.9rem}.w-title .corso img{width:26px;height:26px}
+/* meno maiuscole: solo nelle etichette piccole */
+.tabbar button,.seg button,.field label,.field .lbl,.lbl,.fs-title,.month,.cgroup h3,.diary dt,.tr-meta,.tsec h4,.warnsec h4,.scwarn h4,.tess-zoom,.tf-hint,.eright small,.tiles span,.mini span,.schead .scband-t,.scband{text-transform:none;letter-spacing:.01em}
+.tabbar button{font:600 .76rem var(--f-body)}
+.seg button{font:600 .92rem var(--f-body)}
+.field label,.field .lbl{font:600 .86rem var(--f-body);color:var(--muted)}
+.lbl{font:700 .92rem var(--f-body);color:var(--muted)}
+.fs-title{font:700 1rem var(--f-label)}
+.month{font:700 .98rem var(--f-label);color:var(--ink)}
+.cgroup h3{font:700 1rem var(--f-label)}
+.diary dt{font:600 .86rem var(--f-body)}
+.tr-meta,.tsec h4,.warnsec h4,.scwarn h4{font:700 .9rem var(--f-body)}
+.tiles span,.mini span,.eright small{font:500 .78rem var(--f-body)}
+.scband{font:700 .82rem var(--f-body)}
 </style>
 </head>
 <body>
@@ -361,8 +398,8 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 <header class="hero">
   <div class="hero-in">
     <div class="brand">
-      <img class="logo" src="logo.webp" alt="Toppa del corso: I can fly, primo corso ASD Volo anch'io" width="76" height="76">
-      <div><p class="eyebrow">Primo corso · ASD Volo anch'io</p><h1>Libretto di volo</h1></div>
+      <img class="applogo" src="logo-app.png" alt="Logo di Libretto di volo" width="52" height="52">
+      <div class="bt"><h1>Libretto di volo</h1><span class="corso"><img src="logo.webp" alt="Toppa del corso" width="22" height="22">Primo corso · ASD Volo anch'io</span></div>
     </div>
     <div class="hstats">
       <div><b id="g-voli">0</b><span>Voli</span></div>
@@ -396,8 +433,8 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
 </nav>
 <section class="welcome" id="welcome" aria-labelledby="w-title">
   <div class="w-in">
-    <img class="w-logo" src="logo.webp" alt="Toppa del corso: I can fly, primo corso ASD Volo anch'io" width="190" height="190">
-    <div><p class="w-eyebrow">Primo corso · ASD Volo anch'io</p><h1 id="w-title">Libretto di volo</h1></div>
+    <img class="w-logo" src="logo-app.png" alt="Logo di Libretto di volo" width="150" height="150">
+    <div class="w-title"><h1 id="w-title">Libretto di volo</h1><span class="corso"><img src="logo.webp" alt="Toppa del corso" width="26" height="26">Primo corso · ASD Volo anch'io</span></div>
     <p class="w-lead">Il tuo libretto personale di campetti e voli, con il diario di ogni uscita.</p>
     <ul class="w-feats">
       <li><svg class="i" viewBox="0 0 24 24"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg>Voli e campetti</li>
@@ -406,7 +443,7 @@ textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:
       <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.3 12.4l2.6 2.6 4.8-5.4"/></svg>Checklist pre-volo</li>
     </ul>
     <button class="w-btn" data-login><span id="w-glogo"></span>Accedi con Google</button>
-    <div class="w-tip"><svg class="i" viewBox="0 0 24 24" style="color:#f3c15a;width:20px;height:20px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg><span>Al primo accesso Google ti chiede il permesso per Drive: <b>spunta la casella</b>, altrimenti il libretto non può salvare.</span></div>
+    <div class="w-tip"><svg class="i" viewBox="0 0 24 24" style="color:#ffb36b;width:20px;height:20px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg><span>Al primo accesso Google ti chiede il permesso per Drive: <b>spunta la casella</b>, altrimenti il libretto non può salvare.</span></div>
     <p class="w-note">I dati restano <strong>nel tuo Google Drive</strong>, in una cartella privata che vede solo l'app. Nessun altro li legge.</p>
     <div class="w-foot"><button class="w-skip" id="w-skip">Prova senza accedere</button><a href="guida.html">Guida</a><a href="privacy.html">Privacy</a></div>
   </div>
@@ -509,7 +546,7 @@ function renderHero(){
   $('#g-voli').textContent=real.length;
   $('#g-ore').textContent=fmtDur(real.reduce((s,f)=>s+(+f.durata||0),0));
   $('#g-camp').textContent=flights.filter(isCamp).length;
-  const next=[...deadlines].filter(d=>d.data&&daysTo(d.data)<=30).sort((a,b)=>a.data.localeCompare(b.data))[0];
+  const next=[...deadlines].filter(d=>d.data&&daysTo(d.data)<=7).sort((a,b)=>a.data.localeCompare(b.data))[0];
   const al=$('#alert');
   if(next){const n=daysTo(next.data);al.hidden=false;
     al.innerHTML=`${IC.bell}<span><strong>${esc(next.titolo)}</strong><small>${n<0?'Scaduta da '+(-n)+' giorni':n===0?'Scade oggi':'Scade tra '+n+' giorni'} · ${fmtDate(next.data)}</small></span>`}
