@@ -1,0 +1,1733 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Libretto di volo</title>
+<meta name="description" content="Libretto personale di voli e campetti di parapendio, con diario, vele, scadenze e checklist pre-volo.">
+<meta name="theme-color" content="#10283d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Libretto">
+<script>try{var a=JSON.parse(localStorage.getItem("lv-auth")||"null");if((a&&a.email)||localStorage.getItem("lv-skip")==="true")document.documentElement.classList.add("signed")}catch(e){}</script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap">
+<style>
+html{padding-top:env(safe-area-inset-top,0px);background:#10283d}
+body{min-height:100vh}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+code{font-size:.9em}
+/* Layout: toppa ricamata del corso in testata, schede a pagina singola, barra di navigazione in basso, fogli a scomparsa per i dettagli */
+:root{
+  /* Palette "cielo e vela": blu del cielo per le azioni, arancio della vela per l'accento, blu notte per testata e testo */
+  --bg:#edf3f8; --paper:#ffffff; --ink:#10283d; --muted:#5b7085; --line:#d6e2ec;
+  --olive:#1d6fb8; --olive-soft:#dcebf7; --amber:#ff7a1a; --amber-ink:#c2410c; --amber-soft:#ffe9d9;
+  --ok:#22804f; --ok-soft:#dcf1e4; --warn:#b26a00; --warn-soft:#fbedd3; --bad:#c63b2f; --bad-soft:#fbe1de;
+  --sc-red:#b43128; --sc-red-soft:#f6e1de; --sc-navy:#0a2330; --sc-sky:#79b9e0; --sc-sky-soft:#e3f0f8;
+  --hero-bg:#10283d; --hero-bg2:#1a4f80; --hero-fg:#e6f0f8; --hero-dim:#9db6cb; --stitch:#79b9e0;
+  --f-patch:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-label:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,sans-serif;
+  --f-diary:"Source Serif 4",Georgia,serif;
+  --shadow:0 1px 2px rgba(16,40,61,.06),0 4px 14px rgba(16,40,61,.07);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0a1724; --paper:#10233a; --ink:#e7eef5; --muted:#93a9bd; --line:#223a52;
+  --olive:#7cc4ef; --olive-soft:#14324d; --amber:#ff9142; --amber-ink:#ffab70; --amber-soft:#3a2310;
+  --ok:#6fd39a; --ok-soft:#123425; --warn:#f0b45a; --warn-soft:#352710; --bad:#f08a80; --bad-soft:#3d1b18;
+  --sc-red:#ef7f74; --sc-red-soft:#3a1b18; --sc-sky:#8fc6e8; --sc-sky-soft:#13283a;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0a1724; --paper:#10233a; --ink:#e7eef5; --muted:#93a9bd; --line:#223a52;
+  --olive:#7cc4ef; --olive-soft:#14324d; --amber:#ff9142; --amber-ink:#ffab70; --amber-soft:#3a2310;
+  --ok:#6fd39a; --ok-soft:#123425; --warn:#f0b45a; --warn-soft:#352710; --bad:#f08a80; --bad-soft:#3d1b18;
+  --sc-red:#ef7f74; --sc-red-soft:#3a1b18; --sc-sky:#8fc6e8; --sc-sky-soft:#13283a;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 var(--f-body);-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--hero-bg)}
+button{font:inherit;color:inherit}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* testata */
+.hero{background:linear-gradient(180deg,var(--hero-bg),var(--hero-bg2));color:var(--hero-fg);border-bottom:3px dashed var(--stitch);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 18px}
+.hero-in{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:76px;height:76px;flex:none;border-radius:50%;box-shadow:0 0 0 2px var(--stitch),0 6px 18px rgba(0,0,0,.45)}
+.eyebrow{margin:0 0 2px;font:600 .74rem var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:var(--hero-dim)}
+.hero h1{margin:0;font:700 2.15rem/1 var(--f-patch);letter-spacing:.02em;text-wrap:balance}
+.hstats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px dashed color-mix(in srgb,var(--hero-fg) 30%,transparent);border-radius:12px}
+.hstats div{padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.hstats div+div{border-left:1px dashed color-mix(in srgb,var(--hero-fg) 30%,transparent)}
+.hstats b{font:700 1.6rem/1 var(--f-label);font-variant-numeric:tabular-nums;color:#fff}
+.hstats span{font:600 .7rem var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--hero-dim)}
+.alert{display:flex;align-items:center;gap:10px;background:color-mix(in srgb,var(--amber) 22%,var(--hero-bg));border:1px solid color-mix(in srgb,var(--amber) 55%,transparent);color:#fff;border-radius:10px;padding:10px 12px;text-align:left;cursor:pointer;width:100%}
+.alert svg{color:#ffb36b}
+.alert small{display:block;color:var(--hero-fg);font-size:.82rem}
+
+/* pagina */
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px calc(150px + env(safe-area-inset-bottom,0px))}
+.status{margin:0 0 12px;padding:10px 12px;border-radius:10px;background:var(--warn-soft);font-size:.9rem}
+section.view{display:flex;flex-direction:column;gap:12px}
+.vhead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.vhead h2{margin:0;font:700 1.5rem/1.1 var(--f-label);letter-spacing:.02em}
+.month{margin:10px 0 -2px;font:700 .8rem var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.hint{margin:0;color:var(--muted);font-size:.92rem}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 .95rem var(--f-body);border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:10px 16px;cursor:pointer;min-height:46px;text-decoration:none}
+.btn.primary{background:var(--olive);border-color:var(--olive);color:var(--paper)}
+.btn.amber{background:var(--amber);border-color:var(--amber);color:#1d1406}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted)}
+.btn.danger{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 45%,transparent);background:none}
+.btn.small{min-height:38px;padding:6px 12px;font-size:.9rem;border-radius:10px}
+.btn:focus-visible,.card:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.tabbar button:focus-visible,.chip:focus-visible,.seg button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px}
+.seg button{border:0;background:none;color:var(--muted);font:700 .85rem var(--f-label);letter-spacing:.1em;text-transform:uppercase;padding:8px 4px;border-radius:9px;cursor:pointer;min-height:38px}
+.seg button[aria-pressed="true"]{background:var(--olive);color:var(--paper)}
+.seg:has(>button:nth-child(2):last-child){grid-template-columns:1fr 1fr}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+button.card{width:100%;text-align:left;cursor:pointer;color:var(--ink);font:inherit}
+.entry{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px 10px 10px}
+.dblock{border-radius:10px;background:var(--olive-soft);color:var(--olive);text-align:center;padding:7px 0 6px}
+.entry.camp .dblock{background:var(--amber-soft);color:var(--amber-ink)}
+.dblock b{display:block;font:700 1.55rem/1 var(--f-label)}
+.dblock span{font:700 .68rem var(--f-label);letter-spacing:.14em;text-transform:uppercase}
+.emain{min-width:0;display:flex;flex-direction:column;gap:3px}
+.emain strong{font:600 1.04rem/1.2 var(--f-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;color:var(--muted);font-size:.84rem}
+.chip-t{font:700 .68rem var(--f-label);letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:var(--olive-soft);color:var(--olive)}
+.chip-t.camp{background:var(--amber-soft);color:var(--amber-ink)}
+.chip-t.ex{background:var(--line);color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;vertical-align:1px}
+.eright{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.eright b{font:700 1.3rem/1 var(--f-label);font-variant-numeric:tabular-nums}
+.eright small{font:600 .68rem var(--f-label);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.spark{width:64px;height:18px;display:block}
+
+.empty{padding:26px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+.empty strong{font:700 1.25rem var(--f-label);letter-spacing:.02em}
+.empty p{margin:0;color:var(--muted);max-width:34ch}
+.empty .art{width:120px;height:72px;color:var(--olive)}
+.empty .row{margin-top:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+.due{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px 10px 10px}
+.cd{border-radius:10px;text-align:center;padding:8px 0;background:var(--ok-soft);color:var(--ok)}
+.cd b{display:block;font:700 1.5rem/1 var(--f-label);font-variant-numeric:tabular-nums}
+.cd span{font:700 .64rem var(--f-label);letter-spacing:.12em;text-transform:uppercase}
+.due.warn .cd{background:var(--warn-soft);color:var(--warn)} .due.bad .cd{background:var(--bad-soft);color:var(--bad)}
+.due strong{display:block;font-weight:600}
+.due small{color:var(--muted);font-size:.86rem}
+.chevron{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 .9rem var(--f-body);border:1px dashed var(--muted);background:none;color:var(--ink);border-radius:99px;padding:7px 13px;cursor:pointer;min-height:38px}
+.chip[aria-pressed="true"]{border-style:solid;border-color:var(--olive);background:var(--olive-soft);color:var(--olive);font-weight:600}
+
+.vcard{padding:14px;display:flex;flex-direction:column;gap:10px}
+.vtop{display:flex;align-items:center;gap:12px}
+.vicon{width:42px;height:42px;border-radius:12px;background:var(--olive-soft);color:var(--olive);display:grid;place-items:center;flex:none}
+.vtop strong{display:block;font-weight:600;font-size:1.05rem}
+.vtop small{color:var(--muted);font-size:.86rem}
+.star{margin-left:auto;font:700 .68rem var(--f-label);letter-spacing:.1em;text-transform:uppercase;color:var(--amber-ink);background:var(--amber-soft);padding:3px 8px;border-radius:99px;white-space:nowrap}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px dashed var(--line);padding-top:10px}
+.mini div{display:flex;flex-direction:column}
+.mini b{font:700 1.15rem var(--f-label);font-variant-numeric:tabular-nums}
+.mini span{font:600 .68rem var(--f-label);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.ready{display:flex;align-items:center;gap:14px;padding:14px}
+.ring{width:64px;height:64px;flex:none}
+.ready strong{display:block;font:700 1.3rem var(--f-label)}
+.ready small{color:var(--muted)}
+.cgroup{overflow:hidden}
+.cgroup h3{margin:0;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;font:700 .82rem var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:var(--olive);border-bottom:1px solid var(--line)}
+.cgroup h3 span{color:var(--muted);letter-spacing:.06em}
+.citem{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;cursor:pointer}
+.citem+.citem{border-top:1px solid var(--line)}
+.citem input{appearance:none;-webkit-appearance:none;width:24px;height:24px;border:2px solid var(--muted);border-radius:7px;flex:none;margin:0;display:grid;place-items:center;background:var(--paper);cursor:pointer}
+.citem input:checked{background:var(--olive);border-color:var(--olive)}
+.citem input:checked::after{content:"";width:6px;height:11px;border:solid var(--paper);border-width:0 2.5px 2.5px 0;transform:translate(0,-1px) rotate(45deg)}
+.citem input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.citem.done span{color:var(--muted)}
+
+.backup{padding:14px;display:flex;flex-direction:column;gap:10px;margin-top:8px;box-shadow:none;background:none;border-style:dashed}
+.lbl{font:700 .76rem var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* barra in basso */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--paper);border-top:1px solid var(--line);padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabbar-in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.tabbar button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 9px;color:var(--muted);cursor:pointer;font:600 .74rem var(--f-label);letter-spacing:.08em;text-transform:uppercase}
+.tabbar button .pillbg{display:grid;place-items:center;width:52px;height:30px;border-radius:99px}
+.tabbar button[aria-selected="true"]{color:var(--olive)}
+.tabbar button[aria-selected="true"] .pillbg{background:var(--olive-soft)}
+.fab{position:fixed;z-index:7;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(76px + env(safe-area-inset-bottom,0px));border-radius:99px;padding:12px 18px 12px 14px;box-shadow:0 8px 22px rgba(0,0,0,.25);font-weight:700}
+
+/* fogli */
+.sheet-bg{position:fixed;inset:0;background:rgba(12,14,8,.6);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);width:100%;max-width:720px;max-height:94%;display:flex;flex-direction:column;border-radius:20px 20px 0 0;overflow:hidden;animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px max(16px,env(safe-area-inset-left,0px)) 10px;position:relative;background:var(--bg)}
+.sheet-head::before{content:"";position:absolute;top:6px;left:50%;width:40px;height:4px;border-radius:4px;background:var(--line);transform:translateX(-50%)}
+.sheet-head h2{margin:0;font:700 1.35rem/1.15 var(--f-label);letter-spacing:.02em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.close{width:40px;height:40px;border-radius:50%;border:0;background:var(--paper);display:grid;place-items:center;cursor:pointer;flex:none;color:var(--ink)}
+.sheet-body{overflow:auto;padding:4px max(16px,env(safe-area-inset-left,0px)) 18px;display:flex;flex-direction:column;gap:14px}
+.sheet-foot{display:flex;gap:8px;padding:12px max(16px,env(safe-area-inset-left,0px)) calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--paper);flex-wrap:wrap;align-items:center}
+.sheet-foot .btn.primary{flex:1}
+.fs{padding:14px;display:flex;flex-direction:column;gap:12px;box-shadow:none}
+.fs-title{font:700 .8rem var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:var(--olive);margin:0}
+.fs.diary-fs{background:var(--amber-soft);border-color:transparent}
+.fs.diary-fs .fs-title{color:var(--amber-ink)}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label,.field .lbl{font:600 .78rem var(--f-label);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+input,select,textarea{font:16px var(--f-body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;min-height:46px}
+.diary-fs textarea,.diary-fs input{background:var(--paper)}
+textarea{min-height:88px;resize:vertical;font-family:var(--f-diary);line-height:1.5}
+.dur{display:flex;align-items:center;gap:8px}
+.dur input{width:5.2em;text-align:center;font-variant-numeric:tabular-nums}
+.dur span{color:var(--muted);font-size:.92rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:420px){.grid3{grid-template-columns:1fr 1fr}}
+.drop{display:flex;gap:12px;align-items:center;padding:14px;border:1.5px dashed var(--olive);border-radius:14px;background:var(--olive-soft);cursor:pointer}
+.drop .vicon{background:var(--paper)}
+.drop strong{display:block}
+.drop small{color:var(--muted)}
+.drop.ok{border-style:solid}
+.mood{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.mood button{display:flex;flex-direction:column;align-items:center;gap:5px;font:600 .86rem var(--f-body);padding:10px 4px;border-radius:10px;border:1px solid var(--line);background:var(--paper);cursor:pointer}
+.mood button .dot{width:12px;height:12px;margin:0}
+.mood button[aria-pressed="true"]{border:2px solid var(--amber-ink);padding:9px 3px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tiles div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.tiles b{display:block;font:700 1.4rem/1.1 var(--f-label);font-variant-numeric:tabular-nums}
+.tiles span{font:600 .68rem var(--f-label);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.profile{padding:12px 14px 8px}
+.profile svg{width:100%;height:96px;display:block;margin-top:6px}
+.kv{padding:4px 14px}
+.kv div{display:flex;justify-content:space-between;gap:12px;padding:10px 0}
+.kv div+div{border-top:1px solid var(--line)}
+.kv dt{color:var(--muted);font-size:.9rem}
+.kv dd{margin:0;text-align:right;font-weight:500;min-width:0}
+.diary{background:var(--amber-soft);border-radius:14px;padding:14px 16px;font-family:var(--f-diary);font-size:1.03rem;line-height:1.6}
+.diary dt{font:700 .74rem var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--amber-ink);margin-top:12px}
+.diary dt:first-child{margin-top:0}
+.diary dd{margin:2px 0 0;white-space:pre-wrap}
+.picks{display:grid;gap:10px}
+.pick{display:flex;align-items:center;gap:14px;padding:16px}
+.pick .vicon{width:52px;height:52px;border-radius:14px}
+.pick.camp .vicon{background:var(--amber-soft);color:var(--amber-ink)}
+.pick strong{display:block;font:700 1.3rem var(--f-label);letter-spacing:.02em}
+.pick small{color:var(--muted);font-size:.9rem}
+.confirm{display:flex;flex-direction:column;gap:8px;width:100%}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(140px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;z-index:30;font-weight:600;white-space:nowrap}
+.linkbtn{background:none;border:0;padding:0;color:var(--olive);font:inherit;text-decoration:underline;cursor:pointer}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+.syncline{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;border-top:1px dashed color-mix(in srgb,var(--hero-fg) 30%,transparent);padding:10px 0 0;color:var(--hero-dim);cursor:pointer;text-align:left;font-size:.86rem}
+.syncline span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.syncline strong{color:var(--hero-fg);font-weight:600}
+.syncline svg{width:18px;height:18px}
+.syncline.ok>svg:first-child{color:#7fe0a8}
+.syncline.warn>svg:first-child,.syncline.warn strong{color:#ffb36b}
+.syncline:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.gcard{padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--hero-bg);color:var(--hero-fg);border-color:transparent}
+.gcard strong{font:700 1.2rem var(--f-label);letter-spacing:.02em;color:#fff}
+.gcard p{margin:0;color:var(--hero-dim);font-size:.92rem}
+.gbtn{background:#fff;color:#1f1f1f;border-color:#fff;align-self:flex-start}
+.signed .welcome{display:none}
+.welcome{position:fixed;inset:0;z-index:15;background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%);color:var(--hero-fg);overflow:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:calc(28px + env(safe-area-inset-top,0px)) calc(28px + env(safe-area-inset-bottom,0px))}
+.welcome::before{content:"";position:fixed;inset:12px;border:2px dashed color-mix(in srgb,var(--stitch) 70%,transparent);border-radius:28px;pointer-events:none}
+.w-in{max-width:440px;min-height:100%;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;position:relative}
+.w-logo{width:min(46vw,190px);height:auto;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 3px var(--stitch),0 14px 40px rgba(0,0,0,.55);animation:wIn .5s ease-out both}
+.w-eyebrow{margin:0;font:600 .78rem var(--f-label);letter-spacing:.18em;text-transform:uppercase;color:var(--hero-dim)}
+.welcome h1{margin:4px 0 0;font:700 clamp(2.4rem,10vw,3.1rem)/1 var(--f-patch);letter-spacing:.02em;color:#fff;text-wrap:balance}
+.w-lead{margin:0;color:var(--hero-fg);font-size:1.02rem;max-width:32ch}
+.w-feats{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.w-feats li{display:flex;align-items:center;gap:10px;text-align:left;border:1px dashed color-mix(in srgb,var(--hero-fg) 28%,transparent);border-radius:12px;padding:10px 12px;font-size:.9rem;color:var(--hero-fg)}
+.w-feats svg{color:var(--stitch);width:20px;height:20px}
+.w-btn{width:100%;min-height:54px;border-radius:14px;background:#fff;color:#1f1f1f;border:0;font:600 1.05rem var(--f-body);display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.w-btn:focus-visible,.w-skip:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.w-note{margin:0;font-size:.86rem;color:var(--hero-dim);max-width:38ch}
+.w-note strong{color:var(--hero-fg)}
+.w-tip{display:flex;gap:10px;align-items:flex-start;text-align:left;background:color-mix(in srgb,var(--amber) 16%,var(--hero-bg));border:1px solid color-mix(in srgb,var(--amber) 45%,transparent);border-radius:12px;padding:10px 12px;font-size:.86rem;color:var(--hero-fg);width:100%}
+.w-tip b{color:#ffb36b}
+.w-foot{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap}
+.w-skip{background:none;border:0;color:var(--hero-dim);font:500 .92rem var(--f-body);text-decoration:underline;cursor:pointer;padding:6px}
+.w-foot a{color:var(--hero-dim);font-size:.92rem}
+@keyframes wIn{from{transform:scale(.92);opacity:0}to{transform:none;opacity:1}}
+@media (max-width:360px){.w-feats{grid-template-columns:1fr}}
+.tabbar button{font-size:.68rem;letter-spacing:.04em}
+.tabbar button .pillbg{width:48px}
+.tess-card{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;position:relative;border-radius:16px}
+.tess-frame{width:100%;max-width:100%;overflow:hidden;border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.22);background:#fff}
+.tess-frame img{display:block;width:100%;max-width:none}
+.tess-zoom{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:6px;background:rgba(12,14,8,.72);color:#fff;font:600 .78rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:99px}
+.tess-full{position:fixed;inset:0;z-index:25;background:#06111c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(56px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));cursor:pointer}
+.tf-box{max-width:100%}
+.tess-frame.big{border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.tf-x{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px))}
+.tf-hint{margin:0;color:#b9c8d6;font:600 .8rem var(--f-label);letter-spacing:.12em;text-transform:uppercase}
+.pill-s{display:inline-block;margin-left:6px;font:700 .68rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:var(--ok-soft);color:var(--ok)}
+.pill-s.warn{background:var(--warn-soft);color:var(--warn)}.pill-s.bad{background:var(--bad-soft);color:var(--bad)}
+.docrow{display:grid;grid-template-columns:42px minmax(0,1fr) auto 22px;gap:12px;align-items:center;padding:12px 10px 12px 12px}
+.docrow .dmain{min-width:0;display:flex;flex-direction:column;gap:2px}
+.docrow strong{font-weight:600;font-size:1.02rem}
+.docrow small{color:var(--muted);font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.docrow.off .vicon{background:var(--line);color:var(--muted)}
+.dadd{font:700 .7rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;color:var(--olive)}
+.backbtn{align-self:flex-start;padding-left:4px;margin-bottom:-6px}
+.ck-note{padding:16px;display:flex;flex-direction:column;gap:8px;align-items:flex-start;background:var(--amber-soft);border-color:transparent}
+.ck-note strong{font:700 1.15rem var(--f-label);letter-spacing:.02em;color:var(--amber-ink)}
+.ck-note p{margin:0}
+.cstep{display:flex;gap:12px;align-items:center;padding:11px 14px}
+.cstep+.cstep{border-top:1px solid var(--line)}
+.cstep b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--olive-soft);color:var(--olive);font:700 .95rem var(--f-label);font-variant-numeric:tabular-nums}
+.tr-prog{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.tr-prog i{display:block;height:100%;background:var(--olive)}
+.tr-meta{margin:0;font:700 .78rem var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--olive)}
+.tr-prev{margin:0;color:var(--muted);font-size:.9rem}
+.tr-card{min-height:150px;display:grid;place-items:center;text-align:center;padding:20px;font-size:1.05rem}
+.tr-card small{color:var(--muted)}
+.tr-card.on{background:var(--olive-soft);border-color:transparent}
+.tr-card strong{font:700 1.35rem/1.25 var(--f-label);letter-spacing:.01em;color:var(--olive)}
+.guide{display:grid;grid-template-columns:42px minmax(0,1fr) 22px;gap:12px;align-items:center;padding:12px 10px 12px 12px;text-decoration:none;color:var(--ink);margin-top:8px}
+.guide strong{display:block;font-weight:600}
+.guide small{color:var(--muted);font-size:.86rem}
+.guide:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.calst{display:inline-block;margin-top:4px;font:700 .66rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;color:var(--olive)}
+.calst.old{color:var(--warn)}
+.calbox{background:var(--amber-soft);border-color:transparent;margin-top:12px}
+.calbox .fs-title{color:var(--amber-ink)}
+.subh{margin:6px 0 -2px;font:700 1.15rem var(--f-label);letter-spacing:.02em}
+.sbtn{width:100%;background:none;border:0;text-align:left;cursor:pointer;font:inherit;color:var(--ink)}
+.sbtn span{flex:1}
+.sbtn em.read{font:700 .66rem var(--f-label);letter-spacing:.08em;text-transform:uppercase;color:var(--olive);font-style:normal}
+.sbtn:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.docrow.topic{grid-template-columns:42px minmax(0,1fr) 22px}
+.docrow.topic .dmain>span{margin-top:3px}
+.docrow:disabled{cursor:default;opacity:.75}
+.fig{padding:10px}.fig svg{width:100%;height:auto;display:block}
+.tsec h4{margin:0 0 4px;font:700 .78rem var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--olive)}
+.tsec p{margin:0;line-height:1.55}
+.warnsec{background:var(--amber-soft);border-radius:12px;padding:12px 14px}
+.warnsec h4{color:var(--amber-ink)}
+.qtext{margin:0;font:600 1.12rem/1.35 var(--f-body)}
+.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{text-align:left;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:500 1rem var(--f-body);cursor:pointer;min-height:48px}
+.qopt.right{border:2px solid var(--ok);background:var(--ok-soft);color:var(--ink)}
+.qopt.wrong{border:2px solid var(--bad);background:var(--bad-soft)}
+.qopt.dim{opacity:.55}
+.qopt:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.scband{display:flex;justify-content:space-between;align-items:center;background:var(--sc-navy);color:#fff;border-radius:10px;padding:8px 12px;font:700 .76rem var(--f-label);letter-spacing:.14em;text-transform:uppercase}
+.scband span:last-child{color:var(--sc-sky)}
+.tsec.sc h4{color:var(--sc-red)}
+.scwarn{background:var(--sc-red-soft);border-left:4px solid var(--sc-red);border-radius:10px;padding:12px 14px}
+.scwarn h4{margin:0 0 4px;font:700 .78rem var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--sc-red)}
+.scwarn p{margin:0;line-height:1.55}
+.screv{display:flex;align-items:center;gap:10px;margin:0;font-size:.86rem;color:var(--muted)}
+.screv img{background:#fff;border-radius:8px;padding:4px 6px;height:auto}
+.schead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:16px;background:var(--sc-navy);border-color:transparent;color:#fff}
+.schead h2{margin:2px 0 4px;font:700 1.6rem/1.1 var(--f-label);color:#fff}
+.schead p{margin:0;color:#c9d6de;font-size:.92rem}
+.schead .scband-t{font:700 .74rem var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:var(--sc-sky)}
+.schead img{background:#fff;border-radius:10px;padding:6px 8px;height:auto;flex:none}
+.scgroup .cstep b{background:var(--sc-sky-soft);color:var(--sc-navy)}
+:root[data-theme="dark"] .scgroup .cstep b{color:var(--sc-sky)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .scgroup .cstep b{color:var(--sc-sky)}}
+.mood3{grid-template-columns:repeat(3,1fr)}
+.mood3 button{padding:10px 4px;gap:4px}
+.mood3 button svg{width:30px;height:30px;stroke-width:1.6}
+.mood3 button[aria-pressed="true"]{background:var(--amber-soft)}
+.mview{display:inline-flex;align-items:center;gap:6px}.mview svg{width:20px;height:20px}
+.cf-radar{max-width:240px;margin:0 auto;width:100%}
+.radar{width:100%;height:auto;display:block}
+.cf-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid color-mix(in srgb,var(--amber-ink) 18%,transparent)}
+.cf-row span{font-size:.92rem;min-width:0}
+.cf-pills{display:flex;gap:4px;flex:none}
+.cf-pills button{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:700 .9rem var(--f-label);cursor:pointer;padding:0}
+.cf-pills button[aria-pressed="true"]{background:var(--amber-ink);border-color:var(--amber-ink);color:var(--paper)}
+.cf-pills button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.cf-view{padding:8px}
+.dopo-cta{display:flex;flex-direction:column;gap:2px;padding:14px;text-align:left;border-style:dashed;border-color:var(--amber-ink);background:var(--amber-soft);box-shadow:none}
+.dopo-cta strong{color:var(--amber-ink)}.dopo-cta small{color:var(--muted)}
+.chip-t.dopo{background:var(--amber-soft);color:var(--amber-ink)}
+.w-mark{display:flex;align-items:center;gap:10px;color:var(--hero-dim);font:600 .8rem var(--f-label);letter-spacing:.1em;text-transform:uppercase}
+.w-mark img{border-radius:12px;box-shadow:0 0 0 1px color-mix(in srgb,var(--stitch) 60%,transparent)}
+/* testata compatta */
+.hero{padding-block:12px 12px}
+.hero-in{gap:10px}
+.brand{gap:12px}
+.applogo{width:52px;height:52px;border-radius:14px;flex:none;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.bt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.hero h1{font-size:1.7rem}
+.corso{display:inline-flex;align-items:center;gap:6px;font:500 .82rem var(--f-body);color:var(--hero-dim);min-width:0}
+.corso img{width:22px;height:22px;border-radius:50%;flex:none;box-shadow:0 0 0 1px color-mix(in srgb,var(--stitch) 60%,transparent)}
+.hstats div{padding:6px 10px;flex-direction:row;align-items:baseline;gap:6px}
+.hstats b{font-size:1.25rem}
+.hstats span{font:500 .8rem var(--f-body);letter-spacing:0;text-transform:none}
+.syncline{padding-top:8px}
+/* avviso scadenza: riquadro chiaro con bordo arancio */
+.alert{background:#fff4ea;border:0;border-left:4px solid #ff7a1a;color:#10283d}
+.alert svg{color:#c2410c}
+.alert small{color:#5b7085}
+/* benvenuto */
+.w-logo{width:min(36vw,150px);border-radius:34px;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.w-title{display:flex;flex-direction:column;align-items:center;gap:8px}
+.w-title .corso{font-size:.9rem}.w-title .corso img{width:26px;height:26px}
+/* meno maiuscole: solo nelle etichette piccole */
+.tabbar button,.seg button,.field label,.field .lbl,.lbl,.fs-title,.month,.cgroup h3,.diary dt,.tr-meta,.tsec h4,.warnsec h4,.scwarn h4,.tess-zoom,.tf-hint,.eright small,.tiles span,.mini span,.schead .scband-t,.scband{text-transform:none;letter-spacing:.01em}
+.tabbar button{font:600 .76rem var(--f-body)}
+.seg button{font:600 .92rem var(--f-body)}
+.field label,.field .lbl{font:600 .86rem var(--f-body);color:var(--muted)}
+.lbl{font:700 .92rem var(--f-body);color:var(--muted)}
+.fs-title{font:700 1rem var(--f-label)}
+.month{font:700 .98rem var(--f-label);color:var(--ink)}
+.cgroup h3{font:700 1rem var(--f-label)}
+.diary dt{font:600 .86rem var(--f-body)}
+.tr-meta,.tsec h4,.warnsec h4,.scwarn h4{font:700 .9rem var(--f-body)}
+.tiles span,.mini span,.eright small{font:500 .78rem var(--f-body)}
+.scband{font:700 .82rem var(--f-body)}
+.gear{margin-left:auto;flex:none;width:42px;height:42px;border-radius:50%;border:1px solid color-mix(in srgb,var(--hero-fg) 30%,transparent);background:none;color:var(--hero-fg);display:grid;place-items:center;cursor:pointer}
+.gear:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.tab-imp{display:none!important}
+.setcard{padding:16px;display:flex;flex-direction:column;gap:10px}
+.setcard h3{margin:0;font:700 1.1rem var(--f-label)}
+.setrow{display:flex;gap:10px;align-items:center}
+.setrow small{display:block;color:var(--muted);font-size:.86rem}
+.setdot{width:12px;height:12px;border-radius:50%;flex:none;background:var(--ok)}
+.setdot.warn{background:var(--warn)}
+.setlink{display:grid;grid-template-columns:42px minmax(0,1fr) 22px;gap:12px;align-items:center;text-decoration:none;color:var(--ink);padding:6px 0}
+.setlink+.setlink{border-top:1px solid var(--line);padding-top:12px}
+.setlink strong{display:block;font-weight:600}.setlink small{color:var(--muted);font-size:.86rem}
+.setfoot{display:flex;align-items:center;gap:8px;justify-content:center}.setfoot img{border-radius:8px}
+/* ---------- nuove funzioni ---------- */
+.cf-leg{list-style:none;margin:0;padding:8px 10px;display:flex;flex-wrap:wrap;gap:6px 14px;background:var(--bg);border-radius:10px;font-size:.88rem;color:var(--ink)}
+.cf-leg li{display:flex;align-items:center;gap:6px}
+.cf-leg b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--paper);border:1px solid var(--line);font:700 .8rem var(--f-body)}
+.istr{padding:12px 14px;border-left:4px solid var(--olive);background:var(--olive-soft);box-shadow:none}
+.istr p{margin:4px 0 0}.istr small{display:block;margin-top:6px;color:var(--muted);font-size:.84rem}
+.istr.ricorda{border-left-color:var(--amber);background:var(--amber-soft)}
+.docrow.sos .vicon{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+.sos112{display:flex;gap:14px;align-items:center;padding:16px;text-decoration:none;background:var(--bad);color:#fff;border-color:transparent}
+.sos112 .i{width:30px;height:30px}.sos112 strong{display:block;font-size:1.15rem}.sos112 small{opacity:.9}
+.emc{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:center;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.emc strong{display:block}.emc small{color:var(--olive);font-weight:600;font-size:.95rem}
+.venti{display:inline-flex;gap:4px;flex-wrap:wrap;margin-left:auto}.venti b{font:700 .74rem var(--f-body);padding:2px 7px;border-radius:99px;background:var(--olive-soft);color:var(--olive)}
+.vcard.sito .vtop{align-items:flex-start}
+.sitehint{display:flex;gap:6px;align-items:center;margin:4px 0 0;font-size:.86rem}.sitehint .i{width:15px;height:15px;flex:none}
+.cam-cta{display:grid;grid-template-columns:42px minmax(0,1fr) 22px;gap:12px;align-items:center;padding:12px 14px;text-align:left;color:var(--ink);font:inherit;width:100%;cursor:pointer}
+.cam-cta strong{display:block}.cam-cta small{color:var(--muted);font-size:.86rem}
+.camsel{display:flex;flex-direction:column;gap:10px}
+.camcard{padding:16px;display:flex;flex-direction:column;gap:10px}
+.camcard .radar{max-width:440px;margin-inline:auto}
+.camleg{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;font-weight:600;font-size:.92rem}
+.camleg span{display:flex;align-items:center;gap:7px}.camleg small{color:var(--muted);font-weight:400}
+.sw{display:inline-block;width:22px;height:12px;border-radius:3px}
+.sw.now{background:color-mix(in srgb,var(--amber) 30%,transparent);border:2px solid var(--amber-ink)}
+.sw.pri{border:2px dashed var(--olive)}
+.chip small{opacity:.7;font-weight:600}
+.camwords{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.camwords li+li{border-top:1px solid var(--line)}
+.camwords button{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:2px;width:100%;padding:10px 2px;cursor:pointer}
+.camwords button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.camwords small{color:var(--muted);font-size:.82rem}
+/* ---------- computer: menu laterale, contenuto largo, finestre al centro ---------- */
+@media (min-width:1000px){
+  body{padding-left:300px}
+  body::after{content:"";position:fixed;left:0;top:0;bottom:0;width:300px;background:linear-gradient(180deg,var(--hero-bg),var(--hero-bg2));border-right:3px dashed var(--stitch);z-index:7}
+  .hero{position:fixed;left:0;top:0;width:300px;background:none;border-bottom:0;padding:26px 20px 10px;z-index:9}
+  .hero-in{max-width:none}
+  .hero h1{font-size:1.55rem}
+  .gear{display:none}
+  .hstats div{flex-direction:column;align-items:flex-start;gap:0}
+  .tabbar{position:fixed;left:0;right:auto;top:var(--hero-h,330px);bottom:90px;width:300px;background:none;border:0;padding:6px 14px;overflow:auto;z-index:9}
+  .tabbar-in{display:flex;flex-direction:column;gap:2px;max-width:none}
+  .tabbar button{flex-direction:row;justify-content:flex-start;gap:12px;padding:10px 12px;border-radius:12px;color:var(--hero-fg);font:600 1rem var(--f-body)}
+  .tabbar button .pillbg{width:auto;height:auto;background:none!important}
+  .tabbar button:hover{background:rgba(255,255,255,.07)}
+  .tabbar button[aria-selected="true"]{background:rgba(255,255,255,.14);color:#fff}
+  .tab-imp{display:flex!important;margin-top:16px;position:relative}
+  .tab-imp::before{content:"";position:absolute;left:12px;right:12px;top:-9px;border-top:1px solid rgba(255,255,255,.14)}
+  .fab{left:20px;right:auto;bottom:24px;width:260px;z-index:10}
+  .wrap{max-width:1120px;padding-left:40px;padding-right:40px;padding-block:32px 60px}
+  section.view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+  section.view>*{grid-column:1/-1}
+  section.view>.entry,section.view>.due,section.view>.vcard,section.view>.cgroup,section.view>.setcard,section.view>.camcard{grid-column:auto}
+  #v-tessera>.docrow:not(.topic){grid-column:auto}
+  .sheet-bg{align-items:center}
+  .sheet{max-width:700px;max-height:88vh;border-radius:20px}
+  .sheet-head::before{display:none}
+  .toast{bottom:32px;left:calc(50% + 150px)}
+  .cf-view .radar,.cf-radar .radar{max-width:440px;margin-inline:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="brand">
+      <img class="applogo" src="logo-app.png" alt="Logo di Libretto di volo" width="52" height="52">
+      <div class="bt"><h1>Libretto di volo</h1><span class="corso"><img src="logo.webp" alt="Toppa del corso" width="22" height="22">Primo corso · ASD Volo anch'io</span></div>
+      <button class="gear" id="open-imp" aria-label="Impostazioni"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.5 7.5 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.5 7.5 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.5 7.5 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.5 7.5 0 0 0 2.6-1.5l2.4 1 2-3.4z"/></svg></button>
+    </div>
+    <div class="hstats">
+      <div><b id="g-voli">0</b><span>Voli</span></div>
+      <div><b id="g-ore">0:00</b><span>Ore di volo</span></div>
+      <div><b id="g-camp">0</b><span>Campetti</span></div>
+    </div>
+    <button class="alert" id="alert" hidden></button>
+    <button class="syncline" id="sync" aria-label="Account e salvataggio"></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="status" id="status" hidden></p>
+  <section class="view" id="v-libretto"></section>
+  <section class="view" id="v-vele" hidden></section>
+  <section class="view" id="v-scadenze" hidden></section>
+  <section class="view" id="v-checklist" hidden></section>
+  <section class="view" id="v-tessera" hidden></section>
+  <section class="view" id="v-impostazioni" hidden></section>
+  <section class="view" id="v-cammino" hidden></section>
+</main>
+
+<button class="btn amber fab" id="fab"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Nuova uscita</button>
+
+<nav class="tabbar" aria-label="Sezioni">
+  <div class="tabbar-in" role="tablist">
+    <button role="tab" id="tab-libretto" data-tab="libretto" aria-selected="true"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M9 7h6"/></svg></span>Libretto</button>
+    <button role="tab" id="tab-vele" data-tab="vele" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg></span>Vele e siti</button>
+    <button role="tab" id="tab-scadenze" data-tab="scadenze" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>Scadenze</button>
+    <button role="tab" id="tab-checklist" data-tab="checklist" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><path d="M2.5 8.5L12 4l9.5 4.5L12 13z"/><path d="M6.5 10.5v4.5c3.2 2.3 7.8 2.3 11 0v-4.5M21.5 8.5v5"/></svg></span><span id="tab-study-l">Studio</span></button>
+    <button role="tab" id="tab-tessera" data-tab="tessera" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.3 16.2c.6-1.6 1.8-2.5 3.2-2.5s2.6.9 3.2 2.5M14 10h4.5M14 13.5h3"/></svg></span>Documenti</button>
+    <button role="tab" id="tab-impostazioni" class="tab-imp" data-tab="impostazioni" aria-selected="false"><span class="pillbg"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.5 7.5 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.5 7.5 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.5 7.5 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.5 7.5 0 0 0 2.6-1.5l2.4 1 2-3.4z"/></svg></span>Impostazioni</button>
+  </div>
+</nav>
+<section class="welcome" id="welcome" aria-labelledby="w-title">
+  <div class="w-in">
+    <img class="w-logo" src="logo-app.png" alt="Logo di Libretto di volo" width="150" height="150">
+    <div class="w-title"><h1 id="w-title">Libretto di volo</h1><span class="corso"><img src="logo.webp" alt="Toppa del corso" width="26" height="26">Primo corso · ASD Volo anch'io</span></div>
+    <p class="w-lead">Il tuo libretto personale di campetti e voli, con il diario di ogni uscita.</p>
+    <ul class="w-feats">
+      <li><svg class="i" viewBox="0 0 24 24"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg>Voli e campetti</li>
+      <li><svg class="i" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M9 7h6M9 11h4"/></svg>Diario dopo ogni uscita</li>
+      <li><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Scadenze e vele</li>
+      <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.3 12.4l2.6 2.6 4.8-5.4"/></svg>Checklist pre-volo</li>
+    </ul>
+    <button class="w-btn" data-login><span id="w-glogo"></span>Accedi con Google</button>
+    <div class="w-tip"><svg class="i" viewBox="0 0 24 24" style="color:#ffb36b;width:20px;height:20px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg><span>Al primo accesso Google ti chiede il permesso per Drive: <b>spunta la casella</b>, altrimenti il libretto non può salvare.</span></div>
+    <p class="w-note">I dati restano <strong>nel tuo Google Drive</strong>, in una cartella privata che vede solo l'app. Nessun altro li legge.</p>
+    <div class="w-foot"><button class="w-skip" id="w-skip">Prova senza accedere</button><a href="guida.html">Guida</a><a href="privacy.html">Privacy</a></div>
+  </div>
+</section>
+<div id="sheet-root"></div>
+
+<script src="config.js"></script>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const MESI=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+const MESI_L=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+const TIPI=['Volo con istruttore','Volo da solo','Volo in biposto'];
+const ESERCIZI=['Preparazione vela','Gonfiaggio frontale','Gonfiaggio rovescio','Controllo a terra','Corsa di decollo','Piccoli voli','Atterraggio'];
+const MOODS=[['Teso','var(--bad)'],['Incerto','var(--warn)'],['Sereno','var(--olive)'],['Pieno','var(--amber)']];
+const moodColor=m=>({Bene:'var(--ok)','Così così':'var(--warn)',Male:'var(--bad)'})[m]||(MOODS.find(x=>x[0]===m)||[])[1]||'var(--muted)';
+const CHECK=[
+ ['Pilota',['I pin e la maniglia dell\'emergenza sono al loro posto','Scarpe allacciate, fuori dai cordini','Cosciale destro allacciato','Cosciale sinistro allacciato','Ventrale allacciato','Pettorale allacciato','Casco allacciato','Moschettone destro agganciato','Moschettone sinistro agganciato']],
+ ['Vela',['“A” destre libere','Freni destra liberi, controlla anche la maniglia del freno','“A” sinistre libere','Freni sinistra liberi, controlla anche la maniglia del freno','Vela ben distesa sul terreno, pilota centrato alla vela']],
+ ['Vento',['Direzione e intensità']],
+ ['Spazio aereo',['Spazio aereo libero']]
+];
+const SUGG=['Assicurazione RC','Ripiegatura emergenza','Revisione vela','Esame attestato VDS'];
+const IC={
+  close:'<svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  wing:'<svg class="i" viewBox="0 0 24 24"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg>',
+  ground:'<svg class="i" viewBox="0 0 24 24"><path d="M2.5 20.5h19"/><path d="M4 13c4.5-5.5 11.5-5.5 16 0"/><path d="M6 12.4l6 6.6 6-6.6"/></svg>',
+  file:'<svg class="i" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13l2.5 2.5L15 12"/></svg>',
+  chev:'<svg class="i chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>',
+  bell:'<svg class="i" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>'
+};
+const isCamp=f=>f.genere==='campetto';
+let flights=[], deadlines=[], vele=[], tab='libretto', filtro='tutto';
+let checks={}; try{checks=JSON.parse(localStorage.getItem('pv-checks')||'{}')}catch(e){}
+
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
+function status(t){const s=$('#status');s.hidden=!t;s.textContent=t||''}
+function fmtDur(m){m=Math.round(m||0);return Math.floor(m/60)+':'+String(m%60).padStart(2,'0')}
+function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function daysTo(iso){const a=new Date(today()+'T00:00:00'),b=new Date(iso+'T00:00:00');return Math.round((b-a)/864e5)}
+function fmtDate(iso){if(!iso)return'';const[y,m,d]=iso.split('-');return +d+' '+MESI[+m-1]+' '+y}
+
+/* ---------- IGC ---------- */
+function hav(a,b){const R=6371,r=x=>x*Math.PI/180;const dLa=r(b.lat-a.lat),dLo=r(b.lon-a.lon);const h=Math.sin(dLa/2)**2+Math.cos(r(a.lat))*Math.cos(r(b.lat))*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+function parseIGC(text){
+  let date=null;const pts=[];let add=0,prev=-1;
+  for(const l of text.split(/\r?\n/)){
+    if(l.startsWith('HFDTE')){const m=l.slice(5).match(/(\d{2})(\d{2})(\d{2})/);if(m)date='20'+m[3]+'-'+m[2]+'-'+m[1]}
+    else if(l[0]==='B'&&l.length>=35){
+      let t=+l.substr(1,2)*3600+ +l.substr(3,2)*60+ +l.substr(5,2);
+      if(prev>=0&&t+add<prev)add+=86400;t+=add;prev=t;
+      let lat=+l.substr(7,2)+ +l.substr(9,5)/60000;if(l[14]==='S')lat=-lat;
+      let lon=+l.substr(15,3)+ +l.substr(18,5)/60000;if(l[23]==='W')lon=-lon;
+      const pa=+l.substr(25,5),ga=+l.substr(30,5);
+      if(!isNaN(lat)&&!isNaN(lon))pts.push({t,lat,lon,alt:ga||pa});
+    }
+  }
+  if(pts.length<2)throw new Error('Il file non contiene punti di traccia leggibili.');
+  const a=pts[0],z=pts[pts.length-1];
+  let max=-1e9,far=0;
+  for(const p of pts){if(p.alt>max)max=p.alt;const d=hav(a,p);if(d>far)far=d}
+  const step=Math.max(1,Math.floor(pts.length/120));const prof=[];for(let i=0;i<pts.length;i+=step)prof.push(pts[i].alt);
+  return {data:date||today(),t0:a.t,t1:z.t,durata:Math.round((z.t-a.t)/60),quotaMax:max,quotaDecollo:a.alt,quotaAtterraggio:z.alt,
+    distanza:Math.round(far*10)/10,decLat:+a.lat.toFixed(5),decLon:+a.lon.toFixed(5),profilo:prof};
+}
+function guessSite(lat,lon){let best=null,bd=1.5;for(const f of flights){if(f.decLat==null)continue;const d=hav({lat,lon},{lat:f.decLat,lon:f.decLon});if(d<bd){bd=d;best=f}}return best?best.sito:''}
+
+/* ---------- orari e durata ---------- */
+function toMin(t){if(!t)return null;const[h,m]=t.split(':');return (+h)*60+(+m)}
+function spanMin(a,b){const x=toMin(a),y=toMin(b);if(x==null||y==null)return null;let d=y-x;if(d<0)d+=1440;return d}
+function durField(id,f,lab){
+  return `<div class="grid2"><div class="field"><label for="${id}-a">${lab[0]}</label><input type="time" id="${id}-a" value="${esc(f.inizio)}"></div>
+    <div class="field"><label for="${id}-b">${lab[1]}</label><input type="time" id="${id}-b" value="${esc(f.fine)}"></div></div>
+    <p class="hint" id="${id}-out" aria-live="polite"></p>`}
+function wireDur(id,prev){const out=document.getElementById(id+'-out');
+  const upd=()=>{const d=spanMin(document.getElementById(id+'-a').value,document.getElementById(id+'-b').value);
+    out.innerHTML=d!=null?'Durata: <strong>'+fmtDur(d)+'</strong>':(prev?'Durata registrata: '+fmtDur(prev)+'. Inserisci inizio e fine per ricalcolarla.':'Inserisci inizio e fine: la durata si calcola da sola.')};
+  document.getElementById(id+'-a').addEventListener('input',upd);document.getElementById(id+'-b').addEventListener('input',upd);upd()}
+function setTimes(id,a,b){document.getElementById(id+'-a').value=a;document.getElementById(id+'-b').value=b;document.getElementById(id+'-a').dispatchEvent(new Event('input'))}
+function readTimes(id,prev){const a=document.getElementById(id+'-a').value,b=document.getElementById(id+'-b').value;const d=spanMin(a,b);return {inizio:a,fine:b,durata:d!=null?d:(prev??null)}}
+function localHM(date,sec){const[y,m,d]=date.split('-');const t=new Date(Date.UTC(+y,+m-1,+d,0,0,sec));return String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0')}
+
+/* ---------- vele ---------- */
+function velaLabel(v){return v.nome+(v.taglia?' '+v.taglia:'')}
+function velaName(f){const v=vele.find(x=>x.id===f.velaId);return v?velaLabel(v):(f.vela||'')}
+function velaDefault(){const p=vele.find(v=>v.principale);if(p)return p.id;
+  const last=flights.filter(x=>x.velaId&&vele.some(v=>v.id===x.velaId)).sort((a,b)=>(b.data||'').localeCompare(a.data||''))[0];
+  return last?last.velaId:(vele[0]?vele[0].id:'')}
+function velaSelect(id,f){
+  const cur=('velaId' in f)?f.velaId:(f.id?'':velaDefault());
+  if(!vele.length)return `<div class="field"><span class="lbl">Vela</span><p class="hint">Nessuna vela salvata. <button type="button" class="linkbtn" data-gotovele>Aggiungila nella sezione Vele</button>${f.vela?' · ora: '+esc(f.vela):''}</p></div>`;
+  return `<div class="field"><label for="${id}">Vela</label><select id="${id}"><option value="">Nessuna indicata</option>${vele.map(v=>`<option value="${esc(v.id)}" ${v.id===cur?'selected':''}>${esc(velaLabel(v))}</option>`).join('')}</select></div>`}
+function readVela(id){const el=document.getElementById(id);if(!el)return {};const v=vele.find(x=>x.id===el.value);return {velaId:el.value,vela:v?velaLabel(v):''}}
+
+/* ---------- render ---------- */
+function sparkPath(p,w,h,pad){const mn=Math.min(...p),mx=Math.max(...p),r=(mx-mn)||1;return p.map((a,i)=>(i?'L':'M')+((i/(p.length-1))*w).toFixed(1)+' '+(h-pad-((a-mn)/r)*(h-2*pad)).toFixed(1)).join(' ')}
+function renderHero(){
+  const real=flights.filter(f=>!f.esempio&&!isCamp(f));
+  $('#g-voli').textContent=real.length;
+  $('#g-ore').textContent=fmtDur(real.reduce((s,f)=>s+(+f.durata||0),0));
+  $('#g-camp').textContent=flights.filter(isCamp).length;
+  const next=[...deadlines].filter(d=>d.data&&daysTo(d.data)<=7).sort((a,b)=>a.data.localeCompare(b.data))[0];
+  const al=$('#alert');
+  if(next){const n=daysTo(next.data);al.hidden=false;
+    al.innerHTML=`${IC.bell}<span><strong>${esc(next.titolo)}</strong><small>${n<0?'Scaduta da '+(-n)+' giorni':n===0?'Scade oggi':'Scade tra '+n+' giorni'} · ${fmtDate(next.data)}</small></span>`}
+  else al.hidden=true;
+}
+function needDopo(f){if(f.dopo||!f.data||f.esempio)return false;const n=daysTo(f.data);return n<0&&n>=-7}
+function entryCard(f){
+  const[y,m,d]=(f.data||'--').split('-');const c=isCamp(f);
+  const title=(c?f.luogo:f.sito)||(c?'Campo non indicato':'Decollo non indicato');
+  const vn=velaName(f);
+  let right;
+  if(c)right=`<b>${f.gonfiaggi!=null?esc(f.gonfiaggi):'—'}</b><small>gonfiaggi</small>`;
+  else right=`<b>${fmtDur(f.durata)}</b>${f.profilo&&f.profilo.length>1?`<svg class="spark" viewBox="0 0 64 18" preserveAspectRatio="none" aria-hidden="true"><path d="${sparkPath(f.profilo,64,18,2)}" fill="none" stroke="var(--olive)" stroke-width="1.5" vector-effect="non-scaling-stroke"/></svg>`:`<small>${f.quotaMax?esc(f.quotaMax)+' m':'durata'}</small>`}`;
+  return `<button class="card entry${c?' camp':''}" data-open="${esc(f.id)}">
+    <div class="dblock"><b>${+d||'?'}</b><span>${MESI[+m-1]||''}</span></div>
+    <div class="emain"><strong>${esc(title)}</strong>
+      <div class="meta">${f.esempio?'<span class="chip-t ex">Esempio</span>':''}<span class="chip-t${c?' camp':''}">${c?'Campetto':esc(f.tipo||'Volo')}</span>${f.umore?`<span><i class="dot" style="background:${moodColor(f.umore)}"></i>${esc(f.umore)}</span>`:''}${vn?`<span>${esc(vn)}</span>`:''}${needDopo(f)?'<span class="chip-t dopo">Giorno dopo</span>':''}</div></div>
+    <div class="eright">${right}</div></button>`;
+}
+function renderLibretto(){
+  const v=$('#v-libretto');
+  const all=[...flights].sort((a,b)=>(b.data||'').localeCompare(a.data||'')||(b.creato||0)-(a.creato||0));
+  const list=all.filter(f=>filtro==='tutto'||(filtro==='campetti')===isCamp(f));
+  let h='';
+  if(CONFIGURED&&(!auth||!auth.email))h+=`<div class="card gcard"><strong>Salva il libretto nel tuo Google Drive</strong><p>Ritrovi voli e diario su ogni dispositivo. I dati vanno in una cartella privata del tuo Drive: nessun altro li vede.</p><button class="btn gbtn" data-login>${GLOGO} Accedi con Google</button></div>`;
+  if(!all.length){
+    h+=`<div class="card empty"><svg class="art" viewBox="0 0 120 72" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 26C38 2 82 2 110 26"/><path d="M10 26C38 14 82 14 110 26"/><path d="M30 12.5v9M50 7.5v8M70 7.5v8M90 12.5v9"/><path d="M16 24L60 62L104 24M42 18L60 62L78 18"/><circle cx="60" cy="64" r="4" fill="currentColor"/></svg>
+      <strong>Il libretto è pronto</strong><p>Registra la prima uscita: un campetto o un volo. Per i voli puoi caricare la traccia .igc della tua app.</p>
+      <div class="row"><button class="btn amber" data-new="camp">${IC.ground} Campetto</button><button class="btn primary" data-new="volo">${IC.wing} Volo</button></div></div>`;
+  }else{
+    h+=cammCta();
+    h+=`<div class="seg" role="group" aria-label="Mostra">${[['tutto','Tutto'],['voli','Voli'],['campetti','Campetti']].map(([k,l])=>`<button data-filtro="${k}" aria-pressed="${filtro===k}">${l}</button>`).join('')}</div>`;
+    if(!list.length)h+=`<div class="card empty"><p>${filtro==='campetti'?'Nessun campetto registrato.':'Nessun volo registrato.'}</p></div>`;
+    let cur='';
+    for(const f of list){const k=(f.data||'').slice(0,7);if(k!==cur){cur=k;const[y,m]=k.split('-');h+=`<h3 class="month">${MESI_L[+m-1]||''} ${y||''}</h3>`}h+=entryCard(f)}
+  }
+  v.innerHTML=h;
+}
+function renderVele(){
+  const box=$('#v-vele');const list=[...vele].sort((a,b)=>(b.principale?1:0)-(a.principale?1:0)||(a.nome||'').localeCompare(b.nome||''));
+  let h=`<div class="seg" role="group" aria-label="Mostra">${[['vele','Vele'],['siti','Siti di volo']].map(([k,l])=>`<button data-veleseg="${k}" aria-pressed="${veleSeg===k}">${l}</button>`).join('')}</div>`;
+  if(veleSeg==='siti'){box.innerHTML=h+renderSiti();return}
+  h+=`<div class="vhead"><h2>Le mie vele</h2><button class="btn primary small" id="add-vela">+ Aggiungi</button></div>`;
+  if(!list.length)h+=`<div class="card empty"><svg class="art" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:72px"><path d="M2.5 10c5.5-6.5 13.5-6.5 19 0"/><path d="M2.5 10c5.5-3 13.5-3 19 0"/><path d="M4.5 9.2L12 20l7.5-10.8M9 7.5L12 20l3-12.5"/></svg>
+    <strong>Nessuna vela</strong><p>Aggiungi la tua vela, o quelle della scuola che usi più spesso. A ogni uscita scegli quale hai usato.</p></div>`;
+  h+=list.map(x=>{const us=flights.filter(f=>f.velaId===x.id);const vo=us.filter(f=>!isCamp(f));const ore=vo.reduce((s,f)=>s+(+f.durata||0),0);
+    const sub=[x.taglia&&'Taglia '+x.taglia,x.classe,x.anno&&'dal '+x.anno].filter(Boolean).join(' · ');
+    return `<button class="card vcard" data-editvela="${esc(x.id)}"><div class="vtop"><span class="vicon">${IC.wing}</span><div style="min-width:0"><strong>${esc(x.nome)}</strong>${sub?`<small>${esc(sub)}</small>`:''}</div>${x.principale?'<span class="star">Principale</span>':''}</div>
+    ${x.note?`<p class="hint">${esc(x.note)}</p>`:''}
+    <div class="mini"><div><b>${vo.length}</b><span>Voli</span></div><div><b>${fmtDur(ore)}</b><span>Ore</span></div><div><b>${us.length-vo.length}</b><span>Campetti</span></div></div></button>`}).join('');
+  box.innerHTML=h;
+}
+function renderScadenze(){
+  const v=$('#v-scadenze');
+  const list=[...deadlines].sort((a,b)=>(a.data||'').localeCompare(b.data||''));
+  let h=`<div class="vhead"><h2>Scadenze</h2><button class="btn primary small" id="add-dl">+ Aggiungi</button></div>`;
+  if(list.length)h+=`<p class="hint" style="margin-top:-4px">Tocca una scadenza per aggiungerla al calendario del telefono: ti avvisa un mese prima e il giorno prima.</p>`;
+  if(!list.length)h+=`<div class="card empty"><strong>Niente in scadenza</strong><p>Aggiungi certificato medico, assicurazione, ripiegatura dell'emergenza: qui vedi a colpo d'occhio cosa sta per scadere.</p></div>`;
+  h+=list.map(d=>{const n=daysTo(d.data);const cls=n<0?'bad':n<=30?'warn':'';
+    const big=n<0?-n:n;const lab=n<0?'gg fa':n===0?'oggi':n===1?'giorno':'giorni';
+    const cs=calState(d);
+    return `<button class="card due ${cls}" data-editdl="${esc(d.id)}"><div class="cd"><b>${n===0?'!':big}</b><span>${lab}</span></div>
+    <div style="min-width:0"><strong>${esc(d.titolo)}</strong><small>${n<0?'Scaduta il ':'Scade il '}${fmtDate(d.data)}${d.note?' · '+esc(d.note):''}</small>${cs?`<span class="calst ${cs}">${cs==='ok'?'Nel calendario':'Data cambiata: aggiorna il calendario'}</span>`:''}</div>${IC.chev}</button>`}).join('');
+  const missing=SUGG.filter(s=>!deadlines.some(d=>(d.titolo||'').toLowerCase()===s.toLowerCase()));
+  if(missing.length)h+=`<span class="lbl" style="margin-top:8px">Da aggiungere</span><div class="chips">${missing.map(s=>`<button class="chip" data-sugg="${esc(s)}">+ ${esc(s)}</button>`).join('')}</div>`;
+  v.innerHTML=h;
+}
+function renderControlli(){
+  let n=0;
+  let h=`
+  <div class="card ck-note"><strong>Si imparano a memoria</strong><p>In decollo non si usa il telefono: mani e testa restano sulla vela. Qui trovi la sequenza dei controlli indicata dagli istruttori, sempre nello stesso ordine, per ripassarla finché diventa automatica.</p>
+    <button class="btn amber" id="ck-train">Allenati a memoria</button></div>`;
+  h=`<h3 class="subh">Controlli pre-volo</h3>`+h;
+  h+=CHECK.map(([g,it])=>`<div class="card cgroup"><h3>${esc(g)}<span>${it.length===1?'1 controllo':it.length+' controlli'}</span></h3>${it.map(t=>{n++;return `<div class="cstep"><b>${n}</b><span>${esc(t)}</span></div>`}).join('')}</div>`).join('');
+  h+=`<p class="hint">Sequenza della scuola: pilota, vela, vento, spazio aereo. Il briefing e l'ultima parola sul decollo restano dell'istruttore.</p>`;
+  return h;
+}
+/* ---------- studio: teoria e quiz ---------- */
+// Teoria e quiz: metti true quando le schede sono state approvate dagli istruttori
+const TEORIA_ON=true;
+let studyMode='controlli',teoria=null,teoriaErr=false,topicOpen=null;
+function loadTeoria(){
+  if(teoria||teoriaErr)return;
+  fetch('teoria.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{teoria=j;LS.set('lv-teoria',j);renderChecklist()})
+    .catch(()=>{const c=LS.get('lv-teoria',null);if(c)teoria=c;else teoriaErr=true;renderChecklist()});
+}
+const FIG={
+  gradiente:`<svg viewBox="0 0 300 150" role="img" aria-label="Il vento aumenta con la quota: frecce più corte vicino al suolo"><g fill="none" stroke="var(--sc-sky)" stroke-width="3" stroke-linecap="round">
+    <path d="M30 30h200m-12-8 12 8-12 8"/><path d="M30 62h160m-12-8 12 8-12 8"/><path d="M30 94h110m-12-8 12 8-12 8"/><path d="M30 122h55m-12-7 12 7-12 7"/></g>
+    <path d="M20 138h270" stroke="var(--ink)" stroke-width="3"/><g fill="var(--muted)" font-family="Barlow Condensed, sans-serif" font-size="13" font-weight="700"><text x="240" y="34">più vento</text><text x="100" y="127">meno vento</text><text x="22" y="150" font-size="11">suolo</text></g></svg>`,
+  dinamica:`<svg viewBox="0 0 300 150" role="img" aria-label="Il vento risale il pendio: zona di salita davanti al pendio, sottovento turbolento dietro il crinale">
+    <path d="M10 140 L170 50 L200 50 L290 140 Z" fill="var(--sc-sky-soft)" stroke="var(--sc-sky)" stroke-width="2"/>
+    <g fill="none" stroke="var(--sc-red)" stroke-width="3" stroke-linecap="round"><path d="M20 110 C60 100 100 80 140 52"/><path d="M135 47l9 2-4 9"/><path d="M20 70 C70 62 120 40 170 32"/><path d="M164 27l9 3-6 8"/></g>
+    <g fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="4 4" opacity=".6"><path d="M215 60 c10 -12 28 -6 24 8 c-4 14 -22 12 -22 2"/><path d="M240 85 c10 -12 28 -6 24 8 c-4 14 -22 12 -22 2"/></g>
+    <g font-family="Barlow Condensed, sans-serif" font-size="13" font-weight="700"><text x="30" y="40" fill="var(--sc-red)">l'aria sale</text><text x="215" y="40" fill="var(--ink)">sottovento</text></g></svg>`,
+  rotore:`<svg viewBox="0 0 300 150" role="img" aria-label="Il vento scavalca una fila di alberi e dietro forma vortici turbolenti">
+    <g fill="var(--sc-sky)" opacity=".85"><ellipse cx="110" cy="85" rx="20" ry="32"/><ellipse cx="140" cy="80" rx="22" ry="38"/><rect x="106" y="110" width="8" height="28"/><rect x="136" y="112" width="8" height="26"/></g>
+    <path d="M10 138h280" stroke="var(--ink)" stroke-width="3"/>
+    <g fill="none" stroke="var(--sc-red)" stroke-width="3" stroke-linecap="round"><path d="M15 70 C60 64 90 40 150 32 C190 28 220 40 250 60"/><path d="M243 52l8 9-11 3"/></g>
+    <g fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-dasharray="5 4" opacity=".6"><path d="M180 95 c14 -18 40 -8 34 10 c-6 18 -32 14 -30 0"/><path d="M225 118 c10 -12 28 -6 24 8 c-4 12 -22 10 -20 0"/></g>
+    <g font-family="Barlow Condensed, sans-serif" font-size="13" font-weight="700"><text x="15" y="60" fill="var(--sc-red)">vento</text><text x="190" y="78" fill="var(--ink)">rotore</text></g></svg>`
+};
+function readSet(){return new Set(LS.get('lv-lette',[]))}
+function studyTabs(){return `<div class="seg" role="group" aria-label="Studio">${[['controlli','Controlli'],['teoria','Teoria'],['quiz','Quiz']].map(([k,l])=>`<button data-study="${k}" aria-pressed="${studyMode===k}">${l}</button>`).join('')}</div>`}
+function topicBadge(t){return t.stato==='rivisto'?`<span class="chip-t">Rivista dall'istruttore</span>`:t.stato==='bozza'?`<span class="chip-t camp">Bozza da rivedere</span>`:`<span class="chip-t ex">In preparazione</span>`}
+function renderTeoria(){
+  let h='';
+  if(!teoria){h+=teoriaErr?`<div class="card empty"><p>Non riesco a caricare la teoria. Serve la connessione la prima volta che apri questa sezione.</p></div>`:`<div class="card empty"><p>Carico le schede…</p></div>`;return h}
+  if(!topicOpen){
+    h+=`<p class="hint" style="margin-top:-2px">I punti fondamentali, spiegati in poche righe. Non sostituiscono le lezioni né i manuali, ma aiutano a ripassare.</p>`;
+    if(!teoria.argomenti.some(t=>t.schede.length))h+=`<div class="card ck-note" style="padding:12px 14px"><p><strong style="font-size:1rem">In arrivo.</strong> Le schede sono in preparazione insieme agli istruttori della scuola: compariranno qui una alla volta, dopo la loro revisione.</p></div>`;
+    const rs=readSet();
+    for(const t of teoria.argomenti){const n=t.schede.length,l=t.schede.filter(s=>rs.has(t.id+'/'+s.id)).length;
+      h+=`<button class="card docrow topic${n?'':' off'}" data-topic="${esc(t.id)}" ${n?'':'disabled'}><span class="vicon"><svg class="i" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/></svg></span>
+        <span class="dmain"><strong>${esc(t.nome)}</strong><small>${n?`${l} di ${n} schede lette`:esc(t.descrizione)}</small><span>${topicBadge(t)}</span></span>${n?IC.chev:'<span></span>'}</button>`}
+    return h;
+  }
+  const t=teoria.argomenti.find(x=>x.id===topicOpen),rs=readSet();
+  h+=`<button class="btn ghost small backbtn" id="topic-back"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Teoria</button>
+    <div class="card schead"><div><p class="scband-t">Teoria</p><h2>${esc(t.nome)}</h2><p>${esc(t.descrizione)}</p></div>${t.stato==='rivisto'?'<img src="logo-scuola.webp" alt="Volo Anch\'io" width="96" height="51">':topicBadge(t)}</div>`;
+  if(t.stato==='bozza')h+=`<div class="card ck-note" style="padding:12px 14px"><p><strong style="font-size:1rem">Bozza.</strong> Queste schede devono ancora essere controllate dagli istruttori. In caso di dubbio vale quello che dicono loro.</p></div>`;
+  h+=`<div class="card cgroup scgroup">${t.schede.map((s,i)=>`<button class="cstep sbtn" data-card="${i}"><b>${i+1}</b><span>${esc(s.titolo)}</span>${rs.has(t.id+'/'+s.id)?'<em class="read">letta</em>':''}</button>`).join('')}</div>`;
+  if(t.domande.length)h+=`<button class="btn amber" data-quiz="${esc(t.id)}">Mettiti alla prova · ${t.domande.length} domande</button>`;
+  return h;
+}
+function openCard(i){
+  const t=teoria.argomenti.find(x=>x.id===topicOpen),s=t.schede[i];if(!s)return;
+  const rs=readSet();rs.add(t.id+'/'+s.id);LS.set('lv-lette',[...rs]);renderChecklist();
+  openSheet(s.titolo,`<div class="scband"><span>Teoria · ${esc(t.nome)}</span><span>${i+1}/${t.schede.length}</span></div>
+    ${s.fig&&FIG[s.fig]?`<div class="card fig">${FIG[s.fig]}</div>`:''}
+    <div class="tsec sc"><h4>Cos'è</h4><p>${esc(s.cose)}</p></div>
+    <div class="tsec sc"><h4>Perché conta in volo</h4><p>${esc(s.perche)}</p></div>
+    <div class="tsec scwarn"><h4>L'errore tipico</h4><p>${esc(s.errore)}</p></div>
+    ${s.approfondisci?`<p class="hint">Per approfondire: ${esc(s.approfondisci)}</p>`:''}
+    ${t.stato==='rivisto'?`<p class="screv"><img src="logo-scuola.webp" alt="Volo Anch'io" width="72" height="38">Scheda rivista dagli istruttori${t.revisore?' · '+esc(t.revisore):''}</p>`:`<p class="hint">Bozza: in attesa di revisione degli istruttori.</p>`}`,
+    `${i>0?'<button class="btn" id="c-prev">← Precedente</button>':''}${i<t.schede.length-1?'<button class="btn primary" id="c-next">Successiva →</button>':'<button class="btn primary" id="c-end">Fine</button>'}`);
+  const sh=document.querySelector('.sheet');if(sh&&openCard.again)sh.style.animation='none';openCard.again=true;
+  const p=$('#c-prev'),n=$('#c-next'),e=$('#c-end');if(p)p.onclick=()=>openCard(i-1);if(n)n.onclick=()=>openCard(i+1);if(e)e.onclick=()=>{closeSheet();renderChecklist()};
+}
+function renderQuizHome(){
+  if(!teoria)return renderTeoria();
+  let h=`<p class="hint" style="margin-top:-2px">Domande a scelta multipla, con la spiegazione della risposta giusta.</p>`;
+  const best=LS.get('lv-quiz',{});
+  for(const t of teoria.argomenti){if(!t.domande.length)continue;const b=best[t.id];
+    h+=`<button class="card docrow topic" data-quiz="${esc(t.id)}"><span class="vicon"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6M12 17v.2"/></svg></span><span class="dmain"><strong>${esc(t.nome)}</strong><small>${t.domande.length} domande${b!=null?` · miglior risultato ${b}/${t.domande.length}`:''}</small><span>${topicBadge(t)}</span></span>${IC.chev}</button>`}
+  if(!teoria.argomenti.some(t=>t.domande.length))h+=`<div class="card empty"><strong>Ancora nessun quiz</strong><p>Le domande arrivano insieme alle schede di teoria, argomento per argomento.</p></div>`;
+  const prep=teoria.argomenti.filter(t=>!t.domande.length).map(t=>t.nome);
+  if(prep.length)h+=`<p class="hint">In preparazione: ${esc(prep.join(', '))}.</p>`;
+  return h;
+}
+function startQuiz(id){
+  const t=teoria.argomenti.find(x=>x.id===id);if(!t)return;
+  const qs=[...t.domande].map(q=>{const o=q.r.map((r,k)=>({r,k}));for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]]}return {...q,o}});
+  for(let i=qs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[qs[i],qs[j]]=[qs[j],qs[i]]}
+  let i=0,score=0,ans=null,first=true;
+  const still=()=>{const sh=document.querySelector('.sheet');if(sh&&!first)sh.style.animation='none';first=false};
+  const draw=()=>{
+    if(i>=qs.length){
+      const best=LS.get('lv-quiz',{});best[id]=Math.max(best[id]||0,score);LS.set('lv-quiz',best);
+      openSheet('Risultato',`<div class="card fs" style="text-align:center"><p style="margin:0;font:700 2.6rem var(--f-label)">${score}/${qs.length}</p><p style="margin:0">${score===qs.length?'Tutte giuste!':score>=qs.length*0.7?'Buon risultato. Rileggi le schede delle domande sbagliate.':'Ripassa le schede di '+esc(t.nome)+' e riprova.'}</p></div>`,
+        `<button class="btn primary" id="q-again">Ricomincia</button><button class="btn ghost" id="q-close">Chiudi</button>`);still();
+      $('#q-again').onclick=()=>startQuiz(id);$('#q-close').onclick=()=>{closeSheet();renderChecklist()};return;
+    }
+    const q=qs[i];
+    openSheet(t.nome,`<div class="tr-prog"><i style="width:${(i/qs.length*100).toFixed(1)}%"></i></div>
+      <p class="tr-meta">Domanda ${i+1} di ${qs.length}</p><p class="qtext">${esc(q.d)}</p>
+      <div class="qopts">${q.o.map((o,k)=>{const cls=ans==null?'':o.k===q.ok?'right':k===ans?'wrong':'dim';return `<button class="qopt ${cls}" data-opt="${k}" ${ans!=null?'disabled':''}>${esc(o.r)}</button>`}).join('')}</div>
+      ${ans!=null?`<div class="card tsec ${q.o[ans].k===q.ok?'':'warnsec'}" style="padding:12px 14px"><h4>${q.o[ans].k===q.ok?'Giusto':'Non proprio'}</h4><p>${esc(q.spiega)}</p></div>`:''}`,
+      ans!=null?`<button class="btn primary" id="q-next">${i<qs.length-1?'Avanti':'Vedi il risultato'}</button>`:'');still();
+    if(ans==null)document.querySelectorAll('.qopt').forEach(b=>b.onclick=()=>{ans=+b.dataset.opt;if(q.o[ans].k===q.ok)score++;draw()});
+    else $('#q-next').onclick=()=>{i++;ans=null;draw()};
+  };
+  draw();
+}
+
+function renderChecklist(){
+  const v=$('#v-checklist');if(!v)return;
+  if(!TEORIA_ON){v.innerHTML=renderControlli().replace('<h3 class="subh">Controlli pre-volo</h3>','<div class="vhead"><h2>Controlli pre-volo</h2></div>');return}
+  let h=`<div class="vhead"><h2>Studio</h2></div>`+studyTabs();
+  if(studyMode==='controlli')h+=renderControlli();
+  else{loadTeoria();h+=studyMode==='teoria'?renderTeoria():renderQuizHome()}
+  v.innerHTML=h;
+}
+function trainChecklist(){
+  const all=[];CHECK.forEach(([g,it])=>it.forEach(t=>all.push({g,t})));
+  let i=0,shown=false,first=true;const miss=[];
+  const still=()=>{const sh=document.querySelector('.sheet');if(sh&&!first)sh.style.animation='none';first=false};
+  const draw=()=>{
+    if(i>=all.length){
+      const ok=all.length-miss.length;
+      openSheet('Ripasso finito',`<div class="card fs" style="text-align:center"><p style="margin:0;font:700 2.4rem var(--f-label)">${ok}/${all.length}</p><p style="margin:0">${miss.length?'Ripassa questi controlli:':'Tutta la sequenza a memoria. Bravo!'}</p></div>
+        ${miss.length?`<div class="card cgroup">${miss.map(k=>`<div class="cstep"><b>${k+1}</b><span>${esc(all[k].t)}</span></div>`).join('')}</div>`:''}`,
+        `<button class="btn primary" id="tr-again">Ricomincia</button><button class="btn ghost" id="tr-close">Chiudi</button>`);still();
+      $('#tr-again').onclick=trainChecklist;$('#tr-close').onclick=closeSheet;return;
+    }
+    const s=all[i],prev=i?all[i-1].t:'';
+    openSheet('Allenati a memoria',`<div class="tr-prog"><i style="width:${(i/all.length*100).toFixed(1)}%"></i></div>
+      <p class="tr-meta">${esc(s.g)} · controllo ${i+1} di ${all.length}</p>
+      ${prev?`<p class="tr-prev">Prima: ${esc(prev)}</p>`:'<p class="tr-prev">Si parte dal pilota.</p>'}
+      <div class="card tr-card${shown?' on':''}">${shown?`<strong>${esc(s.t)}</strong>`:'<span>Qual è il prossimo controllo?<br><small>Dillo a voce, poi scopri la risposta.</small></span>'}</div>`,
+      shown?`<button class="btn primary" id="tr-yes">Lo sapevo</button><button class="btn" id="tr-no">Da ripassare</button>`:`<button class="btn amber" id="tr-show">Mostra la risposta</button>`);still();
+    if(shown){$('#tr-yes').onclick=()=>{i++;shown=false;draw()};$('#tr-no').onclick=()=>{miss.push(i);i++;shown=false;draw()}}
+    else $('#tr-show').onclick=()=>{shown=true;draw()};
+  };
+  draw();
+}
+function renderAll(){renderHero();renderLibretto();renderVele();renderScadenze();renderChecklist();renderDocs();renderImpostazioni();renderCammino()}
+function setTab(t){tab=t;for(const b of document.querySelectorAll('.tabbar button'))b.setAttribute('aria-selected',b.dataset.tab===(t==='cammino'?'libretto':t));
+  for(const id of ['libretto','vele','scadenze','checklist','tessera','impostazioni','cammino'])$('#v-'+id).hidden=id!==t;$('#fab').hidden=t!=='libretto';window.scrollTo(0,0)}
+
+/* ---------- fogli ---------- */
+function closeSheet(){$('#sheet-root').innerHTML=''}
+function openSheet(title,body,foot){
+  $('#sheet-root').innerHTML=`<div class="sheet-bg" id="sbg"><div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(title)}">
+    <div class="sheet-head"><h2>${esc(title)}</h2><button class="close" id="x" aria-label="Chiudi">${IC.close}</button></div>
+    <div class="sheet-body">${body}</div>${foot?`<div class="sheet-foot" id="foot">${foot}</div>`:''}</div></div>`;
+  $('#sbg').addEventListener('click',e=>{if(e.target.id==='sbg')closeSheet()});$('#x').onclick=closeSheet;
+}
+function askDelete(what,onYes,onNo){
+  $('#foot').innerHTML=`<div class="confirm"><span>Eliminare ${what}? Non si può annullare.</span><div class="row"><button class="btn danger" id="yes" style="flex:1">Sì, elimina</button><button class="btn" id="no" style="flex:1">Annulla</button></div></div>`;
+  $('#yes').onclick=onYes;$('#no').onclick=onNo;
+}
+function chooseKind(){
+  openSheet('Nuova uscita',`<div class="picks">
+    <button class="card pick camp" data-new="camp"><span class="vicon">${IC.ground}</span><span><strong>Campetto</strong><small>Gonfiaggi, esercizi a terra, consigli dell'istruttore, diario</small></span></button>
+    <button class="card pick" data-new="volo"><span class="vicon">${IC.wing}</span><span><strong>Volo</strong><small>Traccia .igc, decollo, quote e durata, diario del volo</small></span></button></div>`);
+}
+const DIARIO=[['bene','Cosa è andato bene'],['imparato','Cosa ho imparato'],['migliorare','Cosa posso migliorare'],['resta','Cosa resta dentro di me'],['progredire','Come posso progredire']];
+const SCALA=[[1,'Per niente'],[2,'Poco'],[3,'Abbastanza'],[4,'Molto'],[5,'Del tutto']];
+const COMFORT_CAMP=[['prep','Preparazione della vela e controlli','Preparazione'],['vento','Lettura del vento','Lettura del vento'],['frontale','Gonfiaggio frontale','Gonfiaggio frontale'],['rovescio','Gonfiaggio rovescio','Gonfiaggio rovescio'],['terra','Controllo a terra','Controllo a terra'],['corsa','Corsa e decollo','Corsa e decollo'],['emotivo','Stato emotivo','Stato emotivo'],['ascolto',"Ascolto delle indicazioni dell'istruttore",'Ascolto istruttore']];
+const COMFORT=[['pianif','Pianificazione del volo e della meta','Pianificazione'],['decollo','Decollo','Decollo'],['termica','Volo in termica','Termica'],['strategia','Strategia e meteo','Strategia e meteo'],['emotivo','Stato emotivo in volo','Stato emotivo'],['mentale','Chiarezza mentale in volo','Chiarezza mentale'],['atterraggio','Atterraggio','Atterraggio'],['analisi','Analisi del volo','Analisi del volo']];
+const FACE={
+  Bene:'<svg viewBox="0 0 24 24" class="i"><circle cx="12" cy="12" r="9"/><path d="M8 14.5c1 1.4 2.4 2 4 2s3-.6 4-2"/><path d="M9 9.5h.01M15 9.5h.01" stroke-width="2.6"/></svg>',
+  'Così così':'<svg viewBox="0 0 24 24" class="i"><circle cx="12" cy="12" r="9"/><path d="M8.5 15h7"/><path d="M9 9.5h.01M15 9.5h.01" stroke-width="2.6"/></svg>',
+  Male:'<svg viewBox="0 0 24 24" class="i"><circle cx="12" cy="12" r="9"/><path d="M8 16.5c1-1.4 2.4-2 4-2s3 .6 4 2"/><path d="M9 9.5h.01M15 9.5h.01" stroke-width="2.6"/></svg>'
+};
+function radarSvg(v,labels,set){
+  const C=set||COMFORT;
+  const n=C.length,W=labels?380:300,cx=W/2,cy=labels?126:100,R=labels?80:90,H=labels?256:200;
+  const pt=(i,r)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+Math.cos(a)*r,cy+Math.sin(a)*r]};
+  let g='';
+  for(let k=1;k<=5;k++)g+=`<polygon points="${C.map((_,i)=>pt(i,R*k/5).map(x=>x.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="var(--line)" stroke-width="1"/>`;
+  C.forEach((_,i)=>{const [x,y]=pt(i,R);g+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--line)"/>`});
+  const rated=C.map(([k])=>+(v&&v[k])||0);
+  if(rated.some(x=>x)){
+    g+=`<polygon points="${rated.map((s,i)=>pt(i,R*s/5).map(x=>x.toFixed(1)).join(',')).join(' ')}" fill="color-mix(in srgb,var(--amber) 30%,transparent)" stroke="var(--amber-ink)" stroke-width="2" stroke-linejoin="round"/>`;
+    rated.forEach((s,i)=>{if(s){const [x,y]=pt(i,R*s/5);g+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="var(--amber-ink)"/>`}});
+  }
+  if(labels)C.forEach(([k,,short],i)=>{const [x,y]=pt(i,R+14);const anchor=Math.abs(x-cx)<8?'middle':x<cx?'end':'start';
+    g+=`<text x="${x.toFixed(1)}" y="${(y+(y<cy-10?-2:y>cy+10?10:4)).toFixed(1)}" text-anchor="${anchor}" font-family="Barlow Condensed, sans-serif" font-size="12" font-weight="600" fill="var(--muted)">${esc(short)}${rated[i]?' '+rated[i]:''}</text>`});
+  return `<svg viewBox="0 0 ${W} ${H}" class="radar" role="img" aria-label="La mia zona di comfort">${g}</svg>`;
+}
+function readDiary(f,umore){
+  const o={umore};for(const [k] of DIARIO)o[k]=$('#dz-'+k).value.trim();
+  o.dopo=$('#dz-dopo').value.trim();
+  const c={};document.querySelectorAll('.cf-row').forEach(r=>{const s=r.querySelector('[aria-pressed="true"]');if(s)c[r.dataset.k]=+s.dataset.v});
+  o.comfort=c;if(f.paura)o.paura=f.paura;if(f.prossimo)o.prossimo=f.prossimo;
+  return o;
+}
+function wireComfort(f){
+  const box=$('#cf-box');if(!box)return;
+  const set=isCamp(f)||f._camp?COMFORT_CAMP:COMFORT;
+  const upd=()=>{const c={};box.querySelectorAll('.cf-row').forEach(r=>{const s=r.querySelector('[aria-pressed="true"]');if(s)c[r.dataset.k]=+s.dataset.v});$('#cf-radar').innerHTML=radarSvg(c,false,set)};
+  box.onclick=e=>{const b=e.target.closest('[data-v]');if(!b)return;const row=b.closest('.cf-row'),was=b.getAttribute('aria-pressed')==='true';
+    row.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed','false'));if(!was)b.setAttribute('aria-pressed','true');upd()};
+  upd();
+}
+function diaryForm(f,camp){
+  const c=f.comfort||{},SET=camp?COMFORT_CAMP:COMFORT;
+  return `<div class="card fs diary-fs"><p class="fs-title">Diario</p>
+    <div class="field"><span class="lbl">Feeling</span><div class="mood mood3" id="mood">${Object.keys(FACE).map(m=>`<button type="button" aria-pressed="${m===f.umore}" data-m="${m}">${FACE[m]}${m}</button>`).join('')}</div></div>
+    ${DIARIO.map(([k,l])=>`<div class="field"><label for="dz-${k}">${l}</label><textarea id="dz-${k}">${esc(f[k]||(k==='progredire'?f.prossimo:'')||'')}</textarea></div>`).join('')}
+  </div>
+  <div class="card fs diary-fs"><p class="fs-title">La mia zona di comfort</p>
+    <p class="hint">${camp?'Al campetto: da 1 a 5, quanto ti sei sentito a tuo agio. Valuta solo quello che hai fatto oggi.':'In volo: da 1 a 5, quanto ti sei sentito a tuo agio. Valuta solo quello che hai fatto oggi.'}</p>
+    <ol class="cf-leg" aria-label="Quanto mi sono sentito a mio agio">${SCALA.map(([n,t])=>`<li><b>${n}</b>${t}</li>`).join('')}</ol>
+    <div id="cf-radar" class="cf-radar"></div>
+    <div id="cf-box">${SET.map(([k,l])=>`<div class="cf-row" data-k="${k}"><span>${esc(l)}</span><div class="cf-pills">${[1,2,3,4,5].map(v=>`<button type="button" data-v="${v}" aria-pressed="${+c[k]===v}" aria-label="${esc(l)}: ${v}, ${SCALA[v-1][1]}" title="${SCALA[v-1][1]}">${v}</button>`).join('')}</div></div>`).join('')}</div>
+  </div>
+  <div class="card fs diary-fs"><p class="fs-title">Riflessioni del giorno dopo</p>
+    <p class="hint">Rileggi l'uscita a mente fredda, anche il giorno dopo: puoi tornare qui quando vuoi.</p>
+    <textarea id="dz-dopo">${esc(f.dopo)}</textarea></div>`;
+}
+function moodView(m){return FACE[m]?`<span class="mview">${FACE[m]}${esc(m)}</span>`:esc(m)}
+function diaryView(f,second){
+  const items=[['Feeling',f.umore,true],...DIARIO.map(([k,l])=>[l,f[k]]),[second,f.paura],['Cosa porto alla prossima uscita',f.prossimo&&f.progredire!==f.prossimo?f.prossimo:'']].filter(x=>x[1]);
+  const hasC=f.comfort&&Object.keys(f.comfort).length;
+  let h='';
+  if(items.length)h+=`<span class="lbl">Diario</span><dl class="diary" style="margin:0">${items.map(([a,b,raw])=>`<dt>${a}</dt><dd>${raw?moodView(b):esc(b)}</dd>`).join('')}</dl>`;
+  if(hasC)h+=`<span class="lbl">La mia zona di comfort${isCamp(f)?' · campetto':' · volo'}</span><div class="card cf-view">${radarSvg(f.comfort,true,isCamp(f)?COMFORT_CAMP:COMFORT)}</div>`;
+  if(f.dopo)h+=`<span class="lbl">Riflessioni del giorno dopo</span><div class="diary">${esc(f.dopo).replace(/\n/g,'<br>')}</div>`;
+  else if(f.data&&f.data<today())h+=`<button class="card dopo-cta" data-dopo="${esc(f.id)}"><strong>Riflessioni del giorno dopo</strong><small>Rileggi l'uscita a mente fredda e aggiungi due righe.</small></button>`;
+  return h;
+}
+function editDopo(id){
+  const f=flights.find(x=>x.id===id);if(!f)return;
+  openSheet('Riflessioni del giorno dopo',`<p class="hint">${isCamp(f)?'Campetto':'Volo'} del ${fmtDate(f.data)}${(f.sito||f.luogo)?' · '+esc(f.sito||f.luogo):''}</p>
+    <div class="card fs diary-fs"><textarea id="dz-solo" style="min-height:160px" placeholder="Come la vedi oggi, a mente fredda?">${esc(f.dopo)}</textarea></div>`,
+    `<button class="btn primary" id="dz-save">Salva</button>`);
+  $('#dz-save').onclick=async()=>{const {id:_i,...rest}=f;await saveDoc('voli',id,{...rest,dopo:$('#dz-solo').value.trim()});isCamp(f)?showCamp({...f,dopo:$('#dz-solo').value.trim()}):showFlight(id);toast('Riflessione salvata')};
+}
+function wireMood(get,set){$('#mood').onclick=e=>{const b=e.target.closest('button');if(!b)return;set(get()===b.dataset.m?'':b.dataset.m);for(const x of $('#mood').children)x.setAttribute('aria-pressed',x.dataset.m===get())}}
+function kv(rows){rows=rows.filter(r=>r[1]);return rows.length?`<dl class="card kv" style="margin:0">${rows.map(([a,b])=>`<div><dt>${a}</dt><dd>${esc(b)}</dd></div>`).join('')}</dl>`:''}
+
+function showFlight(id){
+  const f=flights.find(x=>x.id===id);if(!f)return;
+  if(isCamp(f))return showCamp(f);
+  const prof=f.profilo&&f.profilo.length>1?(()=>{const mn=Math.min(...f.profilo),mx=Math.max(...f.profilo);const d=sparkPath(f.profilo,300,96,6);
+    return `<div class="card profile"><span class="lbl">Profilo di quota · ${mn}–${mx} m</span><svg viewBox="0 0 300 96" preserveAspectRatio="none" role="img" aria-label="Profilo di quota del volo"><path d="${d} L300 96 L0 96 Z" fill="var(--olive-soft)"/><path d="${d}" fill="none" stroke="var(--olive)" stroke-width="2" vector-effect="non-scaling-stroke"/></svg></div>`})():'';
+  openSheet(f.sito||'Volo',`
+   <div class="meta"><span class="chip-t">${esc(f.tipo||'Volo')}</span>${f.esempio?'<span class="chip-t ex">Esempio</span>':''}<span>${fmtDate(f.data)}${f.inizio?' · '+esc(f.inizio)+(f.fine?'–'+esc(f.fine):''):''}</span></div>
+   <div class="tiles"><div><b>${fmtDur(f.durata)}</b><span>Durata</span></div><div><b>${f.quotaMax!=null?esc(f.quotaMax)+' m':'—'}</b><span>Quota max</span></div><div><b>${f.distanza!=null?esc(f.distanza)+' km':'—'}</b><span>Distanza</span></div></div>
+   ${prof}
+   ${kv([['Atterraggio',f.atterraggio],['Vela',velaName(f)],['Condizioni',f.vento],['Quota decollo',f.quotaDecollo!=null?f.quotaDecollo+' m':'']])}
+   ${f.note?`<div><span class="lbl">Note tecniche</span><p style="margin:4px 0 0;white-space:pre-wrap">${esc(f.note)}</p></div>`:''}
+   ${istrView(f)}
+   ${diaryView(f,'Dove ho sentito paura o tensione')}`,
+   `<button class="btn primary" id="edit">Modifica</button><button class="btn danger" id="del">Elimina</button>`);
+  $('#edit').onclick=()=>editFlight(f);
+  $('#del').onclick=()=>askDelete('questo volo',async()=>{await removeDoc('voli',id);closeSheet();toast('Volo eliminato')},()=>showFlight(id));
+}
+function editFlight(f){
+  const isNew=!f;f=f?{...f}:{data:today(),tipo:'Volo con istruttore'};
+  openSheet(isNew?'Nuovo volo':'Modifica volo',`<form id="ff" class="picks" style="gap:14px">${isNew?istrReminder():''}
+    <label class="drop" for="igc" id="drop"><span class="vicon">${IC.file}</span><span><strong>Carica la traccia .igc</strong><small id="igc-msg">Da XCTrack, Flyskyhy o dal vario: data, durata, quote e distanza si compilano da sole.</small></span></label>
+    <input type="file" id="igc" accept=".igc,.IGC,text/plain" hidden>
+    <div class="card fs"><p class="fs-title">Quando e dove</p>
+      <div class="grid2"><div class="field"><label for="f-data">Data</label><input type="date" id="f-data" value="${esc(f.data)}" required></div>
+        <div class="field"><label for="f-tipo">Tipo</label><select id="f-tipo">${TIPI.map(t=>`<option ${t===f.tipo?'selected':''}>${t}</option>`).join('')}</select></div></div>
+      <div class="field"><label for="f-sito">Decollo</label><input id="f-sito" value="${esc(f.sito)}" placeholder="es. Monte Linzone" list="siti"><datalist id="siti">${siteOptions(['decollo'])}${[...new Set(flights.map(x=>x.sito).filter(Boolean))].filter(n=>!sitoBy(n)).map(s=>`<option value="${esc(s)}">`).join('')}</datalist></div>
+      <div class="field"><label for="f-att">Atterraggio</label><input id="f-att" value="${esc(f.atterraggio)}" list="siti-att"><datalist id="siti-att">${siteOptions(['atterraggio'])}</datalist></div></div>
+    <div class="card fs"><p class="fs-title">Numeri del volo</p>
+      ${durField('f-dur',f,['Decollo alle','Atterraggio alle'])}
+      <div class="grid2"><div class="field"><label for="f-qmax">Quota max m</label><input type="number" inputmode="numeric" id="f-qmax" value="${esc(f.quotaMax)}"></div>
+        <div class="field"><label for="f-dist">Distanza km</label><input type="number" inputmode="decimal" step="0.1" id="f-dist" value="${esc(f.distanza)}"></div></div></div>
+    <div class="card fs"><p class="fs-title">Vela e condizioni</p>
+      ${velaSelect('f-vela',f)}
+      <div class="field"><label for="f-vento">Condizioni</label><input id="f-vento" value="${esc(f.vento)}" placeholder="es. brezza da sud, 10 km/h"></div>
+      <div class="field"><label for="f-note">Note tecniche</label><textarea id="f-note" placeholder="Decollo, virate, avvicinamento, atterraggio">${esc(f.note)}</textarea></div>
+      <div class="field"><label for="f-istr">Cosa mi ha detto l'istruttore</label><textarea id="f-istr" placeholder="Correzioni, cose da ripetere">${esc(f.istruttore)}</textarea></div></div>
+    ${diaryForm(f,false)}
+  </form>`,`<button class="btn primary" type="submit" form="ff">Salva volo</button><button class="btn ghost" type="button" id="cancel">Annulla</button>`);
+  let umore=f.umore||'',extra={};
+  $('#cancel').onclick=()=>isNew?closeSheet():showFlight(f.id);
+  wireMood(()=>umore,v=>umore=v);wireComfort(f);wireDur('f-dur',f.durata);wireSiteHint('f-sito');
+  $('#igc').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{const r=parseIGC(await file.text());
+    extra={quotaDecollo:r.quotaDecollo,quotaAtterraggio:r.quotaAtterraggio,decLat:r.decLat,decLon:r.decLon,profilo:r.profilo};
+    $('#f-data').value=r.data;setTimes('f-dur',localHM(r.data,r.t0),localHM(r.data,r.t1));$('#f-qmax').value=r.quotaMax;$('#f-dist').value=r.distanza;
+    if(!$('#f-sito').value){const s=guessSite(r.decLat,r.decLon);if(s)$('#f-sito').value=s}
+    $('#drop').classList.add('ok');$('#igc-msg').textContent=`Letto: ${fmtDur(r.durata)} di volo, decollo a ${r.quotaDecollo} m, quota massima ${r.quotaMax} m.`;
+  }catch(err){$('#igc-msg').textContent=err.message||'Non riesco a leggere il file. Controlla che sia un .igc.'}};
+  $('#ff').onsubmit=async e=>{e.preventDefault();
+    const num=id=>{const v=$(id).value;return v===''?null:+v};
+    const doc={...f,...extra,data:$('#f-data').value,tipo:$('#f-tipo').value,sito:$('#f-sito').value.trim(),atterraggio:$('#f-att').value.trim(),
+      ...readTimes('f-dur',f.durata),quotaMax:num('#f-qmax'),distanza:num('#f-dist'),...readVela('f-vela'),vento:$('#f-vento').value.trim(),
+      note:$('#f-note').value.trim(),istruttore:$('#f-istr').value.trim(),...readDiary(f,umore)};
+    delete doc.esempio;const id=doc.id||('v'+Date.now());delete doc.id;doc.creato=doc.creato||Date.now();
+    await saveDoc('voli',id,doc);showFlight(id);toast('Volo salvato')};
+}
+function showCamp(f){
+  openSheet(f.luogo||'Campetto',`
+   <div class="meta"><span class="chip-t camp">Campetto</span><span>${fmtDate(f.data)}${f.inizio?' · '+esc(f.inizio)+(f.fine?'–'+esc(f.fine):''):''}</span></div>
+   <div class="tiles"><div><b>${f.durata?fmtDur(f.durata):'—'}</b><span>Durata</span></div><div><b>${f.gonfiaggi??'—'}</b><span>Gonfiaggi</span></div><div><b>${f.voletti??'—'}</b><span>Piccoli voli</span></div></div>
+   ${(f.esercizi||[]).length?`<div><span class="lbl">Su cosa ho lavorato</span><div class="chips" style="margin-top:6px">${f.esercizi.map(e=>`<span class="chip-t camp">${esc(e)}</span>`).join('')}</div></div>`:''}
+   ${kv([['Vela',velaName(f)],['Condizioni',f.vento]])}
+   ${istrView(f)}
+   ${diaryView(f,'Dove ho fatto fatica o sentito tensione')}`,
+   `<button class="btn primary" id="edit">Modifica</button><button class="btn danger" id="del">Elimina</button>`);
+  $('#edit').onclick=()=>editCamp(f);
+  $('#del').onclick=()=>askDelete('questo campetto',async()=>{await removeDoc('voli',f.id);closeSheet();toast('Campetto eliminato')},()=>showCamp(f));
+}
+function editCamp(f){
+  const isNew=!f;f=f?{...f}:{data:today(),esercizi:[]};
+  const last=flights.filter(isCamp).sort((a,b)=>(b.data||'').localeCompare(a.data||''))[0];
+  if(isNew&&last)f.luogo=last.luogo;
+  const es=new Set(f.esercizi||[]);
+  openSheet(isNew?'Nuovo campetto':'Modifica campetto',`<form id="cf" class="picks" style="gap:14px">${isNew?istrReminder():''}
+    <div class="card fs"><p class="fs-title">Quando e dove</p>
+      <div class="field"><label for="c-data">Data</label><input type="date" id="c-data" value="${esc(f.data)}" required></div>
+      ${durField('c-dur',f,['Inizio','Fine'])}
+      <div class="field"><label for="c-luogo">Campo</label><input id="c-luogo" value="${esc(f.luogo)}" placeholder="dove si è svolto" list="campi"><datalist id="campi">${siteOptions(['campo'])}${[...new Set(flights.filter(isCamp).map(x=>x.luogo).filter(Boolean))].map(s=>`<option value="${esc(s)}">`).join('')}</datalist></div></div>
+    <div class="card fs"><p class="fs-title">Il lavoro a terra</p>
+      <div class="grid2"><div class="field"><label for="c-gonf">Gonfiaggi</label><input type="number" inputmode="numeric" id="c-gonf" value="${esc(f.gonfiaggi)}" min="0"></div>
+        <div class="field"><label for="c-volt">Piccoli voli</label><input type="number" inputmode="numeric" id="c-volt" value="${esc(f.voletti)}" min="0"></div></div>
+      <div class="field"><span class="lbl">Su cosa ho lavorato</span><div class="chips" id="es">${ESERCIZI.map(e=>`<button type="button" class="chip" aria-pressed="${es.has(e)}" data-es="${esc(e)}">${esc(e)}</button>`).join('')}</div></div></div>
+    <div class="card fs"><p class="fs-title">Vela e condizioni</p>
+      ${velaSelect('c-vela',f)}
+      <div class="field"><label for="c-vento">Condizioni</label><input id="c-vento" value="${esc(f.vento)}" placeholder="es. vento leggero e costante"></div>
+      <div class="field"><label for="c-istr">Cosa mi ha detto l'istruttore</label><textarea id="c-istr" placeholder="Correzioni, cose da ripetere">${esc(f.istruttore)}</textarea></div></div>
+    ${diaryForm(f,true)}
+  </form>`,`<button class="btn primary" type="submit" form="cf">Salva campetto</button><button class="btn ghost" type="button" id="cancel">Annulla</button>`);
+  let umore=f.umore||'';
+  $('#cancel').onclick=()=>isNew?closeSheet():showCamp(f);
+  wireMood(()=>umore,v=>umore=v);wireComfort({...f,_camp:true});wireDur('c-dur',f.durata);wireSiteHint('c-luogo');
+  $('#es').onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.es;es.has(k)?es.delete(k):es.add(k);b.setAttribute('aria-pressed',es.has(k))};
+  $('#cf').onsubmit=async e=>{e.preventDefault();
+    const num=id=>{const v=$(id).value;return v===''?null:+v};
+    const doc={genere:'campetto',data:$('#c-data').value,...readTimes('c-dur',f.durata),luogo:$('#c-luogo').value.trim(),gonfiaggi:num('#c-gonf'),voletti:num('#c-volt'),
+      esercizi:ESERCIZI.filter(x=>es.has(x)),...readVela('c-vela'),vento:$('#c-vento').value.trim(),istruttore:$('#c-istr').value.trim(),
+      ...readDiary(f,umore),creato:f.creato||Date.now()};
+    const id=f.id||('c'+Date.now());await saveDoc('voli',id,doc);showCamp({...doc,id});toast('Campetto salvato')};
+}
+function editVela(x){
+  const isNew=!x;x=x?{...x}:{principale:!vele.length};
+  openSheet(isNew?'Nuova vela':'Modifica vela',`<form id="vf" class="card fs">
+   <div class="field"><label for="v-nome">Marca e modello</label><input id="v-nome" value="${esc(x.nome)}" required></div>
+   <div class="grid3"><div class="field"><label for="v-tg">Taglia</label><input id="v-tg" value="${esc(x.taglia)}" placeholder="es. M"></div>
+    <div class="field"><label for="v-cl">Classe</label><select id="v-cl">${['','EN-A','EN-B','EN-C','EN-D','CCC','Biposto'].map(c=>`<option value="${c}" ${c===(x.classe||'')?'selected':''}>${c||'—'}</option>`).join('')}</select></div>
+    <div class="field"><label for="v-anno">Anno</label><input id="v-anno" inputmode="numeric" value="${esc(x.anno)}"></div></div>
+   <div class="field"><label for="v-note">Note</label><textarea id="v-note" placeholder="Tua o della scuola, range di peso, imbrago abbinato">${esc(x.note)}</textarea></div>
+   <label class="citem" for="v-pr" style="padding:4px 0"><input type="checkbox" id="v-pr" ${x.principale?'checked':''}><span>Vela principale: proposta per prima a ogni uscita</span></label>
+  </form>`,`<button class="btn primary" type="submit" form="vf">Salva vela</button>${isNew?'':'<button class="btn danger" type="button" id="vdel">Elimina</button>'}`);
+  $('#vf').onsubmit=async e=>{e.preventDefault();const id=x.id||('g'+Date.now());const pr=$('#v-pr').checked;
+    if(pr)for(const o of vele.filter(o=>o.principale&&o.id!==id)){const {id:oid,...rest}=o;await saveDoc('vele',oid,{...rest,principale:false})}
+    await saveDoc('vele',id,{nome:$('#v-nome').value.trim(),taglia:$('#v-tg').value.trim(),classe:$('#v-cl').value,anno:$('#v-anno').value.trim(),note:$('#v-note').value.trim(),principale:pr});
+    closeSheet();toast('Vela salvata')};
+  if(!isNew)$('#vdel').onclick=()=>askDelete('la vela (le uscite passate conservano il nome)',async()=>{await removeDoc('vele',x.id);closeSheet();toast('Vela eliminata')},()=>editVela(x));
+}
+function editDeadline(d,preset){
+  const isNew=!d;d=d?{...d}:{titolo:preset||'',data:''};
+  openSheet(isNew?'Nuova scadenza':'Modifica scadenza',`<form id="df" class="card fs">
+   <div class="field"><label for="d-t">Cosa scade</label><input id="d-t" value="${esc(d.titolo)}" required></div>
+   <div class="field"><label for="d-d">Data di scadenza</label><input type="date" id="d-d" value="${esc(d.data)}" required></div>
+   <div class="field"><label for="d-n">Note</label><input id="d-n" value="${esc(d.note)}" placeholder="es. compagnia, numero polizza, dove rinnovare"></div>
+  </form>${isRip(d.titolo)?ripBlock(d):''}${!isNew&&d.data?calBlock(d):''}`,`<button class="btn primary" type="submit" form="df">Salva</button>${isNew?'':'<button class="btn danger" type="button" id="ddel">Elimina</button>'}`);
+  if(!isNew&&d.data){$('#cal-ics').onclick=()=>addToCalendar(d);$('#cal-g').onclick=()=>calMark(d)}
+  const rip=wireRip();
+  $('#df').onsubmit=async e=>{e.preventDefault();const id=d.id||('s'+Date.now());const nd={titolo:$('#d-t').value.trim(),data:$('#d-d').value,note:$('#d-n').value.trim(),...(rip?rip():{})};await saveDoc('scadenze',id,nd);
+    const saved={...nd,id};if(isNew||calState(saved)==='old'){editDeadline(saved);toast(isNew?'Salvata: aggiungila al calendario':'Data cambiata: aggiorna il calendario')}else{closeSheet();toast('Scadenza salvata')}};
+  if(!isNew)$('#ddel').onclick=()=>askDelete('la scadenza',async()=>{await removeDoc('scadenze',d.id);closeSheet();toast('Scadenza eliminata')},()=>editDeadline(d));
+}
+
+/* ---------- backup ---------- */
+function exportData(){
+  const out={app:'libretto-di-volo',versione:2,esportato:new Date().toISOString(),voli:flights.filter(x=>!x.esempio),vele,scadenze:deadlines};
+  const url=URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:'application/json'}));
+  const a=document.createElement('a');a.href=url;a.download='libretto-volo-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),5000);toast('Backup pronto');
+}
+async function importData(file){
+  try{const d=JSON.parse(await file.text());if(d.app!=='libretto-di-volo')throw new Error('x');
+    let n=0;const now=Date.now();
+    for(const col of COLS)for(const it of (d[col]||[])){if(!it||!it.id||it.eliminato)continue;const {id,...rest}=it;putItem(col,String(id),{...rest,agg:Math.max(rest.agg||0,now)});n++}
+    commit();toast('Importate '+n+' voci');
+  }catch(e){const m=$('#imp-msg');if(m)m.textContent='Questo file non è un backup del libretto. Scegli il file .json creato con “Esporta”.'}
+}
+
+/* ---------- archivio sul telefono ---------- */
+const COLS=['voli','vele','scadenze','tessere'];
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let store=LS.get('lv-data',null)||{};for(const c of COLS)if(!Array.isArray(store[c]))store[c]=[];
+function derive(){flights=store.voli.filter(x=>!x.eliminato);vele=store.vele.filter(x=>!x.eliminato);deadlines=store.scadenze.filter(x=>!x.eliminato);docs={};for(const x of store.tessere)if(!x.eliminato)docs[x.id]=x}
+function putItem(col,id,data){const arr=store[col];const i=arr.findIndex(x=>x.id===id);const it={...JSON.parse(JSON.stringify(data)),id};if(i>=0)arr[i]=it;else arr.push(it)}
+function commit(){LS.set('lv-data',store);dirty=true;LS.set('lv-dirty',true);derive();renderAll();scheduleSync()}
+async function saveDoc(col,id,data){const {id:_x,eliminato:_e,...rest}=data;putItem(col,id,{...rest,agg:Date.now()});commit()}
+async function removeDoc(col,id){putItem(col,id,{eliminato:true,agg:Date.now()});commit()}
+
+/* ---------- calendario ---------- */
+const IC_CAL='<svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v4M10 15h4"/></svg>';
+function ymd(dt){return dt.getFullYear()+String(dt.getMonth()+1).padStart(2,'0')+String(dt.getDate()).padStart(2,'0')}
+function calDates(iso){const s=new Date(iso+'T00:00:00'),e=new Date(s);e.setDate(e.getDate()+1);return [ymd(s),ymd(e)]}
+const icsEsc=t=>String(t||'').replace(/\\/g,'\\\\').replace(/([,;])/g,'\\$1').replace(/\r?\n/g,'\\n');
+function icsFor(d){
+  const [a,b]=calDates(d.data),t=icsEsc(d.titolo||'Scadenza');
+  const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  const alarm=(trig,txt)=>['BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+txt,'TRIGGER;RELATED=START:'+trig,'END:VALARM'];
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Libretto di volo//IT','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+    'BEGIN:VEVENT','UID:'+d.id+'-'+a+'@librettovolo.it','DTSTAMP:'+stamp,'DTSTART;VALUE=DATE:'+a,'DTEND;VALUE=DATE:'+b,
+    'SUMMARY:Scade: '+t,'DESCRIPTION:'+(d.note?icsEsc(d.note)+'\\n':'')+'Dal Libretto di volo · librettovolo.it','URL:https://librettovolo.it/','TRANSP:TRANSPARENT',
+    ...alarm('-P29DT15H','Tra un mese scade: '+t),...alarm('-PT15H','Domani scade: '+t),
+    'END:VEVENT','END:VCALENDAR'].join('\r\n')+'\r\n';
+}
+function gcalUrl(d){
+  const [a,b]=calDates(d.data);
+  return 'https://calendar.google.com/calendar/render?'+new URLSearchParams({action:'TEMPLATE',text:'Scade: '+(d.titolo||'Scadenza'),dates:a+'/'+b,details:(d.note?d.note+'\n':'')+'Imposta gli avvisi: un mese prima e il giorno prima.\nDal Libretto di volo · https://librettovolo.it'}).toString();
+}
+function calMark(d){const m=LS.get('lv-cal',{});m[d.id]=d.data;LS.set('lv-cal',m);renderScadenze()}
+function calState(d){const m=LS.get('lv-cal',{});return m[d.id]?(m[d.id]===d.data?'ok':'old'):''}
+function addToCalendar(d){
+  const blob=new Blob([icsFor(d)],{type:'text/calendar;charset=utf-8'}),url=URL.createObjectURL(blob);
+  const ios=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  if(ios){location.href=url}
+  else{const a=document.createElement('a');a.href=url;a.download=(d.titolo||'scadenza').replace(/[^\wÀ-ÿ\- ]+/g,'').trim()+'.ics';document.body.appendChild(a);a.click();a.remove()}
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+  calMark(d);
+}
+function calBlock(d){
+  const st=calState(d);
+  return `<div class="card fs calbox"><p class="fs-title">Avviso sul telefono</p>
+    <p style="margin:0">${st==='old'?'<strong>La data è cambiata.</strong> Aggiungila di nuovo al calendario e cancella il vecchio evento.':st==='ok'?'Già aggiunta al calendario da questo telefono.':'Aggiungila al calendario: il telefono ti avvisa <strong>un mese prima</strong> e <strong>il giorno prima</strong>, alle 9.'}</p>
+    <div class="row"><button type="button" class="btn amber" id="cal-ics">${IC_CAL} Calendario del telefono</button>
+    <a class="btn" id="cal-g" href="${esc(gcalUrl(d))}" target="_blank" rel="noopener">Google Calendar</a></div>
+    <p class="hint">Con Google Calendar gli avvisi sono quelli predefiniti del tuo calendario: puoi cambiarli prima di salvare.</p></div>`;
+}
+
+/* ---------- documenti ---------- */
+const PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+const DI={
+  card:'<svg class="i" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.3 16.2c.6-1.6 1.8-2.5 3.2-2.5s2.6.9 3.2 2.5M14 10h4.5M14 13.5h3"/></svg>',
+  wings:'<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3.2"/><path d="M8.8 10H2.5c1 2.2 3 3.4 5.5 3.4M15.2 10h6.3c-1 2.2-3 3.4-5.5 3.4"/><path d="M9.5 15.5L8 21l4-2 4 2-1.5-5.5"/></svg>',
+  med:'<svg class="i" viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M12 8v6M9 11h6M8 17.5h8"/></svg>',
+  club:'<svg class="i" viewBox="0 0 24 24"><path d="M6 21V3.5"/><path d="M6 4h11.5l-2.5 4 2.5 4H6"/><circle cx="6" cy="21" r=".5"/></svg>',
+  stamp:'<svg class="i" viewBox="0 0 24 24"><path d="M6 3.5h9l3.5 3.5v13.5H6z"/><path d="M15 3.5V7h3.5"/><circle cx="11.5" cy="13.5" r="3"/><path d="M10.3 13.6l.9.9 1.8-2"/></svg>'
+};
+const DOCS=[
+  {id:'fivl',nome:'Tessera FIVL',icon:DI.card,vuoto:'Ti arriva per email come PDF',
+   aiuto:"Ti arriva per email come PDF. Sul telefono apri l'email, salva il PDF in File e caricalo qui: i dati si leggono da soli. Va bene anche una foto della tessera.",
+   campi:[['numero','N° FIVL'],['anno','Anno'],['socio','Socio'],['associazione','Associazione'],['attivita','Attività'],['tipoAss','Tipo di assicurazione'],['certificato','N° certificato'],['scadenza','Scadenza assicurazione','date']],
+   scad:{sid:'fivl-ass',titolo:'Assicurazione FIVL'},riga:c=>c.numero?'N° '+c.numero:''},
+  {id:'attestato',nome:'Attestato VDS',icon:DI.wings,vuoto:"Lo ricevi dopo l'esame",
+   aiuto:"L'attestato di pilota VDS lo rilascia l'Aero Club d'Italia dopo l'esame. Carica il PDF o due foto (fronte e retro). La scadenza della visita medica annotata sull'attestato finisce tra le Scadenze.",
+   campi:[['numero','N° attestato'],['rilascio','Rilasciato il','date'],['abilitazioni','Abilitazioni'],['scadenza','Scadenza visita medica','date']],
+   scad:{sid:'att-medica',titolo:'Visita medica (attestato VDS)'},riga:c=>c.numero?'N° '+c.numero:''},
+  {id:'club',nome:'Tessera del club',icon:DI.club,vuoto:"Quando ti iscriverai a un club",
+   aiuto:"La tessera del club di volo a cui ti iscrivi, di solito dopo l'esame. Carica il PDF o una o due foto (fronte e retro) e indica quando va rinnovata: te lo ricordo tra le Scadenze.",
+   campi:[['club','Club'],['numero','N° tessera'],['anno','Anno'],['scadenza','Da rinnovare entro','date']],
+   scad:{sid:'club',titolo:'Rinnovo tessera club'},riga:c=>[c.club,c.numero?'N° '+c.numero:''].filter(Boolean).join(' · ')},
+  {id:'medico',nome:'Certificato medico',icon:DI.med,vuoto:"Idoneità al volo",
+   aiuto:"Il certificato medico di idoneità al volo. Carica il PDF o una foto, poi indica la data di scadenza: te la ricordo tra le Scadenze.",
+   campi:[['rilascio','Rilasciato il','date'],['medico','Medico o struttura'],['scadenza','Scade il','date']],
+   scad:{sid:'medico',titolo:'Certificato medico'},riga:c=>c.medico||''},
+  {id:'nullaosta',nome:'Nulla osta Questura',icon:DI.stamp,vuoto:'Per il corso e l\'attestato',
+   aiuto:"Il nulla osta della Questura per il volo da diporto o sportivo. Carica il PDF arrivato per PEC o una foto del documento.",
+   campi:[['questura','Questura'],['protocollo','N° protocollo'],['rilascio','Rilasciato il','date'],['scadenza','Scadenza (se indicata)','date']],
+   scad:{sid:'nullaosta',titolo:'Nulla osta Questura'},riga:c=>c.questura?'Questura di '+c.questura.replace(/^questura di\s*/i,''):''}
+];
+const ddef=id=>DOCS.find(d=>d.id===id);
+const dkey=(id,k)=>id==='fivl'?{img:'lv-tess-img',file:'lv-tess-file',up:'lv-tess-up'}[k]:'lv-doc-'+k+'-'+id;
+const dname=id=>id==='fivl'?'tessera-fivl.json':'doc-'+id+'.json';
+let docs={},docOpen=null,docSide=0,wakeLock=null;
+function docImg(id){return LS.get(dkey(id,'img'),null)}
+
+function loadPdfJs(){return new Promise((ok,ko)=>{
+  if(window.pdfjsLib)return ok(window.pdfjsLib);
+  const s=document.createElement('script');s.src=PDFJS+'pdf.min.js';
+  s.onload=()=>{window.pdfjsLib.GlobalWorkerOptions.workerSrc=PDFJS+'pdf.worker.min.js';ok(window.pdfjsLib)};
+  s.onerror=()=>ko(new Error('pdfjs'));document.head.appendChild(s)})}
+function findSplit(cv){
+  const w=cv.width,h=cv.height,d=cv.getContext('2d').getImageData(0,0,w,h).data,rows=[];
+  for(let y=0;y<h;y++){let n=0,t=0;for(let x=0;x<w;x+=3){t++;const i=(y*w+x)*4;if(d[i]<232||d[i+1]<232||d[i+2]<232)n++}rows.push(n>t*0.05)}
+  const segs=[];let s=-1;
+  for(let y=0;y<=h;y++){const on=y<h&&rows[y];if(on&&s<0)s=y;if(!on&&s>=0){if(y-s>h*0.15)segs.push([s/h,y/h]);s=-1}}
+  return segs.length===2?segs:null}
+function linesFrom(items){
+  const rows=[];
+  for(const it of items){if(!it.str||!it.str.trim())continue;const y=Math.round(it.transform[5]);let r=rows.find(r=>Math.abs(r.y-y)<3);if(!r){r={y,parts:[]};rows.push(r)}r.parts.push({x:it.transform[4],s:it.str})}
+  rows.sort((a,b)=>b.y-a.y);
+  return rows.map(r=>r.parts.sort((a,b)=>a.x-b.x).map(p=>p.s.trim()).join(' ').replace(/\s+/g,' ').trim())}
+function itDate(s){const[d,m,y]=s.split('/');return y+'-'+m.padStart(2,'0')+'-'+d.padStart(2,'0')}
+function parseFivl(lines,fname){
+  const U=lines.map(l=>l.toUpperCase());
+  const after=lab=>{const i=U.findIndex(l=>l===lab);return i>=0&&lines[i+1]?lines[i+1]:''};
+  const find=re=>{for(const l of lines){const m=l.match(re);if(m)return m[1].trim()}return ''};
+  const scad=find(/SCADENZA\s+ASS\.?\s*(\d{1,2}\/\d{1,2}\/\d{4})/i);
+  return {numero:find(/N°\s*FIVL\s*(\S+)/i),socio:after('SOCIO'),associazione:after('A.S.'),attivita:after('ATTIVITÀ')||after('ATTIVITA'),
+    tipoAss:find(/TIPO\s+ASS\.?\s*(.+)$/i),certificato:find(/N°\s*CERT\.?\s*(\S+)/i),scadenza:scad?itDate(scad):'',anno:(fname.match(/(20\d\d)/)||[])[1]||''}}
+function stack(cvs){
+  const W=1000,gap=28,hs=cvs.map(c=>Math.round(c.height*W/c.width)),H=hs.reduce((a,b)=>a+b,0)+gap*(cvs.length-1);
+  const cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,H);
+  let y=0;const segs=[];cvs.forEach((c,i)=>{x.drawImage(c,0,y,W,hs[i]);segs.push([y/H,(y+hs[i])/H]);y+=hs[i]+gap});
+  return {cv,segs:segs.length>1?segs:null}}
+async function imgCanvas(file){
+  const url=URL.createObjectURL(file);
+  try{const im=await new Promise((ok,ko)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=ko;i.src=url});
+    const k=Math.min(1,1400/Math.max(im.width,im.height));const cv=document.createElement('canvas');
+    cv.width=Math.round(im.width*k);cv.height=Math.round(im.height*k);cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);return cv}
+  finally{URL.revokeObjectURL(url)}}
+async function readDoc(id,files){
+  const f=files[0],isPdf=f.type==='application/pdf'||/\.pdf$/i.test(f.name);
+  if(isPdf){
+    const lib=await loadPdfJs();const pdf=await lib.getDocument({data:new Uint8Array(await f.arrayBuffer())}).promise;
+    const n=id==='fivl'?1:Math.min(2,pdf.numPages),cvs=[];let lines=[];
+    for(let p=1;p<=n;p++){
+      const page=await pdf.getPage(p);const v0=page.getViewport({scale:1});const vp=page.getViewport({scale:Math.min(5,1000/v0.width)});
+      const cv=document.createElement('canvas');cv.width=Math.round(vp.width);cv.height=Math.round(vp.height);
+      const ctx=cv.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,cv.width,cv.height);
+      await page.render({canvasContext:ctx,viewport:vp}).promise;cvs.push(cv);
+      if(p===1)lines=linesFrom((await page.getTextContent()).items);
+    }
+    const st=n>1?stack(cvs):{cv:cvs[0],segs:null};
+    return {img:st.cv.toDataURL('image/jpeg',.84),w:st.cv.width,h:st.cv.height,split:id==='fivl'?findSplit(st.cv):st.segs,campi:id==='fivl'?parseFivl(lines,f.name):{}};
+  }
+  const cvs=[];for(const x of [...files].slice(0,2))cvs.push(await imgCanvas(x));
+  const st=cvs.length>1?stack(cvs):{cv:cvs[0],segs:null};
+  return {img:st.cv.toDataURL('image/jpeg',.84),w:st.cv.width,h:st.cv.height,split:st.segs,campi:id==='fivl'?{anno:(f.name.match(/(20\d\d)/)||[])[1]||''}:{}};
+}
+function saveScad(id,c,now){const d=ddef(id);if(c.scadenza)putItem('scadenze',d.scad.sid,{titolo:d.scad.titolo,data:c.scadenza,note:id==='fivl'&&c.certificato?'Cert. '+c.certificato:'',agg:now})}
+async function uploadDoc(id,files){
+  const msg=$('#doc-msg');if(msg)msg.textContent='Leggo il documento…';
+  try{
+    const r=await readDoc(id,files);const now=Date.now();const old=(docs[id]&&docs[id].campi)||{};
+    const campi={...old};for(const k in r.campi)if(r.campi[k])campi[k]=r.campi[k];
+    LS.set(dkey(id,'img'),{agg:now,img:r.img,w:r.w,h:r.h,split:r.split});
+    putItem('tessere',id,{campi,imgAgg:now,agg:now});saveScad(id,campi,now);docSide=0;commit();
+    toast(id==='fivl'&&r.campi.scadenza?'Tessera salvata, scadenza aggiunta':'Documento salvato');
+    if(id==='fivl'?!campi.numero:!campi.scadenza&&!campi.rilascio)editDoc(id);
+  }catch(e){const m=$('#doc-msg');if(m)m.textContent=e&&e.message==='pdfjs'?'Per leggere il PDF serve la connessione. Riprova quando hai rete.':'Non riesco a leggere il file. Prova con il PDF originale o con una foto del documento.'}
+}
+function docFrame(im,side,cls){
+  const sp=im.split&&im.split[side];const a=sp?sp[0]:0,b=sp?sp[1]:1;
+  return `<div class="tess-frame ${cls||''}" style="aspect-ratio:${(im.w/(im.h*(b-a))).toFixed(4)}"><img src="${im.img}" alt="${sp?(side?'Retro':'Fronte'):'Documento'}" style="margin-top:-${(a*im.h/im.w*100).toFixed(3)}%"></div>`}
+function docPill(c){if(!c.scadenza)return '';const n=daysTo(c.scadenza);return `<span class="pill-s ${n<0?'bad':n<=30?'warn':'ok'}">${n<0?'scaduto':n===0?'scade oggi':'tra '+n+' gg'}</span>`}
+function renderDocs(){
+  const v=$('#v-tessera');if(!v)return;
+  if(docOpen==='emergenza')return renderEmerg();
+  if(docOpen)return renderDoc(docOpen);
+  let h=`<div class="vhead"><h2>Documenti</h2></div><p class="hint" style="margin-top:-4px">I documenti da avere con te in volo, sempre a portata anche senza rete. Le scadenze finiscono da sole tra le Scadenze.</p>`;
+  h+=emergRow();
+  for(const d of DOCS){const t=docs[d.id],c=(t&&t.campi)||{};
+    const sub=t?(d.riga(c)||(c.scadenza?'Scade il '+fmtDate(c.scadenza):'Caricato')):d.vuoto;
+    h+=`<button class="card docrow${t?'':' off'}" data-doc="${d.id}"><span class="vicon">${d.icon}</span><span class="dmain"><strong>${esc(d.nome)}</strong><small>${esc(sub)}</small></span>${t?docPill(c):'<span class="dadd">+ Aggiungi</span>'}${IC.chev}</button>`}
+  v.innerHTML=h;
+}
+function renderDoc(id){
+  const v=$('#v-tessera'),d=ddef(id),t=docs[id],im=docImg(id),c=(t&&t.campi)||{};
+  let h=`<button class="btn ghost small backbtn" id="doc-back"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Documenti</button>
+    <div class="vhead"><h2>${esc(d.nome)}${id==='fivl'&&c.anno?' '+esc(c.anno):''}</h2>${t?'<button class="btn small" id="doc-edit">Modifica dati</button>':''}</div>
+    <input type="file" id="doc-file" accept="application/pdf,image/*" multiple hidden>`;
+  if(!t){
+    h+=`<div class="card empty"><span class="vicon" style="width:64px;height:64px;border-radius:18px">${d.icon}</span><strong>${esc(d.nome)}</strong><p>${esc(d.aiuto)}</p>
+      <div class="row"><label class="btn primary" for="doc-file">Carica PDF o foto</label><button class="btn" id="doc-only">Solo i dati</button></div><p class="hint" id="doc-msg"></p></div>`;
+    v.innerHTML=h;return;
+  }
+  if(t.imgAgg){
+    if(im&&im.img&&im.agg===t.imgAgg){
+      if(im.split)h+=`<div class="seg" role="group" aria-label="Lato" style="grid-template-columns:1fr 1fr">${['Fronte','Retro'].map((l,i)=>`<button data-side="${i}" aria-pressed="${docSide===i}">${l}</button>`).join('')}</div>`;
+      h+=`<button class="tess-card" id="doc-open" aria-label="Mostra a schermo intero">${docFrame(im,docSide)}<span class="tess-zoom"><svg class="i" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Schermo intero</span></button>`;
+    }else h+=`<div class="card empty"><p>L'immagine arriva da Google Drive alla prossima sincronizzazione.</p></div>`;
+  }
+  const rows=d.campi.filter(([k])=>c[k]&&k!=='anno').map(([k,lab,type])=>`<div><dt>${esc(lab)}</dt><dd>${type==='date'?fmtDate(c[k]):esc(c[k])}${k==='scadenza'?' '+docPill(c):''}</dd></div>`).join('');
+  if(rows)h+=`<dl class="card kv" style="margin:0">${rows}</dl>`;
+  h+=`<div class="row"><label class="btn" for="doc-file">${t.imgAgg?'Sostituisci file':'Aggiungi PDF o foto'}</label><button class="btn danger" id="doc-del">Elimina</button></div><p class="hint" id="doc-msg"></p>`;
+  v.innerHTML=h;
+}
+function openDocFull(id){
+  const im=docImg(id);if(!im||!im.img)return;
+  const draw=()=>{const sp=im.split&&im.split[docSide];const a=sp?sp[0]:0,b=sp?sp[1]:1;const ratio=im.w/(im.h*(b-a));
+    $('#sheet-root').innerHTML=`<div class="tess-full" id="tfull" role="dialog" aria-modal="true" aria-label="${esc(ddef(id).nome)}">
+      <button class="close tf-x" id="tf-x" aria-label="Chiudi">${IC.close}</button>
+      <div class="tf-box" style="width:min(94vw,calc((100vh - 160px)*${ratio.toFixed(4)}))">${docFrame(im,docSide,'big')}</div>
+      ${im.split?`<p class="tf-hint">${docSide?'Retro':'Fronte'} · tocca per girare</p>`:''}</div>`;
+    $('#tf-x').onclick=closeDocFull;
+    $('#tfull').onclick=e=>{if(e.target.closest('#tf-x'))return;if(im.split){docSide=1-docSide;draw();renderDocs()}};
+  };
+  draw();try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(l=>wakeLock=l).catch(()=>{})}catch(e){}
+}
+function closeDocFull(){closeSheet();try{wakeLock&&wakeLock.release()}catch(e){}wakeLock=null}
+function editDoc(id){
+  const d=ddef(id),t=docs[id],c={...((t&&t.campi)||{})};
+  const fld=([k,lab,type])=>`<div class="field"><label for="dc-${k}">${esc(lab)}</label><input id="dc-${k}" type="${type||'text'}" value="${esc(c[k])}"></div>`;
+  openSheet(d.nome,`<form id="dcf" class="card fs">${d.campi.map(fld).join('')}<p class="hint">La scadenza compare anche tra le Scadenze.</p></form>`,`<button class="btn primary" type="submit" form="dcf">Salva</button>`);
+  $('#dcf').onsubmit=e=>{e.preventDefault();const now=Date.now(),n={};for(const [k] of d.campi)n[k]=$('#dc-'+k).value.trim();
+    putItem('tessere',id,{campi:n,imgAgg:(t&&t.imgAgg)||0,agg:now});saveScad(id,n,now);commit();closeSheet();toast('Dati salvati')};
+}
+function deleteDoc(id){
+  const d=ddef(id);
+  openSheet('Eliminare il documento?',`<p style="margin:0">${esc(d.nome)} viene tolto da questo telefono e dal tuo Google Drive. La scadenza resta tra le Scadenze finché non la elimini.</p>`,
+    `<button class="btn danger" id="yes" style="flex:1">Sì, elimina</button><button class="btn" id="no" style="flex:1">Annulla</button>`);
+  $('#no').onclick=closeSheet;
+  $('#yes').onclick=()=>{putItem('tessere',id,{eliminato:true,agg:Date.now()});try{localStorage.removeItem(dkey(id,'img'))}catch(e){}commit();closeSheet();toast('Documento eliminato')};
+}
+function clearDocKeys(){for(const d of DOCS)for(const k of ['img','file','up'])try{localStorage.removeItem(dkey(d.id,k))}catch(e){}}
+async function syncDocs(){
+  for(const d of DOCS){
+    const t=store.tessere.find(x=>x.id===d.id);if(!t)continue;
+    const NAME=dname(d.id),KF=dkey(d.id,'file'),KU=dkey(d.id,'up');let fid=LS.get(KF,null);
+    const getId=async()=>{if(!fid){const f=await findFile(NAME);fid=f&&f.id;if(fid)LS.set(KF,fid)}return fid};
+    const put=async data=>{try{fid=await uploadFile(await getId(),data,NAME)}catch(e){if(e.status===404){fid=null;LS.set(KF,null);fid=await uploadFile(await getId(),data,NAME)}else throw e}LS.set(KF,fid)};
+    if(t.eliminato||!t.imgAgg){if(LS.get(KU,0)){await put({agg:t.agg,img:null});LS.set(KU,0)}continue}
+    const im=docImg(d.id);
+    if(im&&im.agg===t.imgAgg){if(LS.get(KU,0)!==t.imgAgg){await put(im);LS.set(KU,t.imgAgg)}continue}
+    if(!await getId())continue;
+    let r=null;try{r=await downloadFile(fid)}catch(e){if(e.status===404){LS.set(KF,null);continue}throw e}
+    if(r&&r.img&&r.agg===t.imgAgg){LS.set(dkey(d.id,'img'),r);LS.set(KU,t.imgAgg)}
+  }
+  renderDocs();
+}
+
+/* ---------- istruttore ---------- */
+function istrView(f){return f.istruttore?`<div class="card istr"><span class="lbl">Cosa mi ha detto l'istruttore</span><p>${esc(f.istruttore).replace(/\n/g,'<br>')}</p></div>`:''}
+function lastIstr(){return [...flights].filter(f=>f.istruttore&&!f.esempio).sort((a,b)=>(b.data||'').localeCompare(a.data||'')||(b.creato||0)-(a.creato||0))[0]}
+function istrReminder(){const f=lastIstr();if(!f)return '';
+  return `<div class="card istr ricorda"><span class="lbl">L'ultima volta l'istruttore ti ha detto</span><p>${esc(f.istruttore).replace(/\n/g,'<br>')}</p><small>${isCamp(f)?'Campetto':'Volo'} del ${fmtDate(f.data)}${(f.sito||f.luogo)?' · '+esc(f.sito||f.luogo):''}</small></div>`}
+
+/* ---------- ripiegatura emergenza ---------- */
+const isRip=t=>/ripiegatura|paracadute|riserva/i.test(t||'');
+function addMonths(iso,m){const d=new Date(iso+'T00:00:00');const day=d.getDate();d.setMonth(d.getMonth()+m);if(d.getDate()!==day)d.setDate(0);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function ripBlock(d){const m=+d.mesi||6;
+  return `<div class="card fs" id="rip"><p class="fs-title">Calcola dalla ripiegatura</p>
+    <p class="hint" style="margin:0">Di solito il paracadute d'emergenza si ripiega ogni 6 mesi; alcuni costruttori ammettono 12. Segui il manuale del tuo.</p>
+    <div class="field"><label for="rip-d">Ultima ripiegatura</label><input type="date" id="rip-d" value="${esc(d.ultima)}"></div>
+    <div class="field"><span class="lbl">Ogni</span><div class="seg" role="group" aria-label="Intervallo" style="grid-template-columns:1fr 1fr">${[6,12].map(x=>`<button type="button" data-mesi="${x}" aria-pressed="${m===x}">${x} mesi</button>`).join('')}</div></div></div>`}
+function wireRip(){const box=$('#rip');if(!box)return;let m=+(box.querySelector('[aria-pressed="true"]')||{}).dataset?.mesi||6;
+  const upd=()=>{const u=$('#rip-d').value;if(u)$('#d-d').value=addMonths(u,m)};
+  box.onclick=e=>{const b=e.target.closest('[data-mesi]');if(!b)return;m=+b.dataset.mesi;box.querySelectorAll('[data-mesi]').forEach(x=>x.setAttribute('aria-pressed',x===b));upd()};
+  $('#rip-d').onchange=upd;
+  return ()=>({ultima:$('#rip-d').value,mesi:m});
+}
+
+/* ---------- in caso di emergenza ---------- */
+const IC_SOS='<svg class="i" viewBox="0 0 24 24"><path d="M12 3.5l8.5 15H3.5z"/><path d="M12 10v4M12 16.8v.2"/></svg>';
+const IC_TEL='<svg class="i" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg>';
+const EMERG=[['c1n','Persona da avvisare'],['c1t','Telefono','tel'],['c2n','Seconda persona'],['c2t','Telefono','tel'],['sangue','Gruppo sanguigno'],['allergie','Allergie'],['farmaci','Farmaci che prendi'],['salute','Condizioni da sapere'],['note','Altre note']];
+const emerg=()=>{const x=store.tessere.find(t=>t.id==='emergenza'&&!t.eliminato);return (x&&x.campi)||null};
+const telHref=t=>'tel:'+String(t).replace(/[^\d+]/g,'');
+function emergRow(){const c=emerg();
+  return `<button class="card docrow sos${c?'':' off'}" data-doc="emergenza"><span class="vicon">${IC_SOS}</span><span class="dmain"><strong>In caso di emergenza</strong><small>${c&&c.c1n?esc('Avvisare: '+c.c1n):'Chi avvisare, allergie, farmaci'}</small></span>${c?'':'<span class="dadd">+ Aggiungi</span>'}${IC.chev}</button>`}
+function renderEmerg(){
+  const v=$('#v-tessera'),c=emerg()||{};
+  let h=`<button class="btn ghost small backbtn" id="doc-back"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Documenti</button>
+    <div class="vhead"><h2>In caso di emergenza</h2><button class="btn small" id="em-edit">${emerg()?'Modifica':'Compila'}</button></div>
+    <a class="card sos112" href="tel:112">${IC_TEL}<span><strong>Chiama il 112</strong><small>Numero unico di emergenza: soccorso, anche in montagna</small></span></a>`;
+  const contacts=[[c.c1n,c.c1t],[c.c2n,c.c2t]].filter(x=>x[0]||x[1]);
+  if(contacts.length)h+=contacts.map(([n,t])=>`<${t?`a href="${esc(telHref(t))}"`:'div'} class="card emc"><span class="vicon">${IC_TEL}</span><span><strong>${esc(n||'Contatto')}</strong>${t?`<small>${esc(t)}</small>`:''}</span></${t?'a':'div'}>`).join('');
+  const info=EMERG.filter(([k])=>!/^c[12]/.test(k)&&c[k]);
+  if(info.length)h+=`<dl class="card kv" style="margin:0">${info.map(([k,l])=>`<div><dt>${esc(l)}</dt><dd>${esc(c[k])}</dd></div>`).join('')}</dl>`;
+  if(!contacts.length&&!info.length)h+=`<div class="card empty"><strong>Pronta in caso di bisogno</strong><p>Scrivi chi avvisare e le informazioni utili a chi ti soccorre. Resta sul telefono anche senza rete, e su nessun altro dispositivo che non sia tuo.</p></div>`;
+  h+=`<p class="hint">Mostra questa pagina a chi ti soccorre. I dati stanno solo sul tuo telefono e sul tuo Google Drive.</p>`;
+  v.innerHTML=h;
+}
+function editEmerg(){
+  const c=emerg()||{};
+  openSheet('In caso di emergenza',`<form id="emf" class="picks" style="gap:14px">
+    <div class="card fs"><p class="fs-title">Chi avvisare</p>
+      <div class="grid2"><div class="field"><label for="em-c1n">Persona</label><input id="em-c1n" value="${esc(c.c1n)}" placeholder="es. Marco (fratello)"></div>
+      <div class="field"><label for="em-c1t">Telefono</label><input id="em-c1t" type="tel" inputmode="tel" value="${esc(c.c1t)}"></div></div>
+      <div class="grid2"><div class="field"><label for="em-c2n">Seconda persona</label><input id="em-c2n" value="${esc(c.c2n)}"></div>
+      <div class="field"><label for="em-c2t">Telefono</label><input id="em-c2t" type="tel" inputmode="tel" value="${esc(c.c2t)}"></div></div></div>
+    <div class="card fs"><p class="fs-title">Per chi ti soccorre</p>
+      ${['sangue','allergie','farmaci','salute','note'].map(k=>{const l=EMERG.find(x=>x[0]===k)[1];return `<div class="field"><label for="em-${k}">${l}</label>${k==='sangue'?`<input id="em-${k}" value="${esc(c[k])}" placeholder="es. 0 Rh+">`:`<textarea id="em-${k}" style="min-height:64px">${esc(c[k])}</textarea>`}</div>`}).join('')}
+      <p class="hint" style="margin:0">Scrivi solo quello che ti senti di scrivere: tutto è facoltativo.</p></div>
+  </form>`,`<button class="btn primary" type="submit" form="emf">Salva</button><button class="btn ghost" type="button" id="cancel">Annulla</button>`);
+  $('#cancel').onclick=closeSheet;
+  $('#emf').onsubmit=e=>{e.preventDefault();const n={};for(const [k] of EMERG){const v=$('#em-'+k).value.trim();if(v)n[k]=v}
+    putItem('tessere','emergenza',{tipo:'emergenza',campi:n,agg:Date.now()});commit();closeSheet();toast('Salvato')};
+}
+
+/* ---------- i miei siti ---------- */
+const VENTI=['N','NE','E','SE','S','SO','O','NO'];
+const RUOLI=[['decollo','Decollo'],['atterraggio','Atterraggio'],['campo','Campetto']];
+let veleSeg='vele';
+const siti=()=>store.tessere.filter(t=>t.tipo==='sito'&&!t.eliminato).sort((a,b)=>(a.nome||'').localeCompare(b.nome||''));
+const norm=s=>(s||'').trim().toLowerCase();
+function sitoBy(name){const n=norm(name);return n?siti().find(s=>norm(s.nome)===n):null}
+function usciteAt(s){const n=norm(s.nome);return flights.filter(f=>!f.esempio&&[f.sito,f.atterraggio,f.luogo].some(x=>norm(x)===n))}
+function sitiSuggeriti(){const have=new Set(siti().map(s=>norm(s.nome)));const m=new Map();
+  for(const f of flights){if(f.esempio)continue;for(const [name,ruolo] of [[f.sito,'decollo'],[f.atterraggio,'atterraggio'],[f.luogo,'campo']]){const n=norm(name);if(!n||have.has(n)||m.has(n))continue;
+    m.set(n,{nome:name.trim(),ruolo,lat:ruolo==='decollo'?f.decLat:null,lon:ruolo==='decollo'?f.decLon:null,quota:ruolo==='decollo'?f.quotaDecollo:null})}}
+  return [...m.values()]}
+function ruoloLab(r){return (RUOLI.find(x=>x[0]===r)||[,''])[1]}
+function ventiChips(v){return (v||[]).length?`<span class="venti">${v.map(x=>`<b>${x}</b>`).join('')}</span>`:''}
+function renderSiti(){
+  const list=siti(),sug=sitiSuggeriti();
+  let h=`<div class="vhead"><h2>I miei siti</h2><button class="btn primary small" id="add-sito">+ Aggiungi</button></div>`;
+  if(!list.length)h+=`<div class="card empty"><strong>Nessun sito salvato</strong><p>Decolli, atterraggi e campetti dove vai di solito, con i venti adatti, le note e il link alle previsioni. Li ritrovi pronti quando registri un'uscita.</p></div>`;
+  h+=list.map(s=>{const u=usciteAt(s);const nv=u.filter(f=>!isCamp(f)).length,nc=u.length-nv;
+    const sub=[ruoloLab(s.ruolo),s.quota&&s.quota+' m'].filter(Boolean).join(' · ');
+    return `<button class="card vcard sito" data-sito="${esc(s.id)}"><div class="vtop"><span class="vicon">${IC_PIN}</span><div style="min-width:0"><strong>${esc(s.nome)}</strong>${sub?`<small>${esc(sub)}</small>`:''}</div>${ventiChips(s.venti)}</div>
+      ${s.note?`<p class="hint">${esc(s.note)}</p>`:''}
+      <div class="mini"><div><b>${nv}</b><span>Voli</span></div><div><b>${nc}</b><span>Campetti</span></div><div><b>${u.length?fmtDate(u.map(f=>f.data).sort().pop()).replace(/ \d{4}$/,''):'—'}</b><span>Ultima volta</span></div></div></button>`}).join('');
+  if(sug.length)h+=`<span class="lbl" style="margin-top:8px">Dai tuoi voli e campetti</span><div class="chips">${sug.slice(0,12).map((s,i)=>`<button class="chip" data-sitosugg="${i}">+ ${esc(s.nome)}</button>`).join('')}</div>`;
+  return h;
+}
+const IC_PIN='<svg class="i" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>';
+function mapUrl(s){return s.lat!=null&&s.lon!=null?`https://www.google.com/maps?q=${(+s.lat).toFixed(5)},${(+s.lon).toFixed(5)}`:`https://www.google.com/maps/search/${encodeURIComponent(s.nome)}`}
+function showSito(id){
+  const s=siti().find(x=>x.id===id);if(!s)return;const u=usciteAt(s).sort((a,b)=>(b.data||'').localeCompare(a.data||''));
+  openSheet(s.nome,`
+    <div class="meta">${s.ruolo?`<span class="chip-t${s.ruolo==='campo'?' camp':''}">${ruoloLab(s.ruolo)}</span>`:''}${s.quota?`<span>${esc(s.quota)} m</span>`:''}</div>
+    ${(s.venti||[]).length?`<div><span class="lbl">Venti adatti</span><div style="margin-top:6px">${ventiChips(s.venti)}</div></div>`:''}
+    ${s.note?`<div><span class="lbl">Note</span><p style="margin:4px 0 0;white-space:pre-wrap">${esc(s.note)}</p></div>`:''}
+    <div class="row">${s.meteo?`<a class="btn primary small" href="${esc(s.meteo)}" target="_blank" rel="noopener">Previsioni</a>`:''}<a class="btn small" href="${esc(mapUrl(s))}" target="_blank" rel="noopener">${IC_PIN} Mappa</a></div>
+    ${u.length?`<span class="lbl">Le tue uscite qui</span>${u.slice(0,8).map(entryCard).join('')}`:'<p class="hint">Non hai ancora uscite registrate in questo sito.</p>'}`,
+    `<button class="btn primary" id="edit">Modifica</button><button class="btn danger" id="del">Elimina</button>`);
+  $('#edit').onclick=()=>editSito(s);
+  $('#del').onclick=()=>askDelete('il sito (le uscite restano)',()=>{putItem('tessere',s.id,{eliminato:true,agg:Date.now()});commit();closeSheet();toast('Sito eliminato')},()=>showSito(id));
+}
+function editSito(s){
+  const isNew=!s||!s.id;s={ruolo:'decollo',venti:[],...(s||{})};const vv=new Set(s.venti||[]);
+  openSheet(isNew?'Nuovo sito':'Modifica sito',`<form id="sf" class="card fs">
+    <div class="field"><label for="s-nome">Nome</label><input id="s-nome" value="${esc(s.nome)}" required placeholder="es. Colli di San Fermo"></div>
+    <div class="field"><span class="lbl">È un</span><div class="seg" role="group" aria-label="Tipo di sito" id="s-ruolo">${RUOLI.map(([k,l])=>`<button type="button" data-ruolo="${k}" aria-pressed="${s.ruolo===k}">${l}</button>`).join('')}</div></div>
+    <div class="field"><label for="s-quota">Quota m</label><input id="s-quota" type="number" inputmode="numeric" value="${esc(s.quota)}"></div>
+    <div class="field"><span class="lbl">Venti adatti</span><div class="chips" id="s-venti">${VENTI.map(x=>`<button type="button" class="chip" data-vento="${x}" aria-pressed="${vv.has(x)}">${x}</button>`).join('')}</div></div>
+    <div class="field"><label for="s-note">Note</label><textarea id="s-note" placeholder="Accesso, parcheggio, ostacoli, cosa dicono gli istruttori">${esc(s.note)}</textarea></div>
+    <div class="field"><label for="s-meteo">Link alle previsioni</label><input id="s-meteo" inputmode="url" autocapitalize="off" autocorrect="off" value="${esc(s.meteo)}" placeholder="incolla l'indirizzo della pagina meteo che usi"></div>
+    ${s.lat!=null?`<p class="hint" style="margin:0">Posizione presa dalla traccia .igc: la mappa si apre sul punto del decollo.</p>`:''}
+  </form>`,`<button class="btn primary" type="submit" form="sf">Salva sito</button><button class="btn ghost" type="button" id="cancel">Annulla</button>`);
+  let ruolo=s.ruolo;
+  $('#cancel').onclick=()=>isNew?closeSheet():showSito(s.id);
+  $('#s-ruolo').onclick=e=>{const b=e.target.closest('[data-ruolo]');if(!b)return;ruolo=b.dataset.ruolo;$('#s-ruolo').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b))};
+  $('#s-venti').onclick=e=>{const b=e.target.closest('[data-vento]');if(!b)return;const k=b.dataset.vento;vv.has(k)?vv.delete(k):vv.add(k);b.setAttribute('aria-pressed',vv.has(k))};
+  $('#sf').onsubmit=e=>{e.preventDefault();const id=s.id||('sito-'+Date.now());const q=$('#s-quota').value;let url=$('#s-meteo').value.trim();if(url&&!/^https?:\/\//i.test(url))url='https://'+url;
+    putItem('tessere',id,{tipo:'sito',nome:$('#s-nome').value.trim(),ruolo,quota:q===''?null:+q,venti:VENTI.filter(x=>vv.has(x)),note:$('#s-note').value.trim(),meteo:url,lat:s.lat??null,lon:s.lon??null,agg:Date.now()});
+    commit();showSito(id);toast('Sito salvato')};
+}
+function siteOptions(ruoli){return siti().filter(s=>ruoli.includes(s.ruolo)).map(s=>`<option value="${esc(s.nome)}">`).join('')}
+function wireSiteHint(inputId){const el=$('#'+inputId);if(!el)return;let hint=document.createElement('p');hint.className='hint sitehint';el.after(hint);
+  const upd=()=>{const s=sitoBy(el.value);hint.hidden=!s;if(s)hint.innerHTML=`${IC_PIN} <span>${[(s.venti||[]).length?'Venti adatti: '+s.venti.join(', '):'',s.note].filter(Boolean).map(esc).join(' · ')||'Sito salvato'}</span>${s.meteo?` · <a href="${esc(s.meteo)}" target="_blank" rel="noopener">previsioni</a>`:''}`};
+  el.addEventListener('input',upd);upd()}
+
+/* ---------- il mio cammino ---------- */
+const CAM_PER=[[1,'Ultimo mese'],[3,'3 mesi'],[6,'6 mesi'],[12,'Un anno']];
+const CAM_Q=[['imparato','Imparato'],['migliorare','Da migliorare'],['resta','Resta dentro'],['dopo','Giorno dopo'],['istruttore','Istruttore']];
+let cam={set:'voli',per:1,q:'imparato'};
+function hasDiary(f){return !f.esempio&&(Object.keys(f.comfort||{}).length||DIARIO.some(([k])=>f[k])||f.dopo||f.istruttore)}
+function camStart(m){const d=new Date(today()+'T00:00:00');d.setMonth(d.getMonth()-m);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function avgComfort(list,SET){const o={};for(const [k] of SET){const v=list.map(f=>+(f.comfort||{})[k]).filter(x=>x>0);if(v.length)o[k]=v.reduce((a,b)=>a+b,0)/v.length}return o}
+function radarCompare(now,prima,SET){
+  const n=SET.length,W=430,cx=W/2,cy=126,R=80,H=256;
+  const pt=(i,r)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+Math.cos(a)*r,cy+Math.sin(a)*r]};
+  const poly=v=>SET.map(([k],i)=>pt(i,R*(v[k]||0)/5).map(x=>x.toFixed(1)).join(',')).join(' ');
+  let g='';
+  for(let k=1;k<=5;k++)g+=`<polygon points="${SET.map((_,i)=>pt(i,R*k/5).map(x=>x.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="var(--line)" stroke-width="1"/>`;
+  SET.forEach((_,i)=>{const [x,y]=pt(i,R);g+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--line)"/>`});
+  if(prima&&Object.keys(prima).length)g+=`<polygon points="${poly(prima)}" fill="color-mix(in srgb,var(--olive) 10%,transparent)" stroke="var(--olive)" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"/>`;
+  if(now&&Object.keys(now).length){g+=`<polygon points="${poly(now)}" fill="color-mix(in srgb,var(--amber) 30%,transparent)" stroke="var(--amber-ink)" stroke-width="2" stroke-linejoin="round"/>`;
+    SET.forEach(([k],i)=>{if(now[k]){const [x,y]=pt(i,R*now[k]/5);g+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="var(--amber-ink)"/>`}})}
+  SET.forEach(([k,,short],i)=>{const [x,y]=pt(i,R+14);const anchor=Math.abs(x-cx)<8?'middle':x<cx?'end':'start';const off=!(now&&now[k])&&!(prima&&prima[k]);
+    g+=`<text x="${x.toFixed(1)}" y="${(y+(y<cy-10?-2:y>cy+10?10:4)).toFixed(1)}" text-anchor="${anchor}" font-family="Barlow Condensed, sans-serif" font-size="12" font-weight="600" fill="var(--muted)" ${off?'opacity=".45"':''}>${esc(short)}</text>`});
+  return `<svg viewBox="0 0 ${W} ${H}" class="radar" role="img" aria-label="Zona di comfort: periodo scelto e prima">${g}</svg>`;
+}
+function camEntries(){return flights.filter(hasDiary).filter(f=>(cam.set==='campetti')===isCamp(f))}
+function camText(f,q){if(q==='istruttore')return f.istruttore;if(q==='dopo')return f.dopo;if(q==='migliorare')return f.migliorare;if(q==='resta')return f.resta;return f.imparato}
+function cammCta(){const n=flights.filter(hasDiary).length;if(n<3)return '';
+  return `<button class="card cam-cta" id="open-cam"><span class="vicon"><svg class="i" viewBox="0 0 24 24"><path d="M4 19c3-1 4-4 6-7s4-5 10-6"/><circle cx="4" cy="19" r="1.6"/><circle cx="20" cy="6" r="1.6"/><path d="M8 7.5l1.5 1.5M14.5 15l1.5 1.5"/></svg></span><span><strong>Rileggi il cammino</strong><small>Le tue parole e la zona di comfort, nel tempo</small></span>${IC.chev}</button>`}
+function renderCammino(){
+  const v=$('#v-cammino');if(!v)return;
+  const SET=cam.set==='campetti'?COMFORT_CAMP:COMFORT,start=camStart(cam.per);
+  const all=camEntries(),inP=all.filter(f=>(f.data||'')>=start),prima=all.filter(f=>(f.data||'')<start);
+  const cNow=inP.filter(f=>Object.keys(f.comfort||{}).length),cPri=prima.filter(f=>Object.keys(f.comfort||{}).length);
+  const per=CAM_PER.find(p=>p[0]===cam.per)[1];
+  let h=`<button class="btn ghost small backbtn" id="cam-back"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Libretto</button>
+    <div class="vhead"><h2>Il mio cammino</h2></div>
+    <div class="camsel"><div class="seg" role="group" aria-label="Uscite">${[['voli','Voli'],['campetti','Campetti']].map(([k,l])=>`<button data-camset="${k}" aria-pressed="${cam.set===k}">${l}</button>`).join('')}</div>
+    <div class="chips" role="group" aria-label="Periodo">${CAM_PER.map(([m,l])=>`<button class="chip" data-camper="${m}" aria-pressed="${cam.per===m}">${l}</button>`).join('')}</div></div>`;
+  h+=`<div class="card camcard"><p class="fs-title">La mia zona di comfort</p>`;
+  if(!cNow.length&&!cPri.length)h+=`<p class="hint">Non hai ancora compilato la zona di comfort ${cam.set==='voli'?'in un volo':'in un campetto'}. Comparirà qui man mano.</p>`;
+  else{
+    h+=radarCompare(avgComfort(cNow,SET),avgComfort(cPri,SET),SET);
+    h+=`<div class="camleg"><span><i class="sw now"></i>${esc(per)} <small>${cNow.length} ${cNow.length===1?'uscita':'uscite'}</small></span>${cPri.length?`<span><i class="sw pri"></i>Prima <small>${cPri.length} ${cPri.length===1?'uscita':'uscite'}</small></span>`:''}</div>`;
+    if(!cNow.length)h+=`<p class="hint">In questo periodo non hai uscite con la zona di comfort: prova un periodo più lungo.</p>`;
+    else if(!cPri.length)h+=`<p class="hint">Prima di questo periodo non ci sono uscite da confrontare: questo è il tuo punto di partenza.</p>`;
+    h+=`<p class="hint" style="margin:0">Le voci in grigio chiaro non le hai valutate.</p>`;
+  }
+  h+=`</div>`;
+  const items=inP.map(f=>({f,t:camText(f,cam.q)})).filter(x=>x.t).sort((a,b)=>(a.f.data||'').localeCompare(b.f.data||''));
+  const cnt=q=>inP.filter(f=>camText(f,q)).length;
+  h+=`<div class="card camcard"><p class="fs-title">Le mie parole</p>
+    <div class="chips" role="group" aria-label="Domanda">${CAM_Q.map(([k,l])=>`<button class="chip" data-camq="${k}" aria-pressed="${cam.q===k}">${l}${cnt(k)?` <small>${cnt(k)}</small>`:''}</button>`).join('')}</div>`;
+  h+=items.length?`<ol class="camwords">${items.map(({f,t})=>`<li><button data-open="${esc(f.id)}"><small>${fmtDate(f.data)}${(f.sito||f.luogo)?' · '+esc(f.sito||f.luogo):''}</small><span>${esc(t).replace(/\n/g,'<br>')}</span></button></li>`).join('')}</ol>`
+    :`<p class="hint">Nessuna risposta a questa domanda ${cam.per===1?"nell'ultimo mese":'in questo periodo'}.</p>`;
+  h+=`</div>`;
+  v.innerHTML=h;
+}
+
+/* ---------- impostazioni ---------- */
+const IC_GEAR='<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.5 7.5 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.5 7.5 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.5 7.5 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.5 7.5 0 0 0 2.6-1.5l2.4 1 2-3.4z"/></svg>';
+function renderImpostazioni(){
+  const v=$('#v-impostazioni');if(!v)return;
+  const [cls,a,b]=syncInfo();const logged=auth&&auth.email;
+  let h=`<div class="vhead"><h2>Impostazioni</h2></div>`;
+  h+=`<div class="card setcard"><h3>Account e salvataggio</h3>
+    <div class="setrow"><span class="setdot ${cls}"></span><div style="min-width:0"><strong>${esc(a)}</strong>${b?`<small>${esc(b)}</small>`:''}</div></div>
+    ${logged?`<dl class="kv" style="margin:0;padding:0"><div><dt>Ultima sincronizzazione</dt><dd>${esc(fmtWhen(lastSync))}</dd></div><div><dt>Modifiche in attesa</dt><dd>${dirty?'Sì':'No'}</dd></div></dl>`:''}
+    <div class="row">${!CONFIGURED?'':!logged?`<button class="btn primary small" data-login>${GLOGO} Accedi con Google</button>`:tokenOk()?'<button class="btn primary small" id="set-sync">Sincronizza ora</button>':'<button class="btn primary small" data-login>Ricollega Google</button>'}${logged?'<button class="btn danger small" id="set-logout">Esci da questo dispositivo</button>':''}</div>
+    <p class="hint">I dati stanno nella cartella privata dell'app sul tuo Google Drive, con una copia su questo dispositivo per usarlo anche senza rete.</p></div>`;
+  h+=`<div class="card setcard"><h3>Backup</h3><p class="hint">Scarica una copia di tutto in un file, oppure ricarica un backup salvato in precedenza.</p>
+    <div class="row"><button class="btn small" id="exp">Esporta</button><label class="btn small" for="imp-file">Importa</label><input type="file" id="imp-file" accept=".json,application/json" hidden></div>
+    <p class="hint" id="imp-msg"></p></div>`;
+  h+=`<div class="card setcard"><h3>Aiuto</h3>
+    <a class="setlink" href="guida.html"><span class="vicon"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6M12 17v.2"/></svg></span><span><strong>Come si usa</strong><small>Guida all'installazione e a tutte le funzioni</small></span>${IC.chev}</a>
+    <a class="setlink" href="privacy.html"><span class="vicon"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.4-7 10-4-1.6-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span><strong>Privacy</strong><small>Dove finiscono i tuoi dati e come cancellarli</small></span>${IC.chev}</a></div>`;
+  h+=`<p class="hint setfoot"><img src="logo-app.png" alt="" width="28" height="28">Libretto di volo · librettovolo.it</p>`;
+  v.innerHTML=h;
+}
+
+/* ---------- Google: accesso ---------- */
+const CFG=window.LIBRETTO_CONFIG||{};
+const CONFIGURED=!!(CFG.clientId&&/\.apps\.googleusercontent\.com$/.test(CFG.clientId)&&!/INCOLLA/.test(CFG.clientId));
+const SCOPE='https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/userinfo.email';
+const REDIRECT=location.origin+location.pathname.replace(/index\.html$/,'');
+let auth=LS.get('lv-auth',null);
+let dirty=LS.get('lv-dirty',false),lastSync=LS.get('lv-last',0),fileId=LS.get('lv-file',null);
+let syncState='idle',syncing=false,again=false,syncTimer=null;
+const tokenOk=()=>!!(auth&&auth.token&&auth.exp>Date.now());
+
+function login(silent){
+  if(!CONFIGURED)return;
+  const st=Math.random().toString(36).slice(2)+Date.now().toString(36);
+  LS.set('lv-state',{st,silent:!!silent});
+  if(!silent)LS.set('lv-nosilent',false);
+  const p=new URLSearchParams({client_id:CFG.clientId,redirect_uri:REDIRECT,response_type:'token',scope:SCOPE,include_granted_scopes:'true',state:st});
+  if(auth&&auth.email)p.set('login_hint',auth.email);
+  if(silent)p.set('prompt','none');
+  location.assign('https://accounts.google.com/o/oauth2/v2/auth?'+p.toString());
+}
+function readRedirect(){
+  if(!location.hash||location.hash.length<2)return null;
+  const h=new URLSearchParams(location.hash.slice(1));
+  if(!h.has('access_token')&&!h.has('error'))return null;
+  history.replaceState(null,'',REDIRECT);
+  const saved=LS.get('lv-state',null);LS.set('lv-state',null);
+  if(!saved||h.get('state')!==saved.st)return {error:'state'};
+  if(h.get('error'))return {error:h.get('error'),silent:saved.silent};
+  const granted=h.get('scope')||'';
+  if(granted&&granted.indexOf('drive.appdata')<0){auth=auth&&auth.email?{token:'',exp:0,email:auth.email}:null;LS.set('lv-auth',auth);return {error:'scope'}}
+  auth={token:h.get('access_token'),exp:Date.now()+((+h.get('expires_in'))||3600)*1000-60000,email:(auth&&auth.email)||''};
+  LS.set('lv-auth',auth);return {ok:true};
+}
+async function checkAccount(){
+  const r=await gapi('https://www.googleapis.com/oauth2/v3/userinfo');const j=await r.json();
+  if(!j.email)return;
+  if(auth.email&&auth.email!==j.email){
+    // un altro account su questo telefono: non mescolare i dati
+    store={voli:[],vele:[],scadenze:[],tessere:[]};fileId=null;dirty=false;lastSync=0;
+    clearDocKeys();
+    LS.set('lv-data',store);LS.set('lv-file',null);LS.set('lv-dirty',false);LS.set('lv-last',0);derive();renderAll();
+  }
+  auth.email=j.email;LS.set('lv-auth',auth);
+}
+function showWelcome(v){const w=$('#welcome');if(!w)return;w.hidden=!v;document.documentElement.classList.toggle('signed',!v);document.documentElement.style.overflow=v?'hidden':'';if(v){$('#w-glogo').innerHTML=GLOGO;}}
+function wantWelcome(){return CONFIGURED&&!(auth&&auth.email)&&!LS.get('lv-skip',false)}
+function logout(){
+  if(auth&&auth.token){try{fetch('https://oauth2.googleapis.com/revoke?token='+encodeURIComponent(auth.token),{method:'POST',mode:'no-cors'})}catch(e){}}
+  auth=null;store={voli:[],vele:[],scadenze:[],tessere:[]};fileId=null;dirty=false;lastSync=0;
+  for(const k of ['lv-auth','lv-data','lv-file','lv-dirty','lv-last','lv-skip'])try{localStorage.removeItem(k)}catch(e){}
+  clearDocKeys();derive();renderAll();renderSync();showWelcome(wantWelcome());
+}
+
+/* ---------- Google Drive: cartella privata dell'app ---------- */
+async function gapi(url,opt={}){
+  const r=await fetch(url,{...opt,headers:{...(opt.headers||{}),Authorization:'Bearer '+auth.token}});
+  if(r.status===401){auth.exp=0;LS.set('lv-auth',auth);throw {code:'auth'}}
+  if(r.status===403&&url.indexOf('googleapis.com/')>0&&url.indexOf('userinfo')<0){auth.exp=0;LS.set('lv-auth',auth);throw {code:'scope'}}
+  if(!r.ok)throw {code:'http',status:r.status};
+  return r;
+}
+async function findFile(name='libretto.json'){
+  const q=encodeURIComponent("name='"+name+"'");
+  const r=await gapi('https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&fields=files(id,modifiedTime)&orderBy=modifiedTime%20desc&q='+q);
+  const j=await r.json();return j.files&&j.files[0];
+}
+async function downloadFile(id){const r=await gapi('https://www.googleapis.com/drive/v3/files/'+id+'?alt=media');try{return await r.json()}catch(e){return {}}}
+async function uploadFile(id,data,name='libretto.json'){
+  const body=JSON.stringify(data);
+  if(id){await gapi('https://www.googleapis.com/upload/drive/v3/files/'+id+'?uploadType=media',{method:'PATCH',headers:{'Content-Type':'application/json'},body});return id}
+  const b='libretto'+Date.now();
+  const mp='--'+b+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify({name,parents:['appDataFolder']})+'\r\n--'+b+'\r\nContent-Type: application/json\r\n\r\n'+body+'\r\n--'+b+'--';
+  const r=await gapi('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+b},body:mp});
+  return (await r.json()).id;
+}
+function merge(a,b){const out={};for(const c of new Set([...COLS,...Object.keys(a).filter(k=>Array.isArray(a[k])),...Object.keys(b).filter(k=>Array.isArray(b[k]))])){const m=new Map();for(const it of [...(a[c]||[]),...(b[c]||[])]){if(!it||!it.id)continue;const p=m.get(it.id);if(!p||(it.agg||0)>(p.agg||0))m.set(it.id,it)}out[c]=[...m.values()]}return out}
+function canon(d){return JSON.stringify(COLS.map(c=>[...(d[c]||[])].sort((x,y)=>x.id<y.id?-1:x.id>y.id?1:0)))}
+async function sync(){
+  if(!tokenOk()){renderSync();return}
+  if(!navigator.onLine){syncState='offline';renderSync();return}
+  if(syncing){again=true;return}
+  syncing=true;syncState='sync';renderSync();
+  try{
+    let id=fileId,remote=null;
+    if(id){try{remote=await downloadFile(id)}catch(e){if(e.status===404)id=null;else throw e}}
+    if(!id){const f=await findFile();if(f){id=f.id;remote=await downloadFile(id)}}
+    remote=remote||{};
+    const merged=merge(store,remote);
+    if(!id||canon(merged)!==canon(remote))id=await uploadFile(id,{app:'libretto-di-volo',versione:2,...merged});
+    fileId=id;LS.set('lv-file',id);
+    const fin=merge(store,merged);const later=canon(fin)!==canon(merged);
+    store=fin;LS.set('lv-data',store);dirty=later;LS.set('lv-dirty',dirty);if(later)again=true;
+    try{await syncDocs()}catch(e){if(e&&e.code==='auth')throw e}
+    lastSync=Date.now();LS.set('lv-last',lastSync);syncState='ok';derive();renderAll();
+  }catch(e){syncState=e&&e.code==='auth'?'login':e&&e.code==='scope'?'scope':'error';if(syncState==='scope')scopeSheet()}
+  finally{syncing=false;renderSync();if(again){again=false;setTimeout(sync,400)}}
+}
+function scheduleSync(){clearTimeout(syncTimer);if(tokenOk())syncTimer=setTimeout(sync,1200);else renderSync()}
+
+/* ---------- stato della sincronizzazione ---------- */
+const CLOUD='<svg class="i" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 9.1 4.7 4.7 0 0 0 7 18.5z"/></svg>';
+function syncInfo(){
+  if(!CONFIGURED)return ['warn','Solo su questo telefono','App non ancora collegata a Google'];
+  if(!auth||!auth.email&&!tokenOk())return ['warn','Accedi con Google','I dati sono solo su questo telefono'];
+  if(syncing||syncState==='sync')return ['','Sincronizzo…',auth.email];
+  if(!navigator.onLine||syncState==='offline')return ['warn','Senza rete',dirty?'Le modifiche restano sul telefono e partono appena torna la rete':'Salvato sul telefono'];
+  if(syncState==='scope')return ['warn','Manca il permesso per Drive','Tocca qui per sistemarlo'];
+  if(!tokenOk()||syncState==='login')return ['warn',dirty?'Da sincronizzare':'Ricollega Google',auth.email||''];
+  if(syncState==='scope')return ['warn','Manca il permesso per Drive','Tocca qui per sistemarlo'];
+  if(syncState==='error')return ['warn','Drive non risponde','Riprovo alla prossima modifica'];
+  return ['ok','Su Google Drive',auth.email||''];
+}
+function renderSync(){
+  const el=$('#sync');if(!el)return;const [cls,a,b]=syncInfo();
+  el.className='syncline '+cls;el.innerHTML=`${CLOUD}<span><strong>${esc(a)}</strong>${b?' · '+esc(b):''}</span>${IC.chev}`;;renderImpostazioni()
+}
+function fmtWhen(t){if(!t)return 'mai';const d=new Date(t);const hm=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  const iso=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');return (iso===today()?'oggi':fmtDate(iso))+' alle '+hm}
+function scopeSheet(){
+  openSheet('Manca un permesso',`<div class="card fs">
+    <p style="margin:0">Per salvare il libretto serve il permesso di usare la cartella dell'app sul tuo Google Drive. Nella schermata di Google la casella non era spuntata.</p>
+    <p style="margin:0"><strong>Cosa fare:</strong> tocca “Riprova” e, nella schermata di Google, <strong>spunta la casella</strong> accanto a “Visualizzare, creare ed eliminare i propri dati di configurazione nel tuo account Google Drive”, poi tocca Continua.</p>
+    <p class="hint">“Dati di configurazione” è il nome che Google dà alla cartella privata dell'app. L'app non vede né tocca gli altri file del tuo Drive.</p></div>`,
+    `<button class="btn primary" data-login>Riprova</button>`);
+}
+function accountSheet(){
+  if(syncState==='scope')return scopeSheet();
+  if(!CONFIGURED){openSheet('Salvataggio',`<div class="card fs"><p style="margin:0">Questa copia dell'app non è ancora collegata a Google: voli e diario restano solo su questo telefono. Chi gestisce l'app deve inserire l'ID client di Google nel file <code>config.js</code>.</p></div>`);return}
+  if(!auth||!auth.email){
+    openSheet('Accedi con Google',`<div class="card fs">
+      <p style="margin:0">Accedendo, il libretto si salva in una <strong>cartella privata del tuo Google Drive</strong> e lo ritrovi su ogni telefono o computer.</p>
+      <p class="hint">L'app vede solo la propria cartella, non gli altri file del tuo Drive. Nessun altro, nemmeno chi ha creato l'app, può leggere i tuoi dati.</p></div>`,
+      `<button class="btn primary" data-login>${GLOGO} Accedi con Google</button><a class="btn ghost" href="guida.html">Guida</a>`);return}
+  openSheet('Il tuo account',`<dl class="card kv" style="margin:0">
+      <div><dt>Account</dt><dd>${esc(auth.email)}</dd></div>
+      <div><dt>Ultima sincronizzazione</dt><dd>${esc(fmtWhen(lastSync))}</dd></div>
+      <div><dt>Modifiche in attesa</dt><dd>${dirty?'Sì':'No'}</dd></div></dl>
+    <p class="hint">I dati sono nella cartella privata dell'app sul tuo Google Drive, e una copia resta sul telefono per usarlo anche senza rete.</p>`,
+    `${tokenOk()?'<button class="btn primary" id="do-sync">Sincronizza ora</button>':'<button class="btn primary" data-login>Ricollega Google</button>'}<a class="btn ghost" href="guida.html">Guida</a><button class="btn danger" id="logout">Esci</button>`);
+  const ds=$('#do-sync');if(ds)ds.onclick=async()=>{closeSheet();await sync();toast(syncState==='ok'?'Sincronizzato':'Sincronizzazione non riuscita')};
+  $('#logout').onclick=()=>askDelete(dirty?'i dati da questo telefono? Alcune modifiche non sono ancora su Drive e andrebbero perse':'i dati da questo telefono? Restano al sicuro sul tuo Drive',()=>{logout();closeSheet();toast('Uscito')},accountSheet);
+}
+const GLOGO='<svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>';
+
+/* ---------- eventi ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-tab]');if(t){if(t.dataset.tab==='tessera'){docOpen=null;renderDocs()}return setTab(t.dataset.tab)}
+  if(e.target.closest('[data-login]'))return login(false);
+  if(e.target.closest('#sync'))return accountSheet();
+  if(e.target.closest('#open-imp'))return setTab('impostazioni');
+  if(e.target.closest('#set-sync')){sync().then(()=>toast(syncState==='ok'?'Sincronizzato':'Sincronizzazione non riuscita'));return}
+  if(e.target.closest('#set-logout')){openSheet('Esci da questo dispositivo',`<p style="margin:0">${dirty?'Alcune modifiche non sono ancora su Google Drive e andrebbero perse.':'I tuoi dati restano al sicuro sul tuo Google Drive: rientrando li ritrovi.'}</p>`,`<button class="btn danger" id="yes" style="flex:1">Esci</button><button class="btn" id="no" style="flex:1">Annulla</button>`);$('#no').onclick=closeSheet;$('#yes').onclick=()=>{logout();closeSheet();setTab('libretto');toast('Uscito')};return}
+  const sd=e.target.closest('[data-side]');if(sd){docSide=+sd.dataset.side;return renderDocs()}
+  const dc=e.target.closest('[data-doc]');if(dc){docOpen=dc.dataset.doc;docSide=0;renderDocs();window.scrollTo(0,0);return}
+  if(e.target.closest('#doc-back')){docOpen=null;return renderDocs()}
+  if(e.target.closest('#doc-open'))return openDocFull(docOpen);
+  if(e.target.closest('#doc-edit')||e.target.closest('#doc-only'))return editDoc(docOpen);
+  if(e.target.closest('#doc-del'))return deleteDoc(docOpen);
+  if(e.target.closest('#w-skip')){LS.set('lv-skip',true);showWelcome(false);return}
+  const nw=e.target.closest('[data-new]');if(nw)return nw.dataset.new==='camp'?editCamp(null):editFlight(null);
+  const fl=e.target.closest('[data-filtro]');if(fl){filtro=fl.dataset.filtro;return renderLibretto()}
+  const dp=e.target.closest('[data-dopo]');if(dp)return editDopo(dp.dataset.dopo);
+  const o=e.target.closest('[data-open]');if(o)return showFlight(o.dataset.open);
+  if(e.target.closest('#open-cam')){renderCammino();return setTab('cammino')}
+  if(e.target.closest('#cam-back'))return setTab('libretto');
+  const cs=e.target.closest('[data-camset]');if(cs){cam.set=cs.dataset.camset;return renderCammino()}
+  const cp=e.target.closest('[data-camper]');if(cp){cam.per=+cp.dataset.camper;return renderCammino()}
+  const cq=e.target.closest('[data-camq]');if(cq){cam.q=cq.dataset.camq;return renderCammino()}
+  if(e.target.closest('#em-edit'))return editEmerg();
+  const vs=e.target.closest('[data-veleseg]');if(vs){veleSeg=vs.dataset.veleseg;return renderVele()}
+  if(e.target.closest('#add-sito'))return editSito(null);
+  const st=e.target.closest('[data-sito]');if(st)return showSito(st.dataset.sito);
+  const ss=e.target.closest('[data-sitosugg]');if(ss)return editSito(sitiSuggeriti()[+ss.dataset.sitosugg]);
+  const ed=e.target.closest('[data-editdl]');if(ed)return editDeadline(deadlines.find(x=>x.id===ed.dataset.editdl));
+  const sg=e.target.closest('[data-sugg]');if(sg)return editDeadline(null,sg.dataset.sugg);
+  if(e.target.closest('#add-dl'))return editDeadline(null);
+  if(e.target.closest('#exp'))return exportData();
+  if(e.target.closest('#add-vela'))return editVela(null);
+  const ev=e.target.closest('[data-editvela]');if(ev)return editVela(vele.find(x=>x.id===ev.dataset.editvela));
+  if(e.target.closest('[data-gotovele]')){closeSheet();return setTab('vele')}
+  if(e.target.closest('#alert'))return setTab('scadenze');
+  if(e.target.closest('#ck-train'))return trainChecklist();
+  const sm=e.target.closest('[data-study]');if(sm){studyMode=sm.dataset.study;topicOpen=null;return renderChecklist()}
+  const tp=e.target.closest('[data-topic]');if(tp){topicOpen=tp.dataset.topic;renderChecklist();window.scrollTo(0,0);return}
+  if(e.target.closest('#topic-back')){topicOpen=null;return renderChecklist()}
+  const cd=e.target.closest('[data-card]');if(cd){openCard.again=false;return openCard(+cd.dataset.card)}
+  const qz=e.target.closest('[data-quiz]');if(qz)return startQuiz(qz.dataset.quiz);
+  if(e.target.closest('#reset-ck')){checks={};try{localStorage.setItem('pv-checks','{}')}catch(_){}return renderChecklist()}
+});
+document.addEventListener('change',e=>{
+  if(e.target.id==='doc-file'){const f=[...e.target.files];e.target.value='';if(f.length&&docOpen)uploadDoc(docOpen,f);return}
+  if(e.target.id==='imp-file'){const f=e.target.files[0];e.target.value='';if(f)importData(f);return}
+  const k=e.target.dataset&&e.target.dataset.ck;if(!k)return;checks[k]=e.target.checked;try{localStorage.setItem('pv-checks',JSON.stringify(checks))}catch(_){}renderChecklist()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#tfull'))closeDocFull();else closeSheet()}});
+window.addEventListener('online',()=>{syncState='idle';if(tokenOk())sync();else renderSync()});
+window.addEventListener('offline',()=>{syncState='offline';renderSync()});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&tokenOk()&&Date.now()-lastSync>60000)sync()});
+$('#fab').onclick=chooseKind;
+
+/* ---------- avvio ---------- */
+{const hero=document.querySelector('.hero');const setH=()=>document.documentElement.style.setProperty('--hero-h',hero.offsetHeight+'px');setH();try{new ResizeObserver(setH).observe(hero)}catch(e){window.addEventListener('resize',setH)}}
+if(!TEORIA_ON){const l=$('#tab-study-l');if(l)l.textContent='Pre-volo'}
+derive();renderAll();renderSync();
+(async()=>{
+  const red=readRedirect();
+  if(!red||!red.error)showWelcome(wantWelcome()&&!(red&&red.ok));
+  if(red&&red.error==='scope'){syncState='scope';renderSync();scopeSheet();return}
+  if(red&&red.error){
+    if(red.silent)LS.set('lv-nosilent',true);
+    else if(red.error!=='access_denied')status('Accesso a Google non riuscito. Riprova toccando “Accedi con Google”.');
+    syncState='login';renderSync();return;
+  }
+  if(tokenOk()){
+    if(red&&red.ok){try{await checkAccount()}catch(e){}showWelcome(false)}
+    await sync();return;
+  }
+  if(CONFIGURED&&auth&&auth.email&&navigator.onLine&&!LS.get('lv-nosilent',false)){
+    const last=LS.get('lv-silent-at',0);
+    if(Date.now()-last>120000){LS.set('lv-silent-at',Date.now());login(true);return}
+  }
+  renderSync();
+})();
+if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
+})();
+</script>
+</body>
+</html>
